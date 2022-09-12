@@ -21,7 +21,7 @@
         </div>
         <div class="col-3">
           <label for="name"><b>CPF:</b></label>
-          <input type="text" name="local" class="form-control" value="{{"%s.%s.%s-%s"|format(participant.cpf[0:3], participant.cpf[3:3], participant.cpf[6:3], participant.cpf[9:])}}" disabled readonly required>
+          <input type="text" name="cpf" class="form-control" value="{{"%s.%s.%s-%s"|format(participant.cpf[0:3], participant.cpf[3:3], participant.cpf[6:3], participant.cpf[9:])}}" disabled readonly required>
         </div>
         <div class="col-4">
           <label for="name"><b>CUP:</b></label>
@@ -60,7 +60,7 @@
         </div>
         <div class="col-4">
           <label for="name"><b>CUP:</b></label>
-          <input type="text" name="start" class="form-control" required>
+          <input type="text" name="cup" class="form-control" required>
         </div>
       </div>
       <div class="row g-2 col-auto">

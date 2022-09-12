@@ -16,6 +16,17 @@ class Event {
         $code = $request->__get('form-code');
         if(Authenticator::checkFormCode($code, 'activities')) {
             Authenticator::removeFormCode('activities');
+
+            $data = DataValidator::validateActivity($request->all());
+            
+            if(!$data->error) {
+                if(!EventDB::insertActivity($data)) {
+                    // erro no insert
+                }
+            } else {
+                // erro de validação dos dados;
+            }
+
             $url = Authenticator::getUserURL();
             header("Location: $url/activities");
             exit;
@@ -29,7 +40,19 @@ class Event {
         $request = new Request;
         $code = $request->__get('form-code');
         if(Authenticator::checkFormCode($code, 'activities')) {
+            
             Authenticator::removeFormCode('activities');
+            
+            $data = DataValidator::validateActivity($request->all());
+
+            if(!$data->error) {
+                if(!EventDB::updateActivity($data)) {
+                    // erro no insert
+                }
+            } else {
+                // erro de validação dos dados;
+            }
+            
             $url = Authenticator::getUserURL();
             header("Location: $url/activities");
             exit;
@@ -64,7 +87,19 @@ class Event {
         $request = new Request;
         $code = $request->__get('form-code');
         if(Authenticator::checkFormCode($code, 'participants')) {
+            
             Authenticator::removeFormCode('participants');
+            
+            $data = DataValidator::validateParticipant($request->all());
+           
+            if(!$data->error) {
+                if(!EventDB::insertParticipant($data)) {
+                    // erro no insert
+                }
+            } else {
+                // erro de validação dos dados;
+            }
+            
             $url = Authenticator::getUserURL();
             header("Location: $url/participants");
             exit;
@@ -77,8 +112,21 @@ class Event {
     {
         $request = new Request;
         $code = $request->__get('form-code');
+
         if(Authenticator::checkFormCode($code, 'participants')) {
+            
             Authenticator::removeFormCode('participants');
+
+            $data = DataValidator::validateParticipant($request->all());
+
+            if(!$data->error) {
+                if(!EventDB::updateParticipant($data)) {
+                    // erro no insert
+                }
+            } else {
+                // erro de validação dos dados;
+            }
+
             $url = Authenticator::getUserURL();
             header("Location: $url/participants");
             exit;
