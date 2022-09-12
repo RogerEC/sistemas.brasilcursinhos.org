@@ -149,18 +149,18 @@ CREATE TABLE IF NOT EXISTS `EVENT_ACTIVITIES` (
     `finalDatetime` DATETIME NOT NULL,
     `createdAt` DATETIME NOT NULL,
     `updatedAt` DATETIME NOT NULL,
-    `idEvent` INT UNIQUE NOT NULL,
-	PRIMARY KEY (`idEventActivity`),
-    CONSTRAINT `fkEventActivitiesIdEvent` FOREIGN KEY (`idEvent`) REFERENCES `EVENTS`(`idEvent`)
+    -- `idEvent` INT UNIQUE NOT NULL,
+	PRIMARY KEY (`idEventActivity`)
+    -- CONSTRAINT `fkEventActivitiesIdEvent` FOREIGN KEY (`idEvent`) REFERENCES `EVENTS`(`idEvent`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `EVENT_PARTICIPANTS` (
 	`idEventParticipant` INT NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(64) NOT NULL,
     `cpf` VARCHAR(11) NOT NULL,
-    `eventRegistration` VARCHAR(8) NOT NULL,
-	`email` VARCHAR(128) UNIQUE NOT NULL,
-    `phone` VARCHAR(16) NOT NULL,
+    -- `eventRegistration` VARCHAR(8) NOT NULL,
+	-- `email` VARCHAR(128) UNIQUE NOT NULL,
+    -- `phone` VARCHAR(16) NOT NULL,
     `cup` VARCHAR(64) NOT NULL,
     `eventCode` VARCHAR(16) NULL DEFAULT NULL,
     `createdAt` DATETIME NOT NULL,

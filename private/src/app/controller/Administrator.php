@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Authenticator;
 use App\Page;
+use Database\EventDB;
+use Router\Request;
 
 class Administrator {
 
@@ -45,6 +47,16 @@ class Administrator {
         
     }
 
+    private static function getBdData($subpage)
+    {
+        if($subpage === 'activities') {
+            return EventDB::getActivitiesData();
+        } else if ($subpage === 'participants') {
+            return EventDB::getParticipantsData();
+        }
+        return null;
+    }
+
     public function showAdministratorSubpage($subpage)
     {
         if(Authenticator::checkLogin()) {
@@ -52,7 +64,9 @@ class Administrator {
                 if(self::checkLink($subpage)) {
                     $code = Authenticator::generateLogoutCode();
                     $links = self::getLinks();
-                    Page::render('@admin/'.$subpage.'.html', ['logoutCode' => $code, 'links' => $links]);
+                    $data = self::getBdData($subpage);
+                    $formCode = Authenticator::createFormCode($subpage);
+                    Page::render('@admin/'.$subpage.'.html', ['logoutCode' => $code, 'links' => $links, 'data' => $data, 'formCode' => $formCode]);
                 } else {
                     Page::showErrorHttpPage("404");
                     exit;
@@ -65,6 +79,48 @@ class Administrator {
         } else {
             Page::showErrorHttpPage("401");
             exit;
+        }
+    }
+
+    public function insertUser()
+    {
+        $request = new Request;
+        $code = $request->__get('form-code');
+        if(Authenticator::checkFormCode($code, 'users')) {
+            Authenticator::removeFormCode('users');
+            $url = Authenticator::getUserURL();
+            header("Location: $url/users");
+            exit;
+        } else {
+            Page::showErrorHttpPage('401');
+        }
+    }
+
+    public function updateUser()
+    {
+        $request = new Request;
+        $code = $request->__get('form-code');
+        if(Authenticator::checkFormCode($code, 'users')) {
+            Authenticator::removeFormCode('users');
+            $url = Authenticator::getUserURL();
+            header("Location: $url/users");
+            exit;
+        } else {
+            Page::showErrorHttpPage('401');
+        }
+    }
+
+    public function deleteUser()
+    {
+        $request = new Request;
+        $code = $request->__get('form-code');
+        if(Authenticator::checkFormCode($code, 'users')) {
+            Authenticator::removeFormCode('users');
+            $url = Authenticator::getUserURL();
+            header("Location: $url/users");
+            exit;
+        } else {
+            Page::showErrorHttpPage('401');
         }
     }
 }

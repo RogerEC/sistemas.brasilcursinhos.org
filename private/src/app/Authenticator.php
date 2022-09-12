@@ -343,30 +343,26 @@ class Authenticator
         );
     }
 
-    // gera código de validação de acesso para link de post de formulários
-    public static function createAccessValidationCode($form)
+    public static function createFormCode($page)
     {
-        $code = self::getRandomCode(32);
-        $_SESSION['accessValidationCode'.$form] = $code;
+        $code = self::getRandomCode(64);
+        $_SESSION['form-codes'][$page] = $code;
         return $code;
     }
 
-    // checa se o código informado é o memso que o código armazenado
-    public static function checkAcessValicationCode($code, $form)
+    public static function checkFormCode($code, $page)
     {
-        if(isset($_SESSION['accessValidationCode'.$form]) && !empty($_SESSION['accessValidationCode'.$form])){
-            if($_SESSION['accessValidationCode'.$form] === $code){
-                return true;
-            }
+        if($_SESSION['form-codes'][$page] === $code) {
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
-    // deleta o código de validação salvo
-    public static function deleteAcessValidationCode($form)
+    public static function removeFormCode($page)
     {
-        if(isset($_SESSION['accessValidationCode'.$form])){
-            unset($_SESSION['accessValidationCode'.$form]);
+        if(isset($_SESSION['form-codes'][$page])) {
+            unset($_SESSION['form-codes'][$page]);
         }
     }
 }

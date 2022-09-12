@@ -29,6 +29,24 @@ Route::get('/usuario/{subpage}', 'User@showUserSubpage');
 
 Route::get('/administrador/{subpage}', 'Administrator@showAdministratorSubpage');
 
+Route::post('/activities/delete', 'Event@deleteActivity');
+
+Route::post('/activities/update', 'Event@updateActivity');
+
+Route::post('/activities/insert', 'Event@insertActivity');
+
+Route::post('/participants/delete', 'Event@deleteParticipant');
+
+Route::post('/participants/update', 'Event@updateParticipant');
+
+Route::post('/participants/insert', 'Event@insertParticipant');
+
+Route::post('/users/delete', 'Administrator@deleteUser');
+
+Route::post('/users/update', 'Administrator@updateUser');
+
+Route::post('/users/insert', 'Administrator@insertUser');
+
 if(DEBUG_MODE) {
     Route::get('/teste', 'Teste@showTeste');
 
