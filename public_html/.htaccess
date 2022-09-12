@@ -1,0 +1,37 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Redirecionamento permanente de HTTP para HTTPS
+    #RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    #RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+    #URL amigaveis
+    RewriteBase /
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^([A-Za-z0-9\\\/\-]+)$ index.php?uri=$1 [QSA,L]
+</IfModule>
+
+# Redirecionamento das mensagens de erro
+ErrorDocument 400 /error/400
+ErrorDocument 401 /error/401
+ErrorDocument 402 /error/402
+ErrorDocument 403 /error/403
+ErrorDocument 404 /error/404
+ErrorDocument 405 /error/405
+ErrorDocument 406 /error/406
+ErrorDocument 407 /error/407
+ErrorDocument 408 /error/408
+ErrorDocument 409 /error/409
+ErrorDocument 410 /error/410
+ErrorDocument 411 /error/411
+ErrorDocument 412 /error/412
+ErrorDocument 413 /error/413
+ErrorDocument 414 /error/414
+ErrorDocument 415 /error/415
+ErrorDocument 416 /error/416
+ErrorDocument 417 /error/417
+ErrorDocument 500 /error/500
+ErrorDocument 501 /error/501
+ErrorDocument 502 /error/502
+ErrorDocument 503 /error/503
+ErrorDocument 504 /error/504
+ErrorDocument 505 /error/505

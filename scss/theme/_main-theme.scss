@@ -1,0 +1,64 @@
+.bg-secondary-color-bc {
+  background-color: $secondary-color-bc;
+}
+
+.bg-primary-color-bc {
+  background-color: $primary-color-bc;
+}
+
+.bg-drawn{
+  background: url("/assets/img/bg-draws-25.png") repeat;
+  background-color: $primary-color-bc;
+  background-size: 25%;
+
+  &-50 {
+    @extend .bg-drawn;
+    background-size: 50%;
+  }
+
+  &-75 {
+    @extend .bg-drawn;
+    background-size: 75%;
+  }
+
+  &-100 {
+    @extend .bg-drawn;
+    background-size: 100%;
+  }
+}
+
+.form-check-input {
+
+  &:focus {
+    border-color: $border-color;
+    box-shadow: 0 0 0 0.25rem $shadow-color;
+  }
+
+  &:checked {
+    background-color: $link-color;
+    border-color: $link-color;
+  }
+}
+
+.form-select:focus {
+  border-color: $border-color;
+  box-shadow: 0 0 0 0.25rem $shadow-color;
+}
+
+.form-control:focus {
+  border-color: $border-color;
+  box-shadow: 0 0 0 0.25rem $shadow-color;
+}
+
+.accordion-button:focus {
+  border-color: $border-color;
+  box-shadow: 0 0 0 0.25rem $shadow-color;
+}
+
+.bg-primary-bc {
+  background-color: $primary-color-bc !important;
+}
+
+.bg-secondary-bc {
+  background-color: $secondary-color-bc !important;
+}

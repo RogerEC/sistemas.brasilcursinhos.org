@@ -1,0 +1,27 @@
+// inclusão da opção de texto justificado
+.text-justify {
+    text-align: justify !important;
+}
+
+// inclusão da exibição do menu dropdowm da navbar ao acionar evento hover
+@media (min-width: 992px) {
+    .dropdown:hover>.dropdown-menu {
+        display: block;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-xl-20 {
+        flex: 0 0 auto;
+        width: 20%;
+    }
+    
+    .col-xl-80 {
+        flex: 0 0 auto;
+        width: 80%;
+    }
+}
+
+.fs-7 {
+    font-size: 0.8rem !important;
+  }

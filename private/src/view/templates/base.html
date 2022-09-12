@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR" id="html">
+  <head>
+{%  block head %}{% endblock head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#053141">
+    <meta name="copyright" content="{{ 'now' | date('Y')}} Brasil Cursinhos ©">
+    <meta name="author" content="Roger Eliodoro Condras">
+    <meta name="creator" content="Roger Eliodoro Condras">
+    <meta name="publisher" content="Roger Eliodoro Condras">
+    <meta name="rating" content="general">
+    <!-- Icone guia navegador -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <!-- Folhas de estilo CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+  </head>
+    
+  <body{{ bodyClass ? " class=\"#{bodyClass}\"" | raw}}>
+
+{%      if includePublicHeader == true %}
+{%          include '@components/public-header.html' %}
+{%      elseif includeRestrictedHeader == true %}
+{%          include '@components/restricted-header.html' %}
+{%      endif %}
+
+{%      block main %}{% endblock main %}
+
+{%      if includePublicFooter == true %}
+{%          include '@components/public-footer.html' %}
+{%      elseif includeRestrictedFooter == true %}
+{%          include '@components/restricted-footer.html' %}
+{%      endif %}
+    <!-- Javascript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <script src="/assets/js/default.js"></script>
+{%  block scriptsJS %}{% endblock scriptsJS %}
+  </body>
+</html>

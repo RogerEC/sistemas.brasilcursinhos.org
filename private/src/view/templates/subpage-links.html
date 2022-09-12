@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% set mainClass = 'container text-center mt-5' %}
+
+{% block head %}
+        <title>{{title}} - Cursinho PES</title>
+        <meta name="keywords" content="Cursinho PES; UFSC; Curso pré-vestibular; Projeto Educação Solidária; Araranguá">
+        <meta name="description" content="Página de links para as subpáginas da sessão {{title}}">
+        <meta name="robots" content="none">
+{% endblock head %}
+
+{% block main %}
+<main class="container-fluid d-flex align-items-center">
+    <div class="w-100 text-center">
+        <h1 class="mb-5" style="font-size: 3rem;">{{title}} - Cursinho PES</h1>
+    <p class="fs-4 mb-4">Selecione abaixo a página que você gostaria de acessar:</p>
+    {% for link in links %}
+        <p class="mb-2"><a href="{{link.url}}" class="fs-4">{{link.name}}</a></p>
+    {% endfor %}
+    <p class='fs-4 mt-3'><a href="/"><b>Clique aqui</b></a> para voltar a página inicial.</p>
+    </div>
+</main>               
+{% endblock main %}

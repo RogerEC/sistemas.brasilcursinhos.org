@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="dev.brasilcursinhos.bcscan" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>BC Scan</name>
+    <description>Scanner de QR code para eventos da Brasil Cursinhos</description>
+    <icon src="res/icon.png" />
+    <author email="contato@rogerec.me" href="https://rogerec.me">
+        Roger Eliodoro Condras
+    </author>
+    <content src="index.html" />
+    <access origin="https://*.brasilcursinhos.org" />
+    <allow-intent href="https://*/*" />
+    <preference name="AndroidBlacklistSecureSocketProtocols" value="SSLv3,TLSv1,TLSv1.1" />
+</widget>

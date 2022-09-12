@@ -1,0 +1,9 @@
+*.log
+*test*
+*Test*
+private/config/local-settings.php
+private/config/passwords/*
+private/vendor/*
+private/documents/*
+private/logs/*
+!*.gitkeep

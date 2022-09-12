@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% set bodyClass = 'bg-drawn' %}
+
+{% block head %}
+        <title>Login - Brasil Cursinhos</title>
+        <meta name="keywords" content="Brasil Cursinhos">
+        <meta name="description" content="Página de Login para a área restrita do site Brasil Cursinhos">
+        <meta name="robots" content="index, follow">
+{% endblock head %}
+
+{% block main %}
+<main class="bg-drawn d-flex justify-content-center align-items-center">
+  <div class="card m-4 maxw-900">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-sm-6 d-flex flex-column justify-content-center">
+          <img src="/assets/img/logos/logo-bc.png" class="px-5 py-3 w-100" alt="Logo Cursinho PES">
+        </div>
+        <div class="col-12 col-sm-6 d-flex flex-column justify-content-center text-center">
+          <div class="container-fluid">
+            <h3 class="card-title mb-2 w-100 text-center">Um e-mail já foi enviado!</h3>
+            <h5 class="card-subtitle mb-3 text-muted w-100 text-center">Verifique a sua pasta de spam.</h5>
+            <p class="mb-2">
+              Você já solicitou um e-mail de verificação. Aguarde mais {{timeLeft}} minuto{{(timeLeft < 2)? 's'}} antes de solicitar um novo e-mail.
+            </p>
+            <p class="mb-3">
+                Se o problema persistir e você não receber o e-mail de verificação, entre em contato com um administrador. Seu e-mail pode estar cadastrado errado no sistema.
+              </p>
+            <p><a href="/recuperar-senha" class="btn btn-secondary-bc text-decoration-none">Solicitar nova verificação</a></p>
+            <p class="mb-0"><a href="mailto:contato@brasilcursinhos.org" class="btn btn-secondary-bc text-decoration-none">Entrar em contato</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="w-100 text-white text-center">
+  <p class="my-2 fs-5"><b>{{ "now" | date('Y')}} Brasil Cursinhos ©</b></p>
+</footer>
+{% endblock main %}
+
+{% block scriptsJS %}
+{% include '@links/forms-validation.html' %}
+<script src="/assets/js/pages/login.js"></script>
+{% endblock scriptsJS %}
