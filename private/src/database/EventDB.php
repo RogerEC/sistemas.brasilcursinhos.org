@@ -17,6 +17,9 @@ class EventDB extends Database
             parent::disconnect();
             return $result;
         } catch(PDOException $exception) {
+            $message = "Error in function EventDB::getEventStatus.";
+            Log::error($message, 'database.log', $exception->getMessage());
+            parent::disconnect();
             return null;
         }
         
@@ -31,6 +34,9 @@ class EventDB extends Database
             parent::disconnect();
             return $result;
         } catch (PDOException $exception) {
+            $message = "Error in function EventDB::getEventsData.";
+            Log::error($message, 'database.log', $exception->getMessage());
+            parent::disconnect();
             return null;
         }
     }
@@ -44,6 +50,9 @@ class EventDB extends Database
             parent::disconnect();
             return $result;
         } catch (PDOException $exception) {
+            $message = "Error in function EventDB::getActivitiesData.";
+            Log::error($message, 'database.log', $exception->getMessage());
+            parent::disconnect();
             return null;
         }
     }
@@ -57,7 +66,44 @@ class EventDB extends Database
             parent::disconnect();
             return $result;
         } catch (PDOException $exception) {
+            $message = "Error in function EventDB::getParticipantsData.";
+            Log::error($message, 'database.log', $exception->getMessage());
+            parent::disconnect();
             return null;
+        }
+    }
+
+    public static function deleteActivity($id)
+    {
+        try {
+            $query = parent::connect()->prepare('DELETE FROM `EVENT_ACTIVITIES` WHERE `idEventActivity` = :idEventActivity LIMIT 1');
+            $query->bindValue(':idEventActivity', $id, PDO::PARAM_INT);
+            $query->execute();
+            parent::disconnect();
+            return true;
+        } catch (PDOException $exception) {
+            $message = "Error in function EventDB::deleteActivity.";
+            $message .= " Event Activity ID: " . $id;
+            Log::error($message, 'database.log', $exception->getMessage());
+            parent::disconnect();
+            return false;
+        }
+    }
+
+    public static function deleteParticipant($id)
+    {
+        try {
+            $query = parent::connect()->prepare('DELETE FROM `EVENT_PARTICIPANTS` WHERE `idEventParticipant` = :idEventParticipant LIMIT 1');
+            $query->bindValue(':idEventParticipant', $id, PDO::PARAM_INT);
+            $query->execute();
+            parent::disconnect();
+            return true;
+        } catch (PDOException $exception) {
+            $message = "Error in function EventDB::deleteParticipant.";
+            $message .= " Event Participant ID: " . $id;
+            Log::error($message, 'database.log', $exception->getMessage());
+            parent::disconnect();
+            return false;
         }
     }
 }

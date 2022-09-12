@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Authenticator;
+use App\DataValidator;
 use App\Page;
+use Database\EventDB;
 use Router\Request;
 
 class Event {
@@ -40,11 +42,18 @@ class Event {
     {
         $request = new Request;
         $code = $request->__get('form-code');
+        
         if(Authenticator::checkFormCode($code, 'activities')) {
+            
             Authenticator::removeFormCode('activities');
+
+            $id = DataValidator::validateInt($request->__get('deletion-id'));
+            EventDB::deleteActivity($id);
+            
             $url = Authenticator::getUserURL();
             header("Location: $url/activities");
             exit;
+
         } else {
             Page::showErrorHttpPage('401');
         }
@@ -82,11 +91,18 @@ class Event {
     {
         $request = new Request;
         $code = $request->__get('form-code');
+        
         if(Authenticator::checkFormCode($code, 'participants')) {
+            
             Authenticator::removeFormCode('participants');
+
+            $id = DataValidator::validateInt($request->__get('deletion-id'));
+            EventDB::deleteParticipant($id);
+
             $url = Authenticator::getUserURL();
             header("Location: $url/participants");
             exit;
+
         } else {
             Page::showErrorHttpPage('401');
         }

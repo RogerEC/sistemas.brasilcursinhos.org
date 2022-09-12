@@ -13,7 +13,7 @@
   <div class="card-body">
     <div class="row g-3">
       <form action="/activities/update" method="post" class="row g-2 col form-{{loop.index}}">
-        <input type="hidden" name="id" value="{{activity.id}}">
+        <input type="hidden" name="id" id="id-{{loop.index}}" value="{{activity.id}}">
         <input type="hidden" name="form-code" value="{{formCode}}">
         <div class="col-4">
           <label for="name"><b>Nome:</b></label>

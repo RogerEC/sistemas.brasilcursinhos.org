@@ -18,7 +18,7 @@ $(function(){
     $(".btn-delete-cancel").on('click', function(event){
         event.preventDefault();
         if($(this).children().text() === 'delete') {
-            $("#deletion-id").val($(this).val());
+            $("#deletion-id").val($("#id-"+$(this).val()).val());
             $("#btn-modal").click();
         } else {
             $(".form-"+$(this).val()+" input:not([type='hidden'])").each(function(){
