@@ -1,9 +1,11 @@
 *.log
 *test*
 *Test*
+.htaccess
 private/config/local-settings.php
 private/config/passwords/*
 private/vendor/*
 private/documents/*
 private/logs/*
+*error_log*
 !*.gitkeep

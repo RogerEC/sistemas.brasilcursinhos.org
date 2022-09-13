@@ -13,6 +13,8 @@
     ini_set('session.sid_length', 48);
     ini_set('session.sid_bits_per_character', 6);
     ini_set('session.cache_limiter', 'nocache');
+
+    ini_set('date.timezone', 'America/Sao_Paulo');
     
     header_remove('x-powered-by');
     header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
