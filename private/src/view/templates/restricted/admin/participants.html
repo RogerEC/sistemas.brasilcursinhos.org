@@ -21,7 +21,7 @@
         </div>
         <div class="col-3">
           <label for="name"><b>CPF:</b></label>
-          <input type="text" name="cpf" class="form-control" value="{{"%s.%s.%s-%s"|format(participant.cpf[0:3], participant.cpf[3:3], participant.cpf[6:3], participant.cpf[9:])}}" disabled readonly required>
+          <input type="text" name="cpf" class="form-control cpf" value="{{"%s.%s.%s-%s"|format(participant.cpf[0:3], participant.cpf[3:3], participant.cpf[6:3], participant.cpf[9:])}}" disabled readonly required>
         </div>
         <div class="col-4">
           <label for="name"><b>CUP:</b></label>
@@ -44,38 +44,43 @@
   </div>
 </div>
 {% endfor %}
-<h3>Inserir novo participante</h3>
-<div class="card mb-3 bg-light">
-  <div class="card-body">
-    <form action="/participants/insert" method="post" class="row g-3" id="form-new-activity">
-      <div class="row g-2 col">
-        <input type="hidden" name="form-code" value="{{formCode}}">
-        <div class="col">
-          <label for="name"><b>Nome:</b></label>
-          <input type="text" name="name" class="form-control" required>
+<button class="btn btn-secondary-bc" id="btn-new-insertion">
+  <span class="material-symbols-outlined">add</span> Inserir novo participante
+</button>
+<div id="new-insertion-field" class="d-none">
+  <h3>Inserir novo participante</h3>
+  <div class="card mb-3 bg-light">
+    <div class="card-body">
+      <form action="/participants/insert" method="post" class="row g-3" id="form-new-activity">
+        <div class="row g-2 col">
+          <input type="hidden" name="form-code" value="{{formCode}}">
+          <div class="col">
+            <label for="name"><b>Nome:</b></label>
+            <input type="text" name="name" class="form-control" required>
+          </div>
+          <div class="col-3">
+            <label for="name"><b>CPF:</b></label>
+            <input type="text" name="cpf" class="form-control cpf" required>
+          </div>
+          <div class="col-4">
+            <label for="name"><b>CUP:</b></label>
+            <input type="text" name="cup" class="form-control" required>
+          </div>
         </div>
-        <div class="col-3">
-          <label for="name"><b>CPF:</b></label>
-          <input type="text" name="cpf" class="form-control" required>
+        <div class="row g-2 col-auto">
+          <div class="col-auto ms-1">
+            <button class="w-auto h-100 btn btn-secondary-bc" type="submit">
+              <span class="material-symbols-outlined">save</span>
+            </button>
+          </div>
+          <div class="col-auto">
+            <button class="w-auto h-100 btn btn-primary-bc" id="btn-cancel-new-insertion" type="reset">
+              <span class="material-symbols-outlined">cancel</span>
+            </button>
+          </div>
         </div>
-        <div class="col-4">
-          <label for="name"><b>CUP:</b></label>
-          <input type="text" name="cup" class="form-control" required>
-        </div>
-      </div>
-      <div class="row g-2 col-auto">
-        <div class="col-auto ms-1">
-          <button class="w-auto h-100 btn btn-secondary-bc" type="submit">
-            <span class="material-symbols-outlined">save</span>
-          </button>
-        </div>
-        <div class="col-auto">
-          <button class="w-auto h-100 btn btn-primary-bc" type="reset">
-            <span class="material-symbols-outlined">cancel</span>
-          </button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
 <!-- Button trigger modal -->

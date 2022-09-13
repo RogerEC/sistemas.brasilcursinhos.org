@@ -194,4 +194,21 @@ class EventDB extends Database
             return false;
         }
     }
+
+    public static function checkParticipantCpf($cpf)
+    {
+        try {
+            $query = parent::connect()->prepare('SELECT `name` FROM `EVENT_PARTICIPANTS` WHERE `cpf` = :cpf LIMIT 1');
+            $query->bindValue(':cpf', $cpf, PDO::PARAM_STR);
+            $query->execute();
+            $result = $query->fetch(PDO::FETCH_OBJ);
+            parent::disconnect();
+            return $result;
+        } catch (PDOException $exception) {
+            $message = "Error in function EventDB::checkParticipantCpf. CPF: " . $cpf;
+            Log::error($message, 'database.log', $exception->getMessage());
+            parent::disconnect();
+            return null;
+        }
+    }
 }

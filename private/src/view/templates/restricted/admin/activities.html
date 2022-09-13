@@ -48,42 +48,47 @@
   </div>
 </div>
 {% endfor %}
-<h3>Inserir nova atividade</h3>
-<div class="card mb-3 bg-light">
-  <div class="card-body">
-    <form action="/activities/insert" method="post" class="row g-3" id="form-new-activity">
-      <div class="row g-2 col">
-        <input type="hidden" name="form-code" value="{{formCode}}">
-        <div class="col-4">
-          <label for="name"><b>Nome:</b></label>
-          <input type="text" name="name" class="form-control" required>
+<button class="btn btn-secondary-bc" id="btn-new-insertion">
+  <span class="material-symbols-outlined">add</span> Inserir nova atividade
+</button>
+<div id="new-insertion-field" class="d-none">
+  <h3>Inserir nova atividade</h3>
+  <div class="card mb-3 bg-light">
+    <div class="card-body">
+      <form action="/activities/insert" method="post" class="row g-3" id="form-new-activity">
+        <div class="row g-2 col">
+          <input type="hidden" name="form-code" value="{{formCode}}">
+          <div class="col-4">
+            <label for="name"><b>Nome:</b></label>
+            <input type="text" name="name" class="form-control" required>
+          </div>
+          <div class="col">
+            <label for="name"><b>Local:</b></label>
+            <input type="text" name="local" class="form-control" required>
+          </div>
+          <div class="col-auto">
+            <label for="name"><b>Início:</b></label>
+            <input type="datetime-local" name="start" class="form-control" required>
+          </div>
+          <div class="col-auto">
+            <label for="name"><b>Final:</b></label>
+            <input type="datetime-local" name="final" class="form-control" required>
+          </div>
         </div>
-        <div class="col">
-          <label for="name"><b>Local:</b></label>
-          <input type="text" name="local" class="form-control" required>
+        <div class="row g-2 col-auto">
+          <div class="col-auto ms-1">
+            <button class="w-auto h-100 btn btn-secondary-bc" type="submit">
+              <span class="material-symbols-outlined">save</span>
+            </button>
+          </div>
+          <div class="col-auto">
+            <button class="w-auto h-100 btn btn-primary-bc" id="btn-cancel-new-insertion" type="reset">
+              <span class="material-symbols-outlined">cancel</span>
+            </button>
+          </div>
         </div>
-        <div class="col-auto">
-          <label for="name"><b>Início:</b></label>
-          <input type="datetime-local" name="start" class="form-control" required>
-        </div>
-        <div class="col-auto">
-          <label for="name"><b>Final:</b></label>
-          <input type="datetime-local" name="final" class="form-control" required>
-        </div>
-      </div>
-      <div class="row g-2 col-auto">
-        <div class="col-auto ms-1">
-          <button class="w-auto h-100 btn btn-secondary-bc" type="submit">
-            <span class="material-symbols-outlined">save</span>
-          </button>
-        </div>
-        <div class="col-auto">
-          <button class="w-auto h-100 btn btn-primary-bc" type="reset">
-            <span class="material-symbols-outlined">cancel</span>
-          </button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
 <!-- Button trigger modal -->

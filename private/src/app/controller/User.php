@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Authenticator;
 use App\Page;
+use Database\EventDB;
 
 class User {
 
@@ -22,6 +23,16 @@ class User {
             return $it->url;
         }, $links);
         return (array_search('/usuario/'.$subpage, $links) === false)? false:true;
+    }
+
+    private static function getBdData($subpage)
+    {
+        if($subpage === 'activities') {
+            return EventDB::getActivitiesData();
+        } else if ($subpage === 'participants') {
+            return EventDB::getParticipantsData();
+        }
+        return null;
     }
     
     public function showUserPage()
@@ -50,7 +61,9 @@ class User {
                 if(self::checkLink($subpage)) {
                     $code = Authenticator::generateLogoutCode();
                     $links = self::getLinks();
-                    Page::render('@admin/'.$subpage.'.html', ['logoutCode' => $code, 'links' => $links]);
+                    $data = self::getBdData($subpage);
+                    $formCode = Authenticator::createFormCode($subpage);
+                    Page::render('@admin/'.$subpage.'.html', ['logoutCode' => $code, 'links' => $links, 'data' => $data, 'formCode' => $formCode]);
                 } else {
                     Page::showErrorHttpPage("404");
                     exit;

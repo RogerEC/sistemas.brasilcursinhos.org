@@ -47,6 +47,8 @@ Route::post('/users/update', 'Administrator@updateUser');
 
 Route::post('/users/insert', 'Administrator@insertUser');
 
+Route::post('/verificar-cpf-participante', 'Event@checkParticipantCpf');
+
 if(DEBUG_MODE) {
     Route::get('/teste', 'Teste@showTeste');
 

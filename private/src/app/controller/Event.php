@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Authenticator;
 use App\DataValidator;
+use App\Log;
 use App\Page;
 use Database\EventDB;
 use Router\Request;
@@ -154,5 +155,38 @@ class Event {
         } else {
             Page::showErrorHttpPage('401');
         }
+    }
+
+    public function checkParticipantCpf()
+    {
+        $request = new Request;
+
+        if($request->__isset('cpf')) {
+
+            if($request->__isset('original-cpf')) {
+                if($request->__get('cpf') === $request->__get('original-cpf')) {
+                    echo 'true';
+                    exit;
+                }
+            }
+            
+            $cpf = DataValidator::validateCpf($request->__get('cpf'));
+            
+            if($cpf === false) {
+                echo 'false';
+                exit;
+            }
+
+            $check = EventDB::checkParticipantCpf($cpf);
+            
+            if(empty($check)) {
+                echo 'true';
+            } else {
+                echo 'false';
+            }
+        } else {
+            echo 'false';
+        }
+        exit;
     }
 }
