@@ -5,3 +5,13 @@
   text-align: center;
   z-index:1000;
 }
+
+.footer a {
+  color: #f2f2f2;
+  text-decoration: none;
+
+  &:hover {
+    color: rgb(200, 200, 200);
+    text-decoration: none !important;
+  }
+}

@@ -25,16 +25,6 @@ main, .main {
   overflow-x: hidden !important;
 }
 
-.icon-links a {
-  color: #f2f2f2;
-  text-decoration: none;
-
-  &:hover {
-    color: rgb(200, 200, 200);
-    text-decoration: none !important;
-  }
-}
-
 a {
   color: $link-color;
   text-decoration: none;
@@ -86,4 +76,49 @@ main a:hover {
 .maxw-500 {
   width: 100%;
   max-width: 500px;
+}
+
+.maxw-400 {
+  width: 100%;
+  max-width: 400px;
+}
+
+.maxw-300 {
+  width: 100%;
+  max-width: 300px;
+}
+
+.maxw-260 {
+  width: 100%;
+  max-width: 260px;
+}
+
+.minw-100 {
+  width: 100%;
+  min-width: 100px;
+}
+
+.minw-200 {
+  width: 100%;
+  min-width: 200px;
+}
+
+.minw-240 {
+  width: 100%;
+  min-width: 240px;
+}
+
+.minw-300 {
+  width: 100%;
+  min-width: 300px;
+}
+
+.minw-400 {
+  width: 100%;
+  min-width: 400px;
+}
+
+.minw-500 {
+  width: 100%;
+  min-width: 500px;
 }
