@@ -23,23 +23,34 @@
     if(DEBUG_MODE) {
         error_reporting(E_ALL);
         ini_set('display_errors', true);
-        ini_set('error_log', DIR_LOGS . 'php.log');
+        ini_set('error_log', DIR_LOGS . WEBSITE_NAME . '-php.log');
         ini_set('log_errors', 1);
     } else {
         error_reporting(E_ALL);
         ini_set('display_errors', false);
-        ini_set('error_log', DIR_LOGS . 'php.log');
+        ini_set('error_log', DIR_LOGS . WEBSITE_NAME . '-php.log');
         ini_set('log_errors', 1);
     }
 
-    session_name("BCSESSIONID");
+    session_name("BC" . strtoupper(WEBSITE_NAME) . "SESSIONID");
     session_start();
     session_regenerate_id();
      
     try {
-     
-        require __DIR__ . '/routes/routes.php';
-     
+        
+        if(WEBSITE_NAME === 'sistemas') {
+            
+            require __DIR__ . '/routes/routes-sistemas.php';
+
+        } else if (WEBSITE_NAME === 'encup') {
+            
+            require __DIR__ . '/routes/routes-encup.php';
+
+        } else if (WEBSITE_NAME === 'calendario') {
+            
+            require __DIR__ . '/routes/routes-calendario.php';
+        }
+
     } catch(\Exception $exeption){
          
         echo $exeption->getMessage();

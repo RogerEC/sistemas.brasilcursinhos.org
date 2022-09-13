@@ -26,6 +26,8 @@ class Page {
             $loader->addPath(DIR_TEMPLATES.'restricted/admin/', 'admin');
             $loader->addPath(DIR_TEMPLATES.'documents/', 'documents');
             $loader->addPath(DIR_TEMPLATES.'emails/', 'emails');
+            $loader->addPath(DIR_TEMPLATES.'encup/', 'encup');
+            $loader->addPath(DIR_TEMPLATES.'calendario/', 'calendario');
             self::$viewer = new \Twig\Environment($loader, ['cache' => false]);
             self::$viewer->getExtension(\Twig\Extension\CoreExtension::class)->setTimezone('America/Sao_Paulo');
         }
