@@ -27,6 +27,7 @@
         ini_set('display_errors', true);
         ini_set('error_log', DIR_LOGS . WEBSITE_NAME . '-php.log');
         ini_set('log_errors', 1);
+        header('Strict-Transport-Security: max-age=0; includeSubDomains');
     } else {
         error_reporting(E_ALL);
         ini_set('display_errors', false);
