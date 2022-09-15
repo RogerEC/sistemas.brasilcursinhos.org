@@ -1,8 +1,8 @@
 {
-  "name": "io.cordova.hellocordova",
-  "displayName": "HelloCordova",
+  "name": "dev.brasilcursinhos.bcscan",
+  "displayName": "BC Scan",
   "version": "1.0.0",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "description": "Scanner de QR codes para gerenciamento e controle de eventos da Brasil Cursinhos",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,8 +10,16 @@
   "keywords": [
     "ecosystem:cordova"
   ],
-  "author": "Apache Cordova Team",
+  "author": "Roger Eliodoro Condras",
   "license": "Apache-2.0",
+  "devDependencies": {
+    "com.virtuoworks.cordova-plugin-canvascamera": "^1.2.2",
+    "cordova-android": "^11.0.0",
+    "cordova-browser": "^6.0.0",
+    "cordova-plugin-advanced-http": "^3.3.1",
+    "cordova-plugin-camera": "^6.0.0",
+    "cordova-plugin-file": "^7.0.0"
+  },
   "cordova": {
     "platforms": [
       "android",
@@ -20,13 +28,11 @@
     "plugins": {
       "cordova-plugin-advanced-http": {
         "ANDROIDBLACKLISTSECURESOCKETPROTOCOLS": "SSLv3,TLSv1"
-      }
+      },
+      "cordova-plugin-camera": {
+        "ANDROIDX_CORE_VERSION": "1.6.+"
+      },
+      "com.virtuoworks.cordova-plugin-canvascamera": {}
     }
-  },
-  "devDependencies": {
-    "cordova-android": "^11.0.0",
-    "cordova-browser": "^6.0.0",
-    "cordova-plugin-advanced-http": "^3.3.1",
-    "cordova-plugin-file": "^7.0.0"
   }
 }
