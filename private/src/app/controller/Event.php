@@ -15,7 +15,7 @@ class Event {
     {
         $request = new Request;
         $code = $request->__get('form-code');
-        if(Authenticator::checkFormCode($code, 'activities')) {
+        if(Authenticator::checkLogin() && Authenticator::checkFormCode($code, 'activities')) {
             Authenticator::removeFormCode('activities');
 
             $data = DataValidator::validateActivity($request->all());
@@ -40,7 +40,7 @@ class Event {
     {
         $request = new Request;
         $code = $request->__get('form-code');
-        if(Authenticator::checkFormCode($code, 'activities')) {
+        if(Authenticator::checkLogin() && Authenticator::checkFormCode($code, 'activities')) {
             
             Authenticator::removeFormCode('activities');
             
@@ -67,7 +67,7 @@ class Event {
         $request = new Request;
         $code = $request->__get('form-code');
         
-        if(Authenticator::checkFormCode($code, 'activities')) {
+        if(Authenticator::checkLogin() && Authenticator::checkFormCode($code, 'activities')) {
             
             Authenticator::removeFormCode('activities');
 
@@ -87,7 +87,7 @@ class Event {
     {
         $request = new Request;
         $code = $request->__get('form-code');
-        if(Authenticator::checkFormCode($code, 'participants')) {
+        if(Authenticator::checkLogin() && Authenticator::checkFormCode($code, 'participants')) {
             
             Authenticator::removeFormCode('participants');
             
@@ -114,7 +114,7 @@ class Event {
         $request = new Request;
         $code = $request->__get('form-code');
 
-        if(Authenticator::checkFormCode($code, 'participants')) {
+        if(Authenticator::checkLogin() && Authenticator::checkFormCode($code, 'participants')) {
             
             Authenticator::removeFormCode('participants');
 
@@ -141,7 +141,7 @@ class Event {
         $request = new Request;
         $code = $request->__get('form-code');
         
-        if(Authenticator::checkFormCode($code, 'participants')) {
+        if(Authenticator::checkLogin() && Authenticator::checkFormCode($code, 'participants')) {
             
             Authenticator::removeFormCode('participants');
 
@@ -195,7 +195,7 @@ class Event {
         $request = new Request;
         $code = $request->__get('form-code');
         
-        if(Authenticator::checkFormCode($code, 'presence')) {
+        if(Authenticator::checkLogin() && Authenticator::checkFormCode($code, 'presence')) {
             
             Authenticator::removeFormCode('presence');
 
@@ -241,7 +241,7 @@ class Event {
         $request = new Request;
         $code = $request->__get('form-code');
         
-        if(Authenticator::checkFormCode($code, 'confirm-presence')) {
+        if(Authenticator::checkLogin() && Authenticator::checkFormCode($code, 'confirm-presence')) {
             
             Authenticator::removeFormCode('confirm-presence');
 
@@ -259,7 +259,7 @@ class Event {
         $request = new Request;
         $code = $request->__get('form-code');
         
-        if(Authenticator::checkFormCode($code, 'confirm-presence')) {
+        if(Authenticator::checkLogin() && Authenticator::checkFormCode($code, 'confirm-presence')) {
             
             Authenticator::removeFormCode('confirm-presence');
 
@@ -288,7 +288,7 @@ class Event {
         $request = new Request;
         $code = $request->__get('form-code');
         
-        if(Authenticator::checkFormCode($code, 'participant')) {
+        if(Authenticator::checkLogin() && Authenticator::checkFormCode($code, 'participant')) {
             
             Authenticator::removeFormCode('participant');
 
