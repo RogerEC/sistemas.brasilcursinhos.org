@@ -189,4 +189,139 @@ class Event {
         }
         exit;
     }
+
+    public static function checkPresence()
+    {
+        $request = new Request;
+        $code = $request->__get('form-code');
+        
+        if(Authenticator::checkFormCode($code, 'presence')) {
+            
+            Authenticator::removeFormCode('presence');
+
+            $activityId = DataValidator::validateInt($request->__get('activity-id'));
+            $participantCode = DataValidator::validateInt($request->__get('participant-id'));
+            $parameters = array('error' => false);
+            
+            if($activityId === false || $participantCode === false) {
+                $parameters['error'] = true;
+                $parameters['errorMessage'] = 'Identificador de atividade ou código de participante inválido.';
+            }
+
+            if($activityId !== false) {
+                $_SESSION['lastActivityId'] = $activityId;
+            }
+
+            
+            $parameters['activity'] = EventDB::getActivityData($activityId);
+            
+            if(empty($parameters['activity'])) {
+                $parameters['error'] = true;
+                $parameters['errorMessage'] = 'Atividade não encontrada.';
+            }
+            
+            $parameters['participant'] = EventDB::getParticipantData($participantCode);
+            
+            if(empty($parameters['participant'])) {
+                $parameters['error'] = true;
+                $parameters['errorMessage'] = 'Participante não encontrado.';
+            }
+
+            $parameters['formCode'] = Authenticator::createFormCode('confirm-presence');
+
+            Page::render('@admin/confirm-presence.html', $parameters);
+
+        } else {
+            Page::showErrorHttpPage('401');
+        }
+    }
+
+    public static function cancelPresence()
+    {
+        $request = new Request;
+        $code = $request->__get('form-code');
+        
+        if(Authenticator::checkFormCode($code, 'confirm-presence')) {
+            
+            Authenticator::removeFormCode('confirm-presence');
+
+            $url = Authenticator::getUserURL();
+            header("Location: $url/presence");
+            exit;
+
+        } else {
+            Page::showErrorHttpPage('401');
+        }
+    }
+
+    public static function confirmPresence()
+    {
+        $request = new Request;
+        $code = $request->__get('form-code');
+        
+        if(Authenticator::checkFormCode($code, 'confirm-presence')) {
+            
+            Authenticator::removeFormCode('confirm-presence');
+
+            $activityId = DataValidator::validateInt($request->__get('activity-id'));
+            $participantId = DataValidator::validateInt($request->__get('participant-id'));
+
+            if($activityId === false || $participantId === false) {
+                $_SESSION['insertPresenceError'] = true;
+            }
+
+            $_SESSION['insertPresence'] = true;
+
+            $_SESSION['insertPresenceError'] = !EventDB::insertPresence($activityId, $participantId, Authenticator::getUserID());
+
+            $url = Authenticator::getUserURL();
+            header("Location: $url/presence");
+            exit;
+
+        } else {
+            Page::showErrorHttpPage('401');
+        }
+    }
+
+    public static function checkParticipant()
+    {
+        $request = new Request;
+        $code = $request->__get('form-code');
+        
+        if(Authenticator::checkFormCode($code, 'participant')) {
+            
+            Authenticator::removeFormCode('participant');
+
+            $cpf = DataValidator::validateCpf($request->__get('cpf'));
+
+            $parameters = array('error' => false);
+            
+            if($cpf === false) {
+                $parameters['error'] = true;
+                $parameters['errorMessage'] = 'CPF inválido.';
+            } else {
+                $participant = EventDB::getParticipant($cpf);
+
+                if(empty($participant)) {
+                    $parameters['error'] = true;
+                    $parameters['errorMessage'] = 'Participante não encontrado.';
+                } else {
+                    $parameters['participant'] = $participant;
+                }
+            }
+
+            $parameters['statusSearch'] = true;
+            $parameters['formCode'] = Authenticator::createFormCode('participant');
+            $parameters['links'] = array(
+                (object) array('name' => 'Gerenciar Atividades', 'url' => '/administrador/activities'),
+                (object) array('name' => 'Gerenciar Participantes', 'url' => '/administrador/participants'),
+                (object) array('name' => 'Código do participante', 'url' => '/administrador/participant'),
+                (object) array('name' => 'Gerenciar Presença', 'url' => '/administrador/presence'));
+
+            Page::render('@admin/participant.html', $parameters);
+
+        } else {
+            Page::showErrorHttpPage('401');
+        }
+    }
 }

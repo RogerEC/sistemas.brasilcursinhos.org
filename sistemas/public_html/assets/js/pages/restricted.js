@@ -4,7 +4,8 @@ $(function(){
     let originalCpf = null;
     let forms = [];
 
-    $("form").each(function(){
+    /*$("form").each(function(){
+        if($(this).prop('id') !== 'form-check-participant')
         forms.push($(this).validate({
                 rules : {
                     "name":{required: true, maxlength: 64},
@@ -21,7 +22,13 @@ $(function(){
                                 return originalCpf;
                             }
                         }
-                    }}
+                    }},
+                    "participant-id":{
+                        required:true,
+                        number:true,
+                        min:101,
+                        max:999
+                    }
                 },
                 messages:{
                     "cpf":{remote:'Esse CPF já foi cadastrado.'}
@@ -35,9 +42,23 @@ $(function(){
                 },
             })
         );
+    });*/
+
+    $("#form-check-participant").validate({
+        rules : {
+            "cpf":{required: true, cpfBR: true}
+        },
+        errorClass: "invalid-feedback",
+        highlight: function(element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).removeClass("is-invalid").addClass("is-valid");
+        },
     });
 
     $(".cpf").mask("999.999.999-99", {autoclear: false});
+    $("#participant-id").mask("999", {autoclear: false});
 
     $(".btn-edit-save").on('click', function(event){
         event.preventDefault();

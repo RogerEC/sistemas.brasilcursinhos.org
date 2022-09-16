@@ -15,17 +15,17 @@
       <form action="/participants/update" method="post" class="row g-2 col form-{{loop.index}}">
         <input type="hidden" name="id" id="id-{{loop.index}}" value="{{participant.id}}">
         <input type="hidden" name="form-code" value="{{formCode}}">
-        <div class="col">
-          <label for="name"><b>Nome:</b></label>
-          <input type="text" name="name" class="form-control" value="{{participant.name}}" disabled readonly required>
+        <div class="col-12">
+          <label for="name-{{loop.index}}"><b>Nome:</b></label>
+          <input type="text" id="name-{{loop.index}}" name="name" class="form-control" value="{{participant.name}}" disabled readonly required>
         </div>
-        <div class="col-3">
-          <label for="name"><b>CPF:</b></label>
-          <input type="text" name="cpf" class="form-control cpf" value="{{"%s.%s.%s-%s"|format(participant.cpf[0:3], participant.cpf[3:3], participant.cpf[6:3], participant.cpf[9:])}}" disabled readonly required>
+        <div class="col-12">
+          <label for="cpf-{{loop.index}}"><b>CPF:</b></label>
+          <input type="text" id="cpf-{{loop.index}}" name="cpf" class="form-control cpf" value="{{"%s.%s.%s-%s"|format(participant.cpf[0:3], participant.cpf[3:3], participant.cpf[6:3], participant.cpf[9:])}}" disabled readonly required>
         </div>
-        <div class="col-4">
-          <label for="name"><b>CUP:</b></label>
-          <input type="text" name="cup" class="form-control" value="{{participant.cup}}" disabled readonly required>
+        <div class="col-12">
+          <label for="cup-{{loop.index}}"><b>CUP:</b></label>
+          <input type="text" id="cup-{{loop.index}}" name="cup" class="form-control" value="{{participant.cup}}" disabled readonly required>
         </div>
       </form>
       <div class="row g-2 col-auto">
@@ -44,7 +44,7 @@
   </div>
 </div>
 {% endfor %}
-<button class="btn btn-secondary-bc" id="btn-new-insertion">
+<button class="btn btn-secondary-bc mb-3" id="btn-new-insertion">
   <span class="material-symbols-outlined">add</span> Inserir novo participante
 </button>
 <div id="new-insertion-field" class="d-none">
@@ -54,17 +54,17 @@
       <form action="/participants/insert" method="post" class="row g-3" id="form-new-activity">
         <div class="row g-2 col">
           <input type="hidden" name="form-code" value="{{formCode}}">
-          <div class="col">
-            <label for="name"><b>Nome:</b></label>
-            <input type="text" name="name" class="form-control" required>
+          <div class="col-12">
+            <label for="name-new"><b>Nome:</b></label>
+            <input type="text" id="name-new" name="name" class="form-control" required>
           </div>
-          <div class="col-3">
-            <label for="name"><b>CPF:</b></label>
-            <input type="text" name="cpf" class="form-control cpf" required>
+          <div class="col-12">
+            <label for="cpf-new"><b>CPF:</b></label>
+            <input type="text" id="cpf-new" name="cpf" class="form-control cpf" required>
           </div>
-          <div class="col-4">
-            <label for="name"><b>CUP:</b></label>
-            <input type="text" name="cup" class="form-control" required>
+          <div class="col-12">
+            <label for="cup-new"><b>CUP:</b></label>
+            <input type="text" id="cup-new" name="cup" class="form-control" required>
           </div>
         </div>
         <div class="row g-2 col-auto">

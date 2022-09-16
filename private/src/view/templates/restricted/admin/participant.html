@@ -1,0 +1,68 @@
+{% extends "restricted/base.html" %}
+
+{% block innerHead %}
+<title>Participantes do Evento - Brasil Cursinhos</title>
+<meta name="keywords" content="Brasil Cursinhos">
+<meta name="description" content="Página de administrador do site Brasil Cursinhos.">
+{% endblock innerHead %}
+
+{% block innerMain %}
+
+{% if statusSearch == true %}
+  {% if error == false %}
+  <h2 class="mt-3 mb-4">Dados do participante:</h2>
+  <div class="card">
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col">
+            <label for="id" class="form-label"><b>Código:</b></label>
+            <input type="text" class="form-control" id="id" readonly disabled value="{{participant.id}}">
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <label for="name" class="form-label"><b>Nome:</b></label>
+          <input type="text" class="form-control" id="name" readonly disabled value="{{participant.name}}">
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <label for="cpf" class="form-label"><b>CPF:</b></label>
+          <input type="text" class="form-control" id="cpf" readonly disabled value="{{"%s.%s.%s-%s"|format(participant.cpf[0:3], participant.cpf[3:3], participant.cpf[6:3], participant.cpf[9:])}}">
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <label for="cup" class="form-label"><b>CUP:</b></label>
+          <input type="text" class="form-control" id="cup" readonly disabled value="{{participant.cup}}">
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <h4 class="text-danger my-3">ERRO!</h4>
+  <p class="text-danger my-3">{{errorMessage}}</p>
+  {% endif %}
+{% endif %}
+<h2 class="mt-3 mb-4">Verificar código do participante</h2>
+<div class="card">
+  <div class="card-body">
+    <form action="" method="post" id="form-check-participant">
+      <input type="hidden" name="form-code" value="{{formCode}}">
+      <div class="row mb-3">
+        <div class="col">
+          <label for="cpf-participant" class="form-label"><b>CPF do participante:</b></label>
+          <input type="text" class="form-control cpf" id="cpf-participant" name="cpf">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-secondary-bc w-100" id="btn-confirm-presence">
+            <span class="material-symbols-outlined">send</span> Confirmar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock innerMain %}

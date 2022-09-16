@@ -11,9 +11,12 @@ class User {
     private static function getLinks()
     {
         return array(
-                    (object) array('name' => 'Gerenciar Perfil', 'url' => '/usuario/profile'),
+                    //(object) array('name' => 'Gerenciar Perfil', 'url' => '/usuario/profile'),
                     (object) array('name' => 'Gerenciar Atividades', 'url' => '/usuario/activities'),
-                    (object) array('name' => 'Gerenciar Participantes', 'url' => '/usuario/participants'));
+                    (object) array('name' => 'Gerenciar Participantes', 'url' => '/usuario/participants'),
+                    (object) array('name' => 'Código do participante', 'url' => '/usuario/participant'),
+                    (object) array('name' => 'Gerenciar Presença', 'url' => '/usuario/presence'),
+                    (object) array('name' => 'Relatório', 'url' => '/usuario/report'));
     }
 
     private static function checkLink($subpage) 
@@ -31,6 +34,10 @@ class User {
             return EventDB::getActivitiesData();
         } else if ($subpage === 'participants') {
             return EventDB::getParticipantsData();
+        } else if($subpage === 'presence') {
+            return EventDB::getActivitiesData();
+        } else if($subpage === 'report') {
+            return EventDB::getPresenceTotal();
         }
         return null;
     }
@@ -63,7 +70,14 @@ class User {
                     $links = self::getLinks();
                     $data = self::getBdData($subpage);
                     $formCode = Authenticator::createFormCode($subpage);
-                    Page::render('@admin/'.$subpage.'.html', ['logoutCode' => $code, 'links' => $links, 'data' => $data, 'formCode' => $formCode]);
+                    $parameters = array('logoutCode' => $code, 'links' => $links, 'data' => $data, 'formCode' => $formCode);
+                    if($subpage === 'presence') {
+                        $parameters['lastActivityId'] = (isset($_SESSION['lastActivityId']))? $_SESSION['lastActivityId']:null;
+                        if(isset($_SESSION['insertPresence']) && $_SESSION['insertPresence'] === true) {
+                            $parameters['lastInsertError'] = $_SESSION['insertPresenceError'];
+                        }
+                    }
+                    Page::render('@admin/'.$subpage.'.html', $parameters);
                 } else {
                     Page::showErrorHttpPage("404");
                     exit;

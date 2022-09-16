@@ -80,9 +80,9 @@ CREATE TABLE IF NOT EXISTS `USERS` (
     `email` VARCHAR(128) NOT NULL,
     `username` VARCHAR(32) NULL DEFAULT NULL,
     `registration` VARCHAR(8) NOT NULL,
-    `passwordHash` VARCHAR(256) NOT NULL,
-    `idType` INT NOT NULL,
-    `idStatus` INT NOT NULL,
+    `passwordHash` VARCHAR(256) NOT NULL DEFAULT '$2y$10$w12meOM5Ktsn338I3mIoIuv9FP96oHwu9M2C4N1QRJ0LWFCZbSNsu',
+    `idType` INT NOT NULL DEFAULT 2,
+    `idStatus` INT NOT NULL DEFAULT 1,
     `accessToken` VARCHAR(64) NULL DEFAULT NULL,
     `tokenDatetime` DATETIME NULL DEFAULT NULL,
     `lastAccess` DATETIME NULL DEFAULT NULL,
@@ -162,13 +162,14 @@ CREATE TABLE IF NOT EXISTS `EVENT_PARTICIPANTS` (
 	-- `email` VARCHAR(128) UNIQUE NOT NULL,
     -- `phone` VARCHAR(16) NOT NULL,
     `cup` VARCHAR(64) NOT NULL,
-    `eventCode` VARCHAR(16) NULL DEFAULT NULL,
+    `code` VARCHAR(16) NULL DEFAULT NULL,
     `createdAt` DATETIME NOT NULL,
     `updatedAt` DATETIME NOT NULL,
 	PRIMARY KEY (`idEventParticipant`),
     UNIQUE INDEX `idxCpf` (`cpf`),
-    UNIQUE INDEX `idxEventCode` (`eventCode`)
+    UNIQUE INDEX `idxEventCode` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+ALTER TABLE `EVENT_PARTICIPANTS` AUTO_INCREMENT=101;
 
 CREATE TABLE IF NOT EXISTS `PRESENCE_IN_ACTIVITIES` (
 	`idPresenceInActivity` INT NOT NULL AUTO_INCREMENT,
@@ -176,10 +177,12 @@ CREATE TABLE IF NOT EXISTS `PRESENCE_IN_ACTIVITIES` (
     `idEventParticipant` INT NOT NULL,
     `idUser` INT NOT NULL,
     `createdAt` DATETIME NOT NULL,
+    `updatedAt` DATETIME NOT NULL,
 	PRIMARY KEY (`idPresenceInActivity`),
     CONSTRAINT `fkPresenceInActivitiesIdEventActivity` FOREIGN KEY (`idEventActivity`) REFERENCES `EVENT_ACTIVITIES`(`idEventActivity`),
     CONSTRAINT `fkPresenceInActivitiesIdEventParticipant` FOREIGN KEY (`idEventParticipant`) REFERENCES `EVENT_PARTICIPANTS`(`idEventParticipant`),
-    CONSTRAINT `fkPresenceInActivitiesIdUser` FOREIGN KEY (`idUser`) REFERENCES `USERS`(`idUser`)
+    CONSTRAINT `fkPresenceInActivitiesIdUser` FOREIGN KEY (`idUser`) REFERENCES `USERS`(`idUser`),
+    UNIQUE INDEX  `idxActivityParticipant` (`idEventActivity`, `idEventParticipant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Restaura as variáveis originais do sistema

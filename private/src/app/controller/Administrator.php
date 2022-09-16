@@ -12,11 +12,14 @@ class Administrator {
     private static function getLinks()
     {
         return array(
-                    (object) array('name' => 'Gerenciar Perfil', 'url' => '/administrador/profile'),
-                    (object) array('name' => 'Gerenciar Usuários', 'url' => '/administrador/users'),
-                    (object) array('name' => 'Gerenciar Eventos', 'url' => '/administrador/events'),
+                    
+                    //(object) array('name' => 'Gerenciar Usuários', 'url' => '/administrador/users'),
+                    //(object) array('name' => 'Gerenciar Eventos', 'url' => '/administrador/events'),
                     (object) array('name' => 'Gerenciar Atividades', 'url' => '/administrador/activities'),
-                    (object) array('name' => 'Gerenciar Participantes', 'url' => '/administrador/participants'));
+                    (object) array('name' => 'Gerenciar Participantes', 'url' => '/administrador/participants'),
+                    (object) array('name' => 'Código do participante', 'url' => '/administrador/participant'),
+                    (object) array('name' => 'Gerenciar Presença', 'url' => '/administrador/presence'),
+                    (object) array('name' => 'Relatório', 'url' => '/administrador/report'));
     }
 
     private static function checkLink($subpage) 
@@ -53,6 +56,10 @@ class Administrator {
             return EventDB::getActivitiesData();
         } else if ($subpage === 'participants') {
             return EventDB::getParticipantsData();
+        } else if($subpage === 'presence') {
+            return EventDB::getActivitiesData();
+        } else if($subpage === 'report') {
+            return EventDB::getPresenceTotal();
         }
         return null;
     }
@@ -66,7 +73,14 @@ class Administrator {
                     $links = self::getLinks();
                     $data = self::getBdData($subpage);
                     $formCode = Authenticator::createFormCode($subpage);
-                    Page::render('@admin/'.$subpage.'.html', ['logoutCode' => $code, 'links' => $links, 'data' => $data, 'formCode' => $formCode]);
+                    $parameters = array('logoutCode' => $code, 'links' => $links, 'data' => $data, 'formCode' => $formCode);
+                    if($subpage === 'presence') {
+                        $parameters['lastActivityId'] = (isset($_SESSION['lastActivityId']))? $_SESSION['lastActivityId']:null;
+                        if(isset($_SESSION['insertPresence']) && $_SESSION['insertPresence'] === true) {
+                            $parameters['lastInsertError'] = $_SESSION['insertPresenceError'];
+                        }
+                    }
+                    Page::render('@admin/'.$subpage.'.html', $parameters);
                 } else {
                     Page::showErrorHttpPage("404");
                     exit;

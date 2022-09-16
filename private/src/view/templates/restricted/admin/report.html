@@ -1,0 +1,15 @@
+{% extends "restricted/base.html" %}
+
+{% block innerHead %}
+<title>Relatório - Brasil Cursinhos</title>
+<meta name="keywords" content="Brasil Cursinhos">
+<meta name="description" content="Página de administrador do site Brasil Cursinhos.">
+{% endblock innerHead %}
+
+{% block innerMain %}
+<h2 class="mt-3">Relatório Geral</h2>
+<p>Atividade - Total de presentes</p>
+{% for activity in data %}
+<p>{{activity.name}} - {{activity.total}}</p>
+{% endfor %}
+{% endblock innerMain %}

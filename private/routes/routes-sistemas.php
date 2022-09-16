@@ -51,6 +51,16 @@ Route::post('/verificar-cpf-participante', 'Event@checkParticipantCpf');
 
 Route::post('/app/login', 'Application@checkLogin');
 
+Route::post('/presence/check', 'Event@checkPresence');
+
+Route::post('/presence/confirm', 'Event@confirmPresence');
+
+Route::post('/presence/cancel', 'Event@cancelPresence');
+
+Route::post('/usuario/participant', 'Event@checkParticipant');
+
+Route::post('/administrador/participant', 'Event@checkParticipant');
+
 if(DEBUG_MODE) {
     Route::get('/teste', 'Teste@showTeste');
 

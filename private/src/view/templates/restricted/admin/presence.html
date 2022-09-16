@@ -1,0 +1,45 @@
+{% extends "restricted/base.html" %}
+
+{% block innerHead %}
+<title>Participantes do Evento - Brasil Cursinhos</title>
+<meta name="keywords" content="Brasil Cursinhos">
+<meta name="description" content="Página de administrador do site Brasil Cursinhos.">
+{% endblock innerHead %}
+
+{% block innerMain %}
+<h2 class="mt-3 mb-4">Marcar presença em atividade</h2>
+{% if lastInsertError == true %}
+<p class="text-danger my-3"><b>ERRO:</b> O Último dado enviado não pode ser salvo, tente novamente.</p>
+{% endif %}
+<div class="card">
+  <div class="card-body">
+    <form action="/presence/check" method="post">
+      <input type="hidden" name="form-code" value="{{formCode}}">
+      <div class="row mb-3">
+        <div class="col">
+          <label for="activity-id" class="form-label"><b>Selecione a atividade:</b></label>
+          <select name="activity-id" id="activity-id" class="form-select" required>
+            <option value="">Selecione...</option>
+            {% for activity in data %}
+            <option value="{{activity.id}}"{{(lastActivityId == activity.id)? ' selected':''}}>{{activity.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <label for="user-code" class="form-label"><b>Código do participante:</b></label>
+          <input type="text" class="form-control" id="participant-id" name="participant-id">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-secondary-bc w-100" id="btn-confirm-presence">
+            <span class="material-symbols-outlined">send</span> Confirmar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock innerMain %}

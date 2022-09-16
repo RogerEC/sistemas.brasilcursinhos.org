@@ -60,7 +60,7 @@ class EventDB extends Database
     public static function getParticipantsData()
     {
         try {
-            $query = parent::connect()->prepare('SELECT `idEventParticipant` AS `id`, `name`, `cpf`, `cup` FROM `EVENT_PARTICIPANTS`');
+            $query = parent::connect()->prepare('SELECT `idEventParticipant` AS `id`, `name`, `cpf`, `cup` FROM `EVENT_PARTICIPANTS` ORDER BY `name` ASC');
             $query->execute();
             $result = $query->fetchAll(PDO::FETCH_OBJ);
             parent::disconnect();
@@ -211,4 +211,92 @@ class EventDB extends Database
             return null;
         }
     }
+
+    public static function getActivityData($id)
+    {
+        try {
+            $query = parent::connect()->prepare('SELECT `idEventActivity` AS `id`, `name`, `local`, DATE_FORMAT(`startDatetime`, "%Y-%m-%dT%H:%i") AS `start`, DATE_FORMAT(`finalDatetime`, "%Y-%m-%dT%H:%i") AS `final` FROM `EVENT_ACTIVITIES` WHERE `idEventActivity` = :activityId LIMIT 1');
+            $query->bindValue(':activityId', $id, PDO::PARAM_INT);
+            $query->execute();
+            $result = $query->fetch(PDO::FETCH_OBJ);
+            parent::disconnect();
+            return $result;
+        } catch (PDOException $exception) {
+            $message = "Error in function EventDB::getActivityData. ID: " . $id;
+            Log::error($message, 'database.log', $exception->getMessage());
+            parent::disconnect();
+            return null;
+        }
+    }
+
+    public static function getParticipantData($code)
+    {
+        try {
+            $query = parent::connect()->prepare('SELECT `idEventParticipant` AS `id`, `name`, `cpf`, `cup` FROM `EVENT_PARTICIPANTS` WHERE `idEventParticipant` = :code LIMIT 1');
+            $query->bindValue(':code', $code, PDO::PARAM_INT);
+            $query->execute();
+            $result = $query->fetch(PDO::FETCH_OBJ);
+            parent::disconnect();
+            return $result;
+        } catch (PDOException $exception) {
+            $message = "Error in function EventDB::getParticipantData. Event Code: " . $code;
+            Log::error($message, 'database.log', $exception->getMessage());
+            parent::disconnect();
+            return null;
+        }
+    }
+
+    public static function getParticipant($cpf)
+    {
+        try {
+            $query = parent::connect()->prepare('SELECT `idEventParticipant` AS `id`, `name`, `cpf`, `cup` FROM `EVENT_PARTICIPANTS` WHERE `cpf` = :cpf LIMIT 1');
+            $query->bindValue(':cpf', $cpf, PDO::PARAM_INT);
+            $query->execute();
+            $result = $query->fetch(PDO::FETCH_OBJ);
+            parent::disconnect();
+            return $result;
+        } catch (PDOException $exception) {
+            $message = "Error in function EventDB::getParticipant. CPF: " . $cpf;
+            Log::error($message, 'database.log', $exception->getMessage());
+            parent::disconnect();
+            return null;
+        }
+    }
+
+    public static function insertPresence($activityId, $participantId, $userId)
+    {
+        try {
+            $query = parent::connect()->prepare('INSERT INTO `PRESENCE_IN_ACTIVITIES` (`idEventActivity`, `idEventParticipant`, `idUser`, `createdAt`, `updatedAt`) VALUES(:activityId, :participantId, :userId, NOW(), NOW()) ON DUPLICATE KEY UPDATE `updatedAt` = NOW()');
+            $query->bindValue(':activityId', $activityId, PDO::PARAM_INT);
+            $query->bindValue(':participantId', $participantId, PDO::PARAM_INT);
+            $query->bindValue(':userId', $userId, PDO::PARAM_INT);
+            $query->execute();
+            return true;
+        } catch (PDOException $exception) {
+            $message = "Error in function EventDB::insertPresence.";
+            $message .= " ActivityID: " . $activityId . " | ParticipantID: " . $participantId;
+            $message .= " | UserID: " . $userId;
+            Log::error($message, 'database.log', $exception->getMessage());
+            parent::disconnect();
+            return false;
+        }
+    }
+
+    public static function getPresenceTotal()
+    {
+        try {
+            $query = parent::connect()->prepare('SELECT ea.`name`, COUNT(pa.`idEventActivity`) AS `total` FROM `PRESENCE_IN_ACTIVITIES` pa INNER JOIN `EVENT_ACTIVITIES` ea ON(ea.`idEventActivity` = pa.`idEventActivity`)  GROUP BY pa.`idEventActivity` ORDER BY ea.`name` ASC');
+            $query->execute();
+            $result = $query->fetchAll(PDO::FETCH_OBJ);
+            parent::disconnect();
+            return $result;
+        } catch (PDOException $exception) {
+            $message = "Error in function EventDB::getPresenceTotal.";
+            Log::error($message, 'database.log', $exception->getMessage());
+            parent::disconnect();
+            return null;
+        }
+    }
+
+    // 
 }
