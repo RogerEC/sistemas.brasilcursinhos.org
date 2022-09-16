@@ -8,6 +8,7 @@
     </author>
     <content src="index.html" />
     <access origin="https://*.brasilcursinhos.org" />
+    <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <preference name="AndroidBlacklistSecureSocketProtocols" value="SSLv3,TLSv1,TLSv1.1" />
 </widget>

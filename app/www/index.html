@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
     <title>BC Scan</title>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:; connect-src https://localhost:7070 http://localhost:7373 http://192.168.0.107:7373 https://sistemas.brasilcursinhos.org">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
@@ -14,20 +14,21 @@
     <meta name="publisher" content="Roger Eliodoro Condras">
     <meta name="rating" content="general">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/outlined.css">
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
-    <header>
-      <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary-color-bc">
+    <header id="header">
+      <nav class="navbar navbar-expand fixed-top navbar-dark bg-primary-color-bc">
         <div class="container-fluid">
-          <a href="/"><img src="/assets/img/logos/bc-branco.png" height="40" alt="Projeto Educação Solidária - Cursinho PES"></a><a class="navbar-brand p-0 me-auto lh-1" href="/"><b class="ps-2 font-bc fs-3">Brasil Cursinhos</b></a>
+          <img src="img/logos/bc-branco.png" height="40" width="40" alt="Logo Brasil Cursinhos"><span class="navbar-brand p-0 me-auto lh-1" href="/"><b class="ps-2 font-bc fs-3">BC Scan</b></span>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-options" aria-controls="navbar-options" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbar-options">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                  <button type="submit" class="btn btn-primary-bc ms-0 ms-lg-3"><b>Logout </b><span class="material-symbols-outlined">logout</span></button>
+                <button type="submit" class="btn btn-primary-bc ms-0 ms-lg-3 d-none" id="btn-logout"><b>Logout </b><span class="material-symbols-outlined">logout</span></button>
               </li>
             </ul>
           </div>
@@ -35,18 +36,76 @@
       </nav>
     </header>
     <main>
-      <section id="login">
-
+      <section id="login" class="h-100">
+        <div class="page-content bg-drawn-75 d-flex justify-content-center align-items-center h-100">
+          <div class="card m-4 maxw-900">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12 col-sm-6 d-flex flex-column justify-content-center">
+                  <img src="img/logos/logo-bc.png" class="px-5 pt-0 pb-3 w-100" alt="Logo Cursinho PES">
+                </div>
+                <form class="col-12 col-sm-6 d-flex flex-column justify-content-center">
+                  <h4 class="card-title mb-2 w-100 text-center">Seja bem-vindo!</h4>
+                  <h6 class="card-subtitle mb-3 text-muted w-100 text-center">Realize o login para continuar</h6>
+                  <p id="msg"></p>
+                  <div class="row mb-3">
+                    <div class="col-12">
+                      <label for="user"><b>Usuário:</b></label>
+                      <input type="text" class="form-control" name="user" id="user" placeholder="CPF, e-mail ou matrícula BC"> 
+                      <label for="user" class="invalid-feedback"></label>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-12">
+                      <label for="password"><b>Senha:</b></label>
+                      <div class="input-group">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Sua senha">
+                        <button class="input-group-text" id="btn-password-visibility" aria-label="Mostrar senha" title="Mostrar senha"><span class="material-symbols-outlined" role="img" aria-hidden="true">visibility</span></button>
+                        <label for="password" class="invalid-feedback"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row g-3">
+                    <div class="col-6 ms-auto">
+                      <button class="btn btn-secondary-bc w-100" id="btn-login"><b>Entrar</b> <span class="material-symbols-outlined">login</span></button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
       <section id="home">
-
+        <div class="container-fluid page-content">
+          <h2>Bem vindo!</h2>
+          <p>Selecione uma opção abaixo</p>
+          <p><button class="btn btn-secondary-bc w-100 btn-select-option" value="check">Verificar cadastro</button></p>
+          <p><button class="btn btn-secondary-bc w-100 btn-select-option" value="register">Credenciamento</button></p>
+          <p><button class="btn btn-secondary-bc w-100 btn-select-option" value="presence">Cadastrar presença</button></p>
+        </div>
+      </section>
+      <section id="activities">
+        <div class="container-fluid page-content">
+          <p>Selecione a atividade para registro</p>
+          <div id="activities-list">
+            <p><button class="btn btn-secondary-bc w-100 btn-activity" value="1">Atividade 01</button></p>
+          </div>
+        </div>
       </section>
       <section id="scan">
-
+        <div class="container-fluid page-content">
+          <p>Scan</p>
+          <div>
+            <canvas id="canvas"></canvas>
+          </div>
+          
+          <button id="btn-scan" class="btn btn-secondary-bc w-100 my-3">Habilitar Scan</button>
+        </div>
       </section>
     </main>
-    <footer>
-
+    <footer class="footer">
+      <p class="my-2">2022 Brasil Cursinhos &copy;</p>
     </footer>
     <script src="cordova.js"></script>
     <script src="js/jquery.js"></script>
@@ -55,6 +114,7 @@
     <script src="js/jquery.validate.min.js"></script>
     <script src="js/additional-methods.min.js"></script>
     <script src="js/messages_pt_BR.min.js"></script>
+    <script src="js/jsQR.js"></script>
     <script src="js/index.js"></script>
   </body>
 </html>

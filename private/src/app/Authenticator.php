@@ -24,6 +24,8 @@ class Authenticator
     const ERROR_INVALID_CPF = 10;
     const ERROR_SENDING_CODE = 11;
     const ERROR_CODE_ALREADY_SENT = 12;
+    const LOGIN_TYPE_SITE = 13;
+    const LOGIN_TYPE_APP = 14;
     
     // Verifica se o usuário está logado
     public static function checkLogin()
@@ -94,7 +96,7 @@ class Authenticator
     }
 
     // Verifica se os dados de login estão corretos e se sim, loga o usuário ou retorna erro.
-    public static function makeLogin($user, $password)
+    public static function makeLogin($user, $password, $loginType = self::LOGIN_TYPE_SITE)
     {
         $password = (empty($password))? false:$password;
 
@@ -118,7 +120,7 @@ class Authenticator
                     return array(
                         'error' => true,
                         'code' => self::ERROR_INVALID_NUMBER,
-                        'userError' => 'Número de CPF ou Matrícula PES inválido!',
+                        'userError' => 'Número de CPF ou Matrícula BC inválido!',
                         'user' => $user
                     );
                 } else {
@@ -183,13 +185,16 @@ class Authenticator
                         AccessDB::updatePasswordHash($userData->idUser, $newHash);
                     }
                     
-                    $_SESSION['userId'] = $userData->idUser;
-                    $_SESSION['userType'] = $userData->type;
+                    if($loginType === self::LOGIN_TYPE_SITE) {
+                        $_SESSION['userId'] = $userData->idUser;
+                        $_SESSION['userType'] = $userData->type;
 
-                    AccessDB::updateAccessLog($userData, true);
-                    
-                    return array('error' => false);
-
+                        AccessDB::updateAccessLog($userData, true);
+                        
+                        return array('error' => false);
+                    } else {
+                        return array('error' => false, 'token' => 'abc123', 'userId' => '123');
+                    }
                 } else {
                     self::makeLogout(true);
                     
@@ -199,6 +204,7 @@ class Authenticator
                         return array(
                             'error' => true,
                             'code' => self::ERROR_BLOCKED_USER,
+                            'systemError' => 'Usuário bloqueado. Contate um administrador'
                         );
                     } else {
                         $attempts = ($userData->accessAttempts > 1)? ' ' . (5-$userData->accessAttempts) . ' tentativas restantes':'';
@@ -213,17 +219,20 @@ class Authenticator
             } else if($userData->status === 'B') {
                 return array(
                     'error' => true,
-                    'code' => self::ERROR_BLOCKED_USER
+                    'code' => self::ERROR_BLOCKED_USER,
+                    'systemError' => 'Usuário bloqueado. Contate o suporte.'
                 );
             } else if ($userData->status === 'I') {
                 return array(
                     'error' => true,
-                    'code' => self::ERROR_INACTIVE_USER
+                    'code' => self::ERROR_INACTIVE_USER,
+                    'systemError' => 'Usuário inativo. Acesso o site sistemas.brasilcursinhos.org para realizar o primeiro acesso e ativar a sua conta'
                 );
             } else {
                 return array(
                     'error' => true,
-                    'code' => self::ERROR_DISABLED_USER
+                    'code' => self::ERROR_DISABLED_USER,
+                    'systemError' => 'Usuário desligado. Contate o suporte.'
                 );
             }
 
@@ -247,7 +256,7 @@ class Authenticator
     // Destrói a sessão, deslogando o usuário do sistema.
     public static function makeLogout($code)
     {
-        if($code === $_SESSION['logoutCode'] || $code === true) {
+        if($code === true || $code === $_SESSION['logoutCode']) {
             
             $_SESSION = array();
 
