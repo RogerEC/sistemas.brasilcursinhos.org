@@ -4,8 +4,8 @@ $(function(){
     let originalCpf = null;
     let forms = [];
 
-    /*$("form").each(function(){
-        if($(this).prop('id') !== 'form-check-participant')
+    $("form").each(function(){
+        if($(this).attr('id') !== 'form-check-participant')
         forms.push($(this).validate({
                 rules : {
                     "name":{required: true, maxlength: 64},
@@ -42,7 +42,7 @@ $(function(){
                 },
             })
         );
-    });*/
+    });
 
     $("#form-check-participant").validate({
         rules : {
