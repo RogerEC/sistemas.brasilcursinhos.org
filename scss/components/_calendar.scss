@@ -1,0 +1,32 @@
+#calendar a{
+    text-decoration: none;
+    color: #3C4043;
+    cursor: pointer;
+
+    &:hover{
+        color: #3C4043;
+    }
+
+}
+
+#calendar .fc-col-header-cell a{
+    cursor: auto;
+}
+
+#calendar .fc-daygrid-day-number {
+    width: 32px;
+    text-align: center;
+    &:hover{
+        border-radius: 100%;
+        background-color: #f1f3f4;
+    }
+}
+
+#calendar .fc-daygrid-day-top {
+    align-items: center;
+    justify-content: center;
+}
+
+#calendar .fc-toolbar-title::first-letter {
+    text-transform: uppercase;
+}

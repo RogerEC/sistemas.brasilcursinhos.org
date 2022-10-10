@@ -9,15 +9,21 @@
     <meta name="keywords" content="Calendário BC; Brasil Cursinhos; Cursinho Universitário Popular">
     <meta name="description" content="Calendário que reune as atividades desenvolvidas pela Brasil Cursinhos.">
     <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">
 {% endblock head %}
 
 {% block main %}
-    <main class="page-content">
-      <div class="home-banner">
-        <div class="shadow-home-banner d-flex align-items-center">
-        
+    <main class="page-content mt-3 mb-5">
+      <div class="container h-100">
+        <div id="calendar" class="h-100">
+
         </div>
       </div>
     </main>
 {% endblock main %}
 
+{% block scriptsJS %}
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js" integrity="sha256-7PzqE1MyWa/IV5vZumk1CVO6OQbaJE4ns7vmxuUP/7g=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/pt-br.js" integrity="sha256-KpUGzpAsxQPvCSbXkxXwKLflaSYWM71QegRMr2oXr0Q=" crossorigin="anonymous"></script>
+<script src="/assets/js/calendar.js" ></script>
+{% endblock scriptsJS %}
