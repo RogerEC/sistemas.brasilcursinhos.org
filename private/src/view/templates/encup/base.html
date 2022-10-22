@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% set includePublicFooter = true %}
+
+{% block head %}
+{% block innerHead %}{% endblock innerHead %}
+<meta name="robots" content="index, follow">
+{% endblock head %}
+
+{%      block main %}
+
+{%      if includeEncupHeader == true %}
+{%          include '@encup/components/header.html' %}
+{%      endif %}
+
+{%      block innerMain %}{% endblock innerMain %}
+
+{% endblock main %}
+
+
+
+
+

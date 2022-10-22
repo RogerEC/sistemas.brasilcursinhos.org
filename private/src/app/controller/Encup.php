@@ -11,4 +11,9 @@ class Encup {
     {   
         Page::render('@encup/homepage.html');
     }
+
+    public function showPhotosPage()
+    {
+        Page::render('@encup/pages/photos.html');
+    }
 }
