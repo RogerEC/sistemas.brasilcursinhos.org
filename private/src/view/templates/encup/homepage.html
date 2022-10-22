@@ -1,17 +1,17 @@
-{% extends "base.html" %}
+{% extends "encup/base.html" %}
 
-{% set includePublicHeader = true %}
+{% set includeEncupHeader = true %}
 {% set includePublicFooter = true %}
 {% set websiteName = 'ENCUP 2022' %}
 
-{% block head %}
+{% block innerHead %}
     <title>ENCUP - Brasil Cursinhos</title>
     <meta name="keywords" content="ENCUP; Brasil Cursinhos; Cursinho Universitário Popular">
     <meta name="description" content="Encontro Nacional de Cursinhos Universitários Populares promovido anualmente pela Brasil Cursinhos.">
     <meta name="robots" content="index, follow">
-{% endblock head %}
+{% endblock innerHead %}
 
-{% block main %}
+{% block innerMain %}
 <main class="page-content bg-drawn d-flex justify-content-center align-items-center">
   <div class="card m-4 w-100 maxw-900">
     <div class="card-header p-0">
@@ -30,5 +30,5 @@
     </div>
   </div>
 </main>
-{% endblock main %}
+{% endblock innerMain %}
 
