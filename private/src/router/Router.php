@@ -9,6 +9,7 @@ use Router\RouteCollection;
 class Router
 {
     protected $route_collection;
+    protected $dispacher;
  
     public function __construct()
     {
