@@ -95,7 +95,6 @@ class Authenticator
         }
     }
 
-    // Verifica se os dados de login estão corretos e se sim, loga o usuário ou retorna erro.
     public static function makeLogin($user, $password, $loginType = self::LOGIN_TYPE_SITE)
     {
         $password = (empty($password))? false:$password;
