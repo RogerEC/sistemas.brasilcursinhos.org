@@ -25,5 +25,7 @@ $(function() {
 
     $(".code-pix-copy-paste").on("click", function(){
         navigator.clipboard.writeText($(this).val());
+        $(".alert-pix").remove();
+        $(this).parent().after('<div class="alert alert-success alert-dismissible fade show alert-pix" role="alert">O Código PIX foi copiado para área de transferência!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
     });
 });
