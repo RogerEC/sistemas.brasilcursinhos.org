@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% set bodyClass = 'bg-drawn' %}
+
+{% block head %}
+<title>Confirmação de Presença em Votação - Brasil Cursinhos</title>
+<meta name="keywords" content="Brasil Cursinhos">
+<meta name="description" content="Página de Confirmação de Presença em Votações da Brasil Cursinhos">
+<meta name="robots" content="noindex, nofollow">
+{% endblock head %}
+
+{% block main %}
+<main class="d-flex justify-content-center align-items-center">
+  <div class="card m-4 maxw-900">
+    <div class="card-header">
+      <h5 class="fw-bold fs-4 text-center mb-0">CONFIRMAÇÃO DE PRESENÇA EM VOTAÇÃO</h5>
+    </div>
+    <div class="card-body">
+    {% if data == false %}
+      <p class="mb-2 text-center">Não foi encontrada nenhuma votação com os parâmetros informados.</p>
+      <p class="mb-0 text-center">Verifique se a URL está correta e tente novamente!</p>
+    {% elseif data.status == 'A' %}
+      
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <p class="mb-2 fs-5 fw-semibold">{{data.name}}</p>
+              <p class="mb-0 fst-italic">{{data.description}}</p>
+            </div>
+            <div class="col-auto">
+              <p class="mb-1 lh-1 fs-2 fw-bolder">{{date}}</p>
+              <p class="mb-0 lh-1 fs-2 fw-bolder text-center">{{time}}</p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <p>Para confirmar a sua presença na votação, informe os dados solicitados abaixo.</p>
+      <form action="/voting/{{code}}" method="post">
+        <input type="text" name="form-code" value="{{formCode}}" hidden>
+        <div class="row mb-3 g-3">
+          <div class="col-md-7">
+            <label for="name" class="form-label"><strong>Nome completo:</strong></label>
+            <input type="text" name="name" id="name" class="form-control">
+          </div>
+          <div class="col-md-5">
+            <label for="cpf" class="form-label"><strong>CPF:</strong></label>
+            <input type="text" name="cpf" id="cpf" class="form-control">
+          </div>
+        </div>
+        <div class="row mb-3 g-3">
+          <div class="col">
+            <label for="email" class="form-label"><strong>E-mail:</strong></label>
+            <input type="text" name="email" id="email" class="form-control">
+          </div>
+        </div>
+        <div class="row mb-3 g-3">
+          <div class="col-md-6">
+            <label for="cup" class="form-label"><strong>CUP que está representando:</strong></label>
+            <select name="cup" id="cup" class="form-select">
+              <option value="" selected>Selecione...</option>
+            {% for cup in cups %}
+              <option value="{{cup.id}}">{{cup.name}}</option>
+            {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="role" class="form-label"><strong>Seu cargo no respectivo CUP:</strong></label>
+            <select name="role" id="role" class="form-select">
+              <option value="" selected>Selecione...</option>
+              <option value="Presidente / Diretor Geral">Presidente / Diretor Geral</option>
+              <option value="Vice-presidente / Vice-Diretor Geral">Vice-presidente / Vice-Diretor Geral</option>
+              <option value="Diretor de área">Diretor de Área</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </div>
+        </div>
+        <div class="w-100 text-center">
+          <button class="btn btn-tertiary-bc w-auto"><strong>Enviar</strong> <span class="material-symbols-outlined">save</span></button>
+        </div>
+      </form>
+    {% else %}
+      inativo
+    {% endif %}
+    </div>
+  </div>
+</main>
+<footer class="w-100 text-white text-center">
+  <p class="my-2 fs-5"><b>{{ "now" | date('Y')}} Brasil Cursinhos ©</b></p>
+</footer>
+{% endblock main %}
+
+{% block scriptsJS %}
+{% include '@links/forms-validation.html' %}
+<script src="/assets/js/pages/voting.js"></script>
+{% endblock scriptsJS %}

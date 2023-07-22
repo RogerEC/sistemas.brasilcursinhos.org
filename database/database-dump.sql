@@ -18,6 +18,9 @@ DROP TABLE IF EXISTS `PRESENCE_IN_ACTIVITIES`;
 DROP TABLE IF EXISTS `EVENT_ACTIVITIES`;
 DROP TABLE IF EXISTS `EVENT_PARTICIPANTS`;
 DROP TABLE IF EXISTS `EVENTS`;
+DROP TABLE IF EXISTS `PRESENCE_IN_VOTINGS`;
+DROP TABLE IF EXISTS `VOTINGS`;
+DROP TABLE IF EXISTS `CUPS`;
 DROP TABLE IF EXISTS `PERSONAL_INFORMATIONS`;
 DROP TABLE IF EXISTS `VERIFICATION_CODES`;
 DROP TABLE IF EXISTS `USERS`;
@@ -68,9 +71,17 @@ INSERT INTO `STATUS` VALUES(5, 'E', 'Enviado', 'VERIFICATION_CODE', NOW(), NOW()
 INSERT INTO `STATUS` VALUES(6, 'C', 'Confirmado', 'VERIFICATION_CODE', NOW(), NOW());
 INSERT INTO `STATUS` VALUES(7, 'EX', 'Expirado', 'VERIFICATION_CODE', NOW(), NOW());
 INSERT INTO `STATUS` VALUES(8, 'NE', 'Não Enviado', 'VERIFICATION_CODE', NOW(), NOW());
-INSERT INTO `STATUS` VALUES(9, 'A', 'Ativo', 'EVENT', NOW(), NOW());
-INSERT INTO `STATUS` VALUES(10, 'I', 'Inativo', 'EVENT', NOW(), NOW());
-INSERT INTO `STATUS` VALUES(11, 'E', 'Encerrado', 'EVENT', NOW(), NOW());
+INSERT INTO `STATUS` VALUES(9, 'A', 'Ativo', 'CUP', NOW(), NOW());
+INSERT INTO `STATUS` VALUES(10, 'I', 'Inativo', 'CUP', NOW(), NOW());
+INSERT INTO `STATUS` VALUES(11, 'S', 'Suspenso', 'CUP', NOW(), NOW());
+INSERT INTO `STATUS` VALUES(12, 'D', 'Desligado', 'CUP', NOW(), NOW());
+INSERT INTO `STATUS` VALUES(13, 'A', 'Aberta', 'VOTING', NOW(), NOW());
+INSERT INTO `STATUS` VALUES(14, 'F', 'Fechada', 'VOTING', NOW(), NOW());
+INSERT INTO `STATUS` VALUES(15, 'E', 'Encerrada', 'VOTING', NOW(), NOW());
+INSERT INTO `STATUS` VALUES(16, 'A', 'Ativo', 'EVENT', NOW(), NOW());
+INSERT INTO `STATUS` VALUES(17, 'I', 'Inativo', 'EVENT', NOW(), NOW());
+INSERT INTO `STATUS` VALUES(18, 'E', 'Encerrado', 'EVENT', NOW(), NOW());
+
 /*!40000 ALTER TABLE `STATUS` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -128,6 +139,92 @@ CREATE TABLE IF NOT EXISTS `PERSONAL_INFORMATIONS` (
 	PRIMARY KEY (`idPersonalInformation`),
     CONSTRAINT `fkPersonalInformationIdUser` FOREIGN KEY (`idUser`) REFERENCES `USERS`(`idUser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `CUPS` (
+    `idCup` INT NOT NULL AUTO_INCREMENT,
+    `fullName` VARCHAR(128) NOT NULL,
+    `shortName` VARCHAR(64) NOT NULL,
+    `username` VARCHAR(32) NOT NULL,
+    `idStatus` INT NOT NULL,
+    `createdAt` DATETIME NOT NULL,
+    `updatedAt` DATETIME NOT NULL,
+    PRIMARY KEY (`idCup`),
+    CONSTRAINT `fkCupsStatus` FOREIGN KEY (`idStatus`) REFERENCES `STATUS`(`idStatus`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 9
+LOCK TABLES `CUPS` WRITE;
+/*!40000 ALTER TABLE `CUPS` DISABLE KEYS */;
+INSERT INTO `CUPS`(`idCup`, `fullName`, `shortName`, `username`, `idStatus`, `createdAt`, `updatedAt`) VALUES
+(1, 'Brasil Cursinhos', 'Brasil Cursinhos', 'brasilcursinhos', 9, NOW(), NOW()),
+(2, 'CASD', 'CASD', 'casd', 9, NOW(), NOW()),
+(3, 'CATS', 'CATS', 'cats', 9, NOW(), NOW()),
+(4, 'CPM - FMRP', 'CPM - FMRP', 'cpmfmrp', 9, NOW(), NOW()),
+(5, 'Cursinho PES', 'Cursinho PES', 'cursinhopes', 9, NOW(), NOW()),
+(6, 'Each USP', 'Each USP', 'eachusp', 9, NOW(), NOW()),
+(7, 'Edificar', 'Edificar', 'edificar', 9, NOW(), NOW()),
+(8, 'Einstein Floripa', 'Einstein Floripa', 'einsteinfloripa', 9, NOW(), NOW()),
+(9, 'Face Educa', 'Face Educa', 'faceeduca', 9, NOW(), NOW()),
+(10, 'FEA USP', 'FEA USP', 'feausp', 9, NOW(), NOW()),
+(11, 'Flavi USP', 'Flavi USP', 'flaviusp', 9, NOW(), NOW()),
+(12, 'Galt Vestibulares', 'Galt Vestibulares', 'galt', 9, NOW(), NOW()),
+(13, 'Garra', 'Garra', 'garra', 9, NOW(), NOW()),
+(14, 'GeraBixo', 'GeraBixo', 'gerabixo', 9, NOW(), NOW()),
+(15, 'Hypatia', 'Hypatia', 'hypatia', 9, NOW(), NOW()),
+(16, 'Insper', 'Insper', 'insper', 9, NOW(), NOW()),
+(17, 'Iny Vestibulares', 'Iny Vestibulares', 'iny', 9, NOW(), NOW()),
+(18, 'MarieCurie', 'MarieCurie', 'mariecurie', 9, NOW(), NOW()),
+(19, 'MedAprova', 'MedAprova', 'medaprova', 9, NOW(), NOW()),
+(20, 'Nubo', 'Nubo', 'nubo', 9, NOW(), NOW()),
+(21, 'Paulo Freire', 'Paulo Freire', 'paulofreire', 9, NOW(), NOW()),
+(22, 'Poli USP', 'Poli USP', 'poliusp', 9, NOW(), NOW()),
+(23, 'PREVEC', 'PREVEC', 'prevec', 9, NOW(), NOW()),
+(24, 'UDESC - Bauneário Camburiú', 'UDESC - Bauneário Camburiú', 'udescbc', 9, NOW(), NOW()),
+(25, 'UDESC - Laguna', 'UDESC - Laguna', 'udesclaguna', 9, NOW(), NOW()),
+(26, 'Vestibular Cidadão', 'Vestibular Cidadão', 'vestibularcidadao', 9, NOW(), NOW());
+/*!40000 ALTER TABLE `CUPS` ENABLE KEYS */;
+UNLOCK TABLES;
+
+CREATE TABLE IF NOT EXISTS `VOTINGS` (
+    `idVoting` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(128) NOT NULL,
+    `description` TEXT,
+    `code` VARCHAR(32) NOT NULL,
+    `link` VARCHAR(128) NOT NULL,
+    `datetime` DATETIME NOT NULL,
+    `idStatus` INT NOT NULL,
+    `createdAt` DATETIME NOT NULL,
+    `updatedAt` DATETIME NOT NULL,
+    PRIMARY KEY (`idVoting`),
+    UNIQUE INDEX `idxVotingsCode` (`code`),
+    UNIQUE INDEX `idxVotingsDatetime` (`datetime` DESC),
+    CONSTRAINT `fkVotingsStatus` FOREIGN KEY (`idStatus`) REFERENCES `STATUS`(`idStatus`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `VOTINGS` WRITE;
+/*!40000 ALTER TABLE `VOTINGS` DISABLE KEYS */;
+/*!40000 ALTER TABLE `VOTINGS` ENABLE KEYS */;
+UNLOCK TABLES;
+
+CREATE TABLE IF NOT EXISTS `PRESENCE_IN_VOTINGS` (
+    `idPresenceInVoting` INT NOT NULL AUTO_INCREMENT,
+    `fullName` VARCHAR(64) NOT NULL,
+    `cpf` VARCHAR(11) NOT NULL,
+    `email` VARCHAR(128) NOT NULL,
+    `role` VARCHAR(64) NOT NULL,
+    `idCup` INT NOT NULL,
+    `idVoting` INT NOT NULL,
+    `createdAt` DATETIME NOT NULL,
+    `updatedAt` DATETIME NOT NULL,
+    PRIMARY KEY (`idPresenceInVoting`),
+    CONSTRAINT `fkPresenceInVotingsCups` FOREIGN KEY (`idCup`) REFERENCES `CUPS`(`idCup`),
+    CONSTRAINT `fkPresenceInVotingsVotings` FOREIGN KEY (`idVoting`) REFERENCES `VOTINGS`(`idVoting`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `VOTINGS` WRITE;
+/*!40000 ALTER TABLE `VOTINGS` DISABLE KEYS */;
+/*!40000 ALTER TABLE `VOTINGS` ENABLE KEYS */;
+UNLOCK TABLES;
 
 CREATE TABLE IF NOT EXISTS `EVENTS` (
 	`idEvent` INT NOT NULL AUTO_INCREMENT,

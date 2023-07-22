@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% set bodyClass = 'bg-drawn' %}
+
+{% block head %}
+<title>Confirmação de Presença em Votação - Brasil Cursinhos</title>
+<meta name="keywords" content="Brasil Cursinhos">
+<meta name="description" content="Página de Confirmação de Presença em Votações da Brasil Cursinhos">
+<meta name="robots" content="noindex, nofollow">
+{% endblock head %}
+
+{% block main %}
+<main class="d-flex justify-content-center align-items-center">
+  <div class="card m-4 maxw-900">
+    <div class="card-header">
+      <h5 class="fw-bold fs-4 text-center mb-0">CONFIRMAÇÃO DE PRESENÇA EM VOTAÇÃO</h5>
+    </div>
+    <div class="card-body">
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <p class="mb-2 fs-5 fw-semibold">{{data.name}}</p>
+              <p class="mb-0 fst-italic">{{data.description}}</p>
+            </div>
+            <div class="col-auto">
+              <p class="mb-1 lh-1 fs-2 fw-bolder">{{date}}</p>
+              <p class="mb-0 lh-1 fs-2 fw-bolder text-center">{{time}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% if error == false %}
+      <p class="mb-2 text-center"><strong>Sua confirmação foi realizada com sucesso!</strong></p>
+      <p class="mb-0 text-center">Quando a votação estiver aberta, você receberá instruções através do endereço de e-mail informado.</p>
+    {% elseif data == false %}
+      <p class="mb-2 text-center">Não foi encontrada nenhuma votação com os parâmetros informados.</p>
+      <p class="mb-0 text-center">Verifique se a URL está correta e tente novamente!</p>
+    {% else %}
+      <p class="mb-4 text-center fs-5 text-uppercase"><strong>Não foi possível realizar a sua confirmação!</strong></p>
+      <p class="mb-4 text-center">{{message}}</p>
+      <p class="mb-4 text-center fw-bold"><a href="/voting/{{code}}">Tentar novamente</a></p>
+    {% endif %}
+    </div>
+  </div>
+</main>
+<footer class="w-100 text-white text-center">
+  <p class="my-2 fs-5"><b>{{ "now" | date('Y')}} Brasil Cursinhos ©</b></p>
+</footer>
+{% endblock main %}
+
+{% block scriptsJS %}
+{% include '@links/forms-validation.html' %}
+<script src="/assets/js/pages/voting.js"></script>
+{% endblock scriptsJS %}

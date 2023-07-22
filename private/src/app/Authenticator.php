@@ -360,7 +360,7 @@ class Authenticator
 
     public static function checkFormCode($code, $page)
     {
-        if($_SESSION['form-codes'][$page] === $code) {
+        if(isset($_SESSION['form-codes'][$page]) && $_SESSION['form-codes'][$page] === $code) {
             return true;
         } else {
             return false;

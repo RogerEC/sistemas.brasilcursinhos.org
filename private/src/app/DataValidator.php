@@ -167,4 +167,23 @@ class DataValidator
         }
         return (Object)$data;
     }
+
+    public static function validatePresenceVoting($post) 
+    {   
+        self::$post = $post;
+        $data = array('error' => false);
+        $data['name'] = self::validateString(self::post('name'));
+        $data['cup'] = self::validateInt(self::post('cup'));
+        $data['cpf'] = self::validateCpf(self::post('cpf'));
+        $data['email'] = self::validateEmail(self::post('email'));
+        $data['role'] = self::validateString(self::post('role'));
+
+        if(empty($data['name']) || $data['cup'] === false || empty($data['role']) ||
+        $data['cpf'] === false || $data['email'] === false) {
+            $data['error'] = true;
+        } else {
+            $data['error'] = false;
+        }
+        return (Object)$data;
+    }
 }

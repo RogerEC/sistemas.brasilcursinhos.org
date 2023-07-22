@@ -14,7 +14,7 @@ class Administrator {
         return array(
                     
                     //(object) array('name' => 'Gerenciar Usuários', 'url' => '/administrador/users'),
-                    //(object) array('name' => 'Gerenciar Eventos', 'url' => '/administrador/events'),
+                    (object) array('name' => 'Gerenciar Votações', 'url' => '/administrador/votings'),
                     (object) array('name' => 'Gerenciar Atividades', 'url' => '/administrador/activities'),
                     (object) array('name' => 'Gerenciar Participantes', 'url' => '/administrador/participants'),
                     (object) array('name' => 'Código do participante', 'url' => '/administrador/participant'),

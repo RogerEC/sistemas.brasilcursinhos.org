@@ -29,6 +29,10 @@ Route::get('/usuario/{subpage}', 'User@showUserSubpage');
 
 Route::get('/administrador/{subpage}', 'Administrator@showAdministratorSubpage');
 
+Route::get('/voting/{code}', 'PublicArea@showPresenceVotingPage');
+
+Route::post('/voting/{code}', 'PublicArea@savePresenceVoting');
+
 Route::post('/activities/delete', 'Event@deleteActivity');
 
 Route::post('/activities/update', 'Event@updateActivity');
