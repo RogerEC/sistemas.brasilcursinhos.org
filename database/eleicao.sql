@@ -1,1 +1,1 @@
-SELECT 'password', c.`username`, pv.`email`, pv.`fullName` FROM `presence_in_votings` pv INNER JOIN `CUPS` c ON (pv.`idCup` = c.`idCup`) WHERE pv.`idVoting` = 1 ORDER BY c.`username` ASC;
+SELECT 'password', c.`username`, pv.`email`, pv.`fullName` FROM `PRESENCE_IN_VOTINGS` pv INNER JOIN `CUPS` c ON (pv.`idCup` = c.`idCup`) WHERE pv.`idVoting` = 1 ORDER BY c.`username` ASC;
