@@ -12,7 +12,7 @@ $(function() {
             $("#pix").addClass("d-none");
             $("#tickets").removeClass("d-none");
         } else {
-            $("#btn-close-modal-subscription").trigger("click");
+            window.location = '/';
         }
     });
 

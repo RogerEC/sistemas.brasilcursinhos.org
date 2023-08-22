@@ -16,4 +16,9 @@ class Encup {
     {
         Page::render('@encup/pages/photos.html');
     }
+
+    public function showExceptionalInscriptionPage()
+    {
+        Page::render('@encup/pages/exceptional-inscription.html');
+    }
 }

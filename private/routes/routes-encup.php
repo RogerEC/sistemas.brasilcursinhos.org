@@ -10,3 +10,5 @@ Route::get(['set' => '/error/{code}', 'as' => 'pageError'], function($code){
 });
 
 Route::get('/fotos', 'Encup@showPhotosPage');
+
+Route::get('/inscricao-excepcional', 'Encup@showExceptionalInscriptionPage');
