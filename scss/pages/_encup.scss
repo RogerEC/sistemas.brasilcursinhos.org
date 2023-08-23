@@ -10,3 +10,26 @@
 	background-color: rgb(0, 0, 0, 0.60);
     height: 100%;
 }
+
+.col-workshop {
+    flex: 0 0 auto;
+    width: 96px;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.col-workshop-name {
+    flex: 0 0 auto;
+    width: 180px;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.encup-popover {
+    max-width: 375px;
+    --bs-popover-border-color: rgb(152, 245, 183);
+    --bs-popover-header-bg: rgb(152, 245, 183);
+    --bs-popover-border-width: 2px;
+}

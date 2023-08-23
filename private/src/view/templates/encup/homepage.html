@@ -43,7 +43,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="modal-subscription" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal-subscription-label" aria-hidden="true">
-  <div class="modal-dialog modal-encup modal-fullscreen-lg-down modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-dialog modal-encup modal-fullscreen-lg-down modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-primary-bc text-white">
         <h1 class="modal-title fs-5 fw-bold" id="modal-subscription-label">Inscrição ENCUP 2023</h1>
@@ -72,14 +72,14 @@
 </div>
 <!-- Modal -->
 <div class="modal fade" id="modal-event-schedule" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal-event-schedule-label" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-primary-bc text-white">
         <h1 class="modal-title fs-3 fw-bold" id="modal-event-schedule-label">PROGRAMAÇÃO ENCUP 2023</h1>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" id="btn-close-modal-event-schedule"></button>
       </div>
       <div class="modal-body">
-        <div class="row g-3">
+        <div class="row g-3" id="schedule">
           <div class="col-12 col-lg-6">
             <div class="card">
               <div class="card-header bg-encup-primary text-white">
@@ -117,6 +117,9 @@
                   <div class="col">
                     Mesa 1: Importância da valorização das diferenças nos Currículos Pedagógicos
                   </div>
+                  <div class="col-auto ps-0">
+                    <button class="btn btn-tertiary-bc" id="btn-table1-info"><span class="material-symbols-outlined">info</span></button>
+                  </div>
                 </div>
                 <div class="row justify-content-center align-items-center mx-0 bg-encup-tertiary py-2 my-2">
                   <div class="col-auto fw-semibold">
@@ -140,7 +143,10 @@
                     15h00 às 16h25
                   </div>
                   <div class="col">
-                    Oficinas temáticas sobre gestão e sala de aula
+                    Oficinas temáticas: gestão e sala de aula
+                  </div>
+                  <div class="col-auto ps-0">
+                    <button class="btn btn-tertiary-bc" id="btn-workshop-info"><span class="material-symbols-outlined">info</span></button>
                   </div>
                 </div>
                 <div class="row justify-content-center align-items-center mx-0  bg-encup-tertiary py-2 my-2">
@@ -157,6 +163,9 @@
                   </div>
                   <div class="col">
                     Mesa 2: O papel das universidades no fortalecimento dos cursinhos populares
+                  </div>
+                  <div class="col-auto ps-0">
+                    <button class="btn btn-tertiary-bc" id="btn-table2-info"><span class="material-symbols-outlined">info</span></button>
                   </div>
                 </div>
                 <div class="row justify-content-center align-items-center mx-0 bg-encup-secondary py-2 mt-2">
@@ -204,8 +213,11 @@
                   <div class="col-auto fw-semibold">
                     10h15 às 11h45
                   </div>
-                  <div class="col">
+                  <div class="col pe-1">
                     Mesa 3: Desdobramentos da Reforma do Ensino Médio: aspectos psicopedagógicos e a atuação dos cursinhos populares
+                  </div>
+                  <div class="col-auto ps-0">
+                    <button class="btn btn-tertiary-bc" id="btn-table3-info"><span class="material-symbols-outlined">info</span></button>
                   </div>
                 </div>
                 <div class="row justify-content-center align-items-center mx-0 bg-encup-tertiary py-2 my-2">
@@ -254,10 +266,163 @@
             </div>
           </div>
         </div>
+        <div class="card d-none" id="workshops">
+          <div class="card-header bg-encup-primary text-white">
+            <h4 class="text-center mb-0 fw-bold">
+              DETALHES DAS OFICINAS
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="row py-3 mb-2 justify-content-center align-items-center mx-0 bg-encup-secondary fw-bold">
+              <div class="col-workshop lh-1 text-center">
+                Público<br>alvo
+              </div>
+              <div class="col">
+                Assunto
+              </div>
+              <div class="col-workshop-name">
+                Convidado
+              </div>
+              <div class="col-workshop">
+                Inscrições
+              </div>
+            </div>
+            <div class="row justify-content-center align-items-center mx-0">
+              <div class="col-workshop fw-semibold">
+                Docentes
+              </div>
+              <div class="col">
+                Planejamento de aulas e unidades de ensino em cursinhos populares
+              </div>
+              <div class="col-workshop-name">
+                <a tabindex="0" id="btn-gabriel" data-bs-trigger="focus" type="button" class="btn" data-bs-toggle="popover" data-bs-custom-class="encup-popover" data-bs-placement="left">Gabriel Saraiva <span class="material-symbols-outlined">info</span></a>
+              </div>
+              <div class="col-workshop">
+                <button class="btn btn-tertiary-bc" id="btn-table1-info"><span class="material-symbols-outlined">edit_note</span></button>
+              </div>
+            </div>
+            <div class="row py-2 my-2 justify-content-center align-items-center mx-0 bg-encup-tertiary">
+              <div class="col-workshop fw-semibold">
+                Gestores
+              </div>
+              <div class="col">
+                Como incentivar uma cultura de dados nos cursinhos
+              </div>
+              <div class="col-workshop-name">
+                <a tabindex="0" id="btn-vitor" data-bs-trigger="focus" type="button" class="btn" data-bs-toggle="popover"  data-bs-custom-class="encup-popover" data-bs-placement="left">Vitor Diego <span class="material-symbols-outlined">info</span></a>
+              </div>
+              <div class="col-workshop">
+                <button class="btn btn-tertiary-bc" id="btn-table1-info"><span class="material-symbols-outlined">edit_note</span></button>
+              </div>
+            </div>
+            <div class="row justify-content-center align-items-center mx-0">
+              <div class="col-workshop fw-semibold">
+                Gestores
+              </div>
+              <div class="col">
+                Linhas tênues entre estudantes
+              </div>
+              <div class="col-workshop-name">
+                <a id="btn-aline" tabindex="0" data-bs-trigger="focus" type="button" class="btn" data-bs-toggle="popover" data-bs-custom-class="encup-popover" data-bs-placement="left">Aline Akimoto <span class="material-symbols-outlined">info</span></a>
+              </div>
+              <div class="col-workshop">
+                <button class="btn btn-tertiary-bc" id="btn-table1-info"><span class="material-symbols-outlined">edit_note</span></button>
+              </div>
+            </div>
+            <div class="row py-2 my-2 justify-content-center align-items-center mx-0 bg-encup-tertiary">
+              <div class="col-workshop fw-semibold">
+                Docentes
+              </div>
+              <div class="col">
+                Práticas pedagógicas antirracistas
+              </div>
+              <div class="col-workshop-name">
+                <a tabindex="0" id="btn-lilian" data-bs-trigger="focus" type="button" class="btn" data-bs-toggle="popover" data-bs-custom-class="encup-popover" data-bs-placement="left">Lilian Moreira <span class="material-symbols-outlined">info</span></a>
+              </div>
+              <div class="col-workshop">
+                <button class="btn btn-tertiary-bc" id="btn-table1-info"><span class="material-symbols-outlined">edit_note</span></button>
+              </div>
+            </div>
+            <div class="row justify-content-center align-items-center mx-0">
+              <div class="col-workshop fw-semibold">
+                Gestores
+              </div>
+              <div class="col">
+                Como captar e manter parcerias para o seu cursinho
+              </div>
+              <div class="col-workshop-name">
+                <a id="btn-arco" tabindex="0" data-bs-trigger="focus" type="button" class="btn" data-bs-toggle="popover" data-bs-custom-class="encup-popover" data-bs-placement="left">Arco Instituto <span class="material-symbols-outlined">info</span></a>
+              </div>
+              <div class="col-workshop">
+                <button class="btn btn-tertiary-bc" id="btn-table1-info"><span class="material-symbols-outlined">edit_note</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card d-none" id="description">
+          <div class="card-header">
+            <h5 class="text-center fw-bold mb-0">
+              MESA X: TÍTULO DA ATIVIDADE
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4">
+                <h4>Objetivo geral</h4>
+                <p>
+                  Apresentar um panorama dos cursinhos populares no Brasil e o papel desempenhado pelas universidades para fortalecê-los. Isso abrange áreas como pesquisa, projetos de extensão, concessão de espaços e outras ações. Vamos abordar como podemos aprofundar e ampliar essas colaborações.
+                </p>
+              </div>
+              <div class="col">
+                <h4>Convidados</h4>
+                <div class="card bg-info-subtle">
+                  <div class="card-body">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-theme="dark">
+                      <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                      </div>
+                      <div class="carousel-inner">
+                        <div class="carousel-item active">
+                          <div class="row">
+                            <div class="col-4">
+                              <img src="/assets/img/logos/bc-colorido.png" class="w-100" alt="">
+                            </div>
+                            <div class="col">
+                              <h5>José Arnaldo Frutuoso Roveda</h5>
+                              <p>
+                                Desde 2003 atua como professor assistente doutor da UNESP - Universidade Estadual Paulista Júlio de Mesquita Filho, no Instituto de Ciência e Tecnologia, campus de Sorocaba. Foi Coordenador do Curso de Engenharia Ambiental no período de 2014 a 2016. Coordenou o Cursinho Gerabixo da Unesp Sorocaba de 2006 a 2019 e agora atua na Supervisão Geral dos Cursinhos da UNESP.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="carousel-item">
+                          TESTE 2
+                        </div>
+                        <div class="carousel-item">
+                          TESTE 3
+                        </div>
+                      </div>
+                      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer bg-primary-bc">
         <div class="w-100 text-center">
-          <button class="btn btn-primary-bc" data-bs-dismiss="modal"><b>
+          <button class="btn btn-primary-bc" id="btn-schedule-page-back"><b>
             <span class="material-symbols-outlined">arrow_back</span>
             Voltar para a página anterior</b>
           </button>
