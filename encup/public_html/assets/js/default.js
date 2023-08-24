@@ -15,7 +15,7 @@ $(function() {
     var optionsLilian = {
         html: true,
         title: "Lilian Moreira",
-        content: '<div class="d-flex justify-content-center"><div class="card overflow-hidden mb-3 w-75"><img src="/assets/img/convidados/lilian-min.png" class="w-100" alt="Vitor"></div></div><p class="mb-0">Licenciada em Química pela Universidade Federal da Bahia (2010). Mestrado em andamento no Programa de Pós Graduação em Ensino e História das Ciências e da Matemática na Universidade Federal do ABC (2021). Atua como professora de Química e orientadora de programa de pré iniciação científica do Colégio Dante Alighieri.</p>'
+        content: '<div class="d-flex justify-content-center"><div class="card overflow-hidden mb-3 w-75"><img src="/assets/img/convidados/lilian-min.png" class="w-100" alt="Vitor"></div></div><p class="mb-0">Licenciada em Química pela Universidade Federal da Bahia, com mestrado em andamento no Programa de Pós-Graduação em Ensino e História das Ciências e da Matemática da Universidade Federal do ABC. Possui experiência profissional na educação básica, nível superior, técnico e em comissão antidiscriminação.</p>'
     }
 
     var optionsGabriel = {
@@ -35,6 +35,11 @@ $(function() {
     var popoverLilian = new bootstrap.Popover($("#btn-lilian"), optionsLilian);
     var popoverGabriel = new bootstrap.Popover($("#btn-gabriel"), optionsGabriel);
     var popoverArco = new bootstrap.Popover($("#btn-arco"), optionsArco);
+    var popoverAline2 = new bootstrap.Popover($("#btn-aline2"), optionsAline);
+    var popoverVitor2 = new bootstrap.Popover($("#btn-vitor2"), optionsVitor);
+    var popoverLilian2 = new bootstrap.Popover($("#btn-lilian2"), optionsLilian);
+    var popoverGabriel2 = new bootstrap.Popover($("#btn-gabriel2"), optionsGabriel);
+    var popoverArco2 = new bootstrap.Popover($("#btn-arco2"), optionsArco);
     
     $(".btn-expand-sidebar").on("click", function(){
         if($(".btn-expand-sidebar").hasClass("collapsed")) {
@@ -96,5 +101,13 @@ $(function() {
     $("#btn-table3-info").on("click", function(){
         $("#schedule").addClass("d-none");
         $("#table-3").removeClass("d-none");
-    })
+    });
+
+    $("#btn-close-modal-event-schedule").on("click", function(){
+        $("#workshops").addClass('d-none');
+        $("#table-1").addClass('d-none');
+        $("#table-2").addClass('d-none');
+        $("#table-3").addClass('d-none');
+        $("#schedule").removeClass("d-none");
+    });
 });
