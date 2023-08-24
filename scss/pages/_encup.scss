@@ -33,3 +33,13 @@
     --bs-popover-header-bg: rgb(152, 245, 183);
     --bs-popover-border-width: 2px;
 }
+
+.carousel-control-next, .carousel-control-prev {
+    width: unset;
+}
+
+.row-carousel {
+    padding-left: 2.25rem;
+    padding-right: 2rem;
+    min-height: 280px;
+}

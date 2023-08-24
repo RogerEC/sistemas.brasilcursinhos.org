@@ -69,6 +69,9 @@ $(function() {
     $("#btn-schedule-page-back").on("click", function(){
         if($("#schedule").hasClass('d-none')) {
             $("#workshops").addClass('d-none');
+            $("#table-1").addClass('d-none');
+            $("#table-2").addClass('d-none');
+            $("#table-3").addClass('d-none');
             $("#schedule").removeClass("d-none");
         } else {
             $("#btn-close-modal-event-schedule").trigger("click");
@@ -79,4 +82,19 @@ $(function() {
         $("#schedule").addClass("d-none");
         $("#workshops").removeClass("d-none");
     });
+
+    $("#btn-table1-info").on("click", function(){
+        $("#schedule").addClass("d-none");
+        $("#table-1").removeClass("d-none");
+    });
+
+    $("#btn-table2-info").on("click", function(){
+        $("#schedule").addClass("d-none");
+        $("#table-2").removeClass("d-none");
+    })
+
+    $("#btn-table3-info").on("click", function(){
+        $("#schedule").addClass("d-none");
+        $("#table-3").removeClass("d-none");
+    })
 });
