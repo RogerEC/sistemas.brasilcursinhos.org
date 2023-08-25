@@ -24,22 +24,30 @@ $(function() {
         content: '<div class="d-flex justify-content-center"><div class="card overflow-hidden mb-3 w-75"><img src="/assets/img/convidados/gabriel-min.png" class="w-100" alt="Vitor"></div></div><p class="mb-0">Mestre em Educação e Licenciado em Química pela Universidade de São Paulo, com pesquisas voltadas ao planejamento de ensino por meio de temas sociocientíficos e da articulação entre aspectos discursivos e estruturais das questões-problema para ensino de Química. Ex-professor do Cursinho Popular Transformação e do Cursinho Popular da EACH-USP, atualmente professor da rede privada na cidade de São Paulo (SP).</p>'
     }
 
-    var optionsArco = {
+    var optionsIgor = {
         html: true,
-        title: "Arco Instituto",
-        content: '<div class="d-flex justify-content-center"><div class="card overflow-hidden mb-3 w-75"><img src="https://brasilcursinhos.org/wp-content/uploads/2021/09/image001-1.png" class="w-100" alt="Arco Instituto"></div></div><p class="mb-0">Arco Instituto.</p>'
+        title: "Igor Moura Guilherme",
+        content: '<div class="d-flex justify-content-center"><div class="card overflow-hidden mb-3 w-75"><img src="/assets/img/convidados/igor.jpeg" class="w-100" alt="Arco Instituto"></div></div><p class="mb-0">Líder do Arco Instituto, negócio do grupo Arco Educação que oferece soluções educacionais para jovens em situação de vulnerabilidade social. Engenheiro de Alimentos pela Universidade Federal do Ceará, trabalha há 7 anos com educação, tendo passado pelo terceiro setor e consultoria.</p>'
+    }
+
+    var optionsPriscila = {
+        html: true,
+        title: "Priscila Martins Baia",
+        content: '<div class="d-flex justify-content-center"><div class="card overflow-hidden mb-3 w-75"><img src="/assets/img/convidados/priscila.jpeg" class="w-100" alt="Arco Instituto"></div></div><p class="mb-0">Consultora pedagógica do Arco Instituto, liderando a produção de conteúdo, implantações, formações e acompanhamento das nossas soluções educacionais com as organizações parceiras. Alumni do Programa de Desenvolvimento de Lideranças do Ensina Brasil, mestra em Ciências Humanas e Sociais Aplicadas, bacharela em Administração e Gestão de Políticas Públicas pela UNICAMP.</p>'
     }
 
     var popoverAline = new bootstrap.Popover($("#btn-aline"), optionsAline);
     var popoverVitor = new bootstrap.Popover($("#btn-vitor"), optionsVitor);
     var popoverLilian = new bootstrap.Popover($("#btn-lilian"), optionsLilian);
     var popoverGabriel = new bootstrap.Popover($("#btn-gabriel"), optionsGabriel);
-    var popoverArco = new bootstrap.Popover($("#btn-arco"), optionsArco);
+    var popoverPriscila = new bootstrap.Popover($("#btn-priscila"), optionsPriscila);
+    var popoverIgor = new bootstrap.Popover($("#btn-igor"), optionsIgor);
     var popoverAline2 = new bootstrap.Popover($("#btn-aline2"), optionsAline);
     var popoverVitor2 = new bootstrap.Popover($("#btn-vitor2"), optionsVitor);
     var popoverLilian2 = new bootstrap.Popover($("#btn-lilian2"), optionsLilian);
     var popoverGabriel2 = new bootstrap.Popover($("#btn-gabriel2"), optionsGabriel);
-    var popoverArco2 = new bootstrap.Popover($("#btn-arco2"), optionsArco);
+    var popoverPriscila2 = new bootstrap.Popover($("#btn-priscila2"), optionsPriscila);
+    var popoverIgor2 = new bootstrap.Popover($("#btn-igor2"), optionsIgor);
     
     $(".btn-expand-sidebar").on("click", function(){
         if($(".btn-expand-sidebar").hasClass("collapsed")) {
