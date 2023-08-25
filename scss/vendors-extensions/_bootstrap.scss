@@ -3,6 +3,10 @@
     text-align: justify !important;
 }
 
+.bi {
+    vertical-align: middle;
+}
+
 // inclusão da exibição do menu dropdowm da navbar ao acionar evento hover
 @media (min-width: 992px) {
     .dropdown:hover>.dropdown-menu {

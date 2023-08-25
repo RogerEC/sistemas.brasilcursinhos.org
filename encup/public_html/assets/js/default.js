@@ -85,6 +85,7 @@ $(function() {
             $("#table-1").addClass('d-none');
             $("#table-2").addClass('d-none');
             $("#table-3").addClass('d-none');
+            $("#lecture").addClass("d-none");
             $("#schedule").removeClass("d-none");
         } else {
             $("#btn-close-modal-event-schedule").trigger("click");
@@ -111,11 +112,17 @@ $(function() {
         $("#table-3").removeClass("d-none");
     });
 
+    $("#btn-lecture-info").on("click", function(){
+        $("#schedule").addClass("d-none");
+        $("#lecture").removeClass("d-none");
+    })
+
     $("#btn-close-modal-event-schedule").on("click", function(){
         $("#workshops").addClass('d-none');
         $("#table-1").addClass('d-none');
         $("#table-2").addClass('d-none');
         $("#table-3").addClass('d-none');
+        $("#lecture").addClass("d-none");
         $("#schedule").removeClass("d-none");
     });
 });
