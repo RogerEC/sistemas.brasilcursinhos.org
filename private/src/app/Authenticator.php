@@ -191,6 +191,7 @@ class Authenticator
                         AccessDB::updateAccessLog($userData, true);
                         
                         return array('error' => false);
+                        
                     } else {
                         return array('error' => false, 'token' => 'abc123', 'userId' => '123');
                     }
