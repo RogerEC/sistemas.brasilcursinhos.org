@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Authenticator;
+use App\DataValidator;
 use App\Page;
 use Database\EventDB;
 use Database\VotingDB;
@@ -169,7 +170,7 @@ class Administrator {
         }
     }
 
-    static public function getVoters($idVoting)
+    static public function getVoters($idVoting, $type)
     {
         if(Authenticator::checkLogin()) {
             if(Authenticator::getUserType() === 'ADMIN') {
@@ -178,13 +179,30 @@ class Administrator {
 
                 if($voting) {
                     $voters = VotingDB::getPrecenceInVoting($idVoting);
-                    header('Content-Type: application/csv; charset=UTF-8');
-                    header('Content-Disposition: attachment; filename="eleitores.csv";');
-
+                    
                     $file = fopen('php://output', 'w');
+                    
+                    if($type === 'ata') {
+                        header('Content-Type: text/txt; charset=UTF-8');
+                        header('Content-Disposition: attachment; filename="eleitores.txt";');
 
-                    foreach ($voters as $voter) {
-                        fwrite($file, 'password,'.$voter->user.','.$voter->email.','.$voter->name.PHP_EOL);
+                        $date = DataValidator::validateDatetime($voting->datetime, 'Y-m-d H:i:s', 'd/m/Y H\hi');
+
+                        fwrite($file, $voting->name . ' | ' . $date . PHP_EOL . PHP_EOL);
+
+                        fwrite($file, 'Nome – CPF – CUP '  . PHP_EOL . PHP_EOL);
+
+                        foreach ($voters as $voter) {
+                            fwrite($file, $voter->name . ' – ' . substr($voter->cpf, 0, 3).'.'.substr($voter->cpf, 3, 3).'.'.substr($voter->cpf, 6, 3).'-'.substr($voter->cpf, 9) . ' - ' . $voter->cup . PHP_EOL);
+                        }
+                        
+                    } else {
+                        header('Content-Type: application/csv; charset=UTF-8');
+                        header('Content-Disposition: attachment; filename="eleitores.csv";');
+
+                        foreach ($voters as $voter) {
+                            fwrite($file, 'password,'.$voter->user.','.$voter->email.','.$voter->name.PHP_EOL);
+                        }
                     }
 
                     fclose($file);

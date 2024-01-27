@@ -116,7 +116,7 @@ class VotingDB extends Database
     public static function getPrecenceInVoting($code)
     {
         try {
-            $query = parent::connect()->prepare('SELECT pv.`fullName` AS `name`, c.`shortName` AS `cup`, pv.`email` AS `email`, c.`username` AS `user`, pv.`role` AS `role` FROM `PRESENCE_IN_VOTINGS` pv INNER JOIN `CUPS` c ON (pv.`idCup` = c.`idCup`) INNER JOIN `VOTINGS` v ON (v.`idVoting` = pv.`idVoting`) WHERE v.`code` = :code ORDER BY c.`shortName` ASC');
+            $query = parent::connect()->prepare('SELECT pv.`fullName` AS `name`, c.`shortName` AS `cup`, pv.`email` AS `email`, c.`username` AS `user`, pv.`role` AS `role`, pv.`cpf` AS `cpf` FROM `PRESENCE_IN_VOTINGS` pv INNER JOIN `CUPS` c ON (pv.`idCup` = c.`idCup`) INNER JOIN `VOTINGS` v ON (v.`idVoting` = pv.`idVoting`) WHERE v.`code` = :code ORDER BY c.`shortName` ASC');
             $query->bindValue(':code', $code, PDO::PARAM_STR);
             $query->execute();
             $result = $query->fetchAll(PDO::FETCH_OBJ);
