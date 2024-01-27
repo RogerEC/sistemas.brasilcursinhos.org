@@ -203,8 +203,6 @@ CREATE TABLE IF NOT EXISTS `VOTINGS` (
 
 LOCK TABLES `VOTINGS` WRITE;
 /*!40000 ALTER TABLE `VOTINGS` DISABLE KEYS */;
-INSERT INTO `votings` (`idVoting`, `name`, `description`, `code`, `link`, `datetime`, `idStatus`, `createdAt`, `updatedAt`) VALUES
-(1, 'Assembleia Geral - Brasil Cursinhos', 'Assembleia Geral para aprovação da proposta de alteração estatutária e votação da entrada de um novo CUP na rede.', 'LvMGy5GovumNEVzQToCu9hepJvaKnTOA', 'https://vote.heliosvoting.org/helios/elections/260b1a98-b34b-4f18-98fc-2dce8f3007d5/view', '2023-07-22 10:30:00', 13, NOW(), NOW());
 /*!40000 ALTER TABLE `VOTINGS` ENABLE KEYS */;
 UNLOCK TABLES;
 

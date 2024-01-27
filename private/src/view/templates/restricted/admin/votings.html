@@ -8,6 +8,26 @@
 
 {% block innerMain %}
 
-<h1>Teste</h1>
+<h2 class="mt-3 mb-4">Gerenciar votações:</h2>
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Votações</h4>
+  </div>
+  <div class="card-body">
+{% for voting in data %}
+    <div class="row {{(loop.index != 1)? 'mt-1 '}}g-3">
+      <div class="col-8">
+        <input type="text" class="form-control" value="{{voting.name}}" disabled>
+      </div>
+      <div class="col-2">
+        <input type="text" class="form-control" value="{{voting.datetime}}" disabled>
+      </div>
+      <div class="col-2">
+        <a href="/administrador/voting/{{voting.id}}" class="btn btn-secondary-bc w-100">Visualizar</a>
+      </div>
+    </div>
+{% endfor %}
+  </div>
+</div>
 
 {% endblock innerMain %}

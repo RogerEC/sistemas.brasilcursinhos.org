@@ -29,6 +29,10 @@ Route::get('/usuario/{subpage}', 'User@showUserSubpage');
 
 Route::get('/administrador/{subpage}', 'Administrator@showAdministratorSubpage');
 
+Route::get('/administrador/voting/{idvoting}', 'Administrator@showVotingPage');
+
+Route::post('/administrador/voting/{idvoting}', 'Administrator@getVoters');
+
 Route::get('/voting/{code}', 'PublicArea@showPresenceVotingPage');
 
 Route::post('/voting/{code}', 'PublicArea@savePresenceVoting');

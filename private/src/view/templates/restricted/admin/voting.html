@@ -1,0 +1,38 @@
+{% extends "restricted/base.html" %}
+
+{% block innerHead %}
+<title>Votações - Brasil Cursinhos</title>
+<meta name="keywords" content="Brasil Cursinhos">
+<meta name="description" content="Página de administrador do site Brasil Cursinhos.">
+{% endblock innerHead %}
+
+{% block innerMain %}
+
+<h2 class="mt-3 mb-4">{{voting.name}} - {{voting.datetime}}</h2>
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Lista de Eleitores</h4>
+  </div>
+  <div class="card-body">
+{% for voter in data %}
+    <div class="row {{(loop.index != 1)? 'mt-1 '}}g-3">
+      <div class="col-5">
+        <input type="text" class="form-control" value="{{voter.name}}" disabled>
+      </div>
+      <div class="col-3">
+        <input type="text" class="form-control" value="{{voter.cup}}" disabled>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control" value="{{voter.role}}" disabled>
+      </div>
+    </div>
+{% endfor %}
+    <div class="row mt-3 text-center">
+        <form action="/administrador/voting/{{voting.code}}" method="post">
+            <button class="btn btn-secondary-bc"><span class="material-symbols-outlined"> download </span> Baixar Lista de Eleitores</button>
+        </form>
+    </div>
+  </div>
+</div>
+
+{% endblock innerMain %}

@@ -61,6 +61,8 @@ class PublicArea {
                         } else {
                             if($insert->errorCode === 'DUPLICATE') {
                                 $message = 'Já existe um representante cadastrado para o seu CUP nesta votação (nome: '.$insert->name.'). Apenas um membro por CUP pode votar nas Assembleias da Brasil Cursinhos.';
+                            } else if ($insert->errorCode === 'DUPLICATE_CPF') {
+                                $message = 'Já existe um representante cadastrado com o mesmo número de CPF ou endereço de e-mail nesta votação (nome: '.$insert->name.'). Um membro pode representar apenas um CUP em cada votação.';
                             } else {
                                 $message = 'Houve um erro ao inserir os seus dados no banco de dados, tente novamente mais tarde';
                             }
