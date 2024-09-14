@@ -1,6 +1,6 @@
 $(function() {
 
-    var optionsAline = {
+    /*var optionsAline = {
         html: true,
         title: "Aline dos Santos Akimoto",
         content: '<div class="d-flex justify-content-center"><div class="card overflow-hidden mb-3 w-75"><img src="/assets/img/convidados/aline-min.png" class="w-100" alt="Aline"></div></div><p class="mb-1">Psicóloga graduada pela universidade São Judas Tadeu em 2012 (graças ao Prouni e Fies)</p><p class="mb-1">Tem aprimoramento em Psicologia e Intervenção escolar pela mesma instituição</p><p class="mb-1">Especialista em Terapia Cognitivo Comportamental</p><p class="mb-1">Psicopedagoga clínica e institucional</p><p class="mb-1">Responsável pelo serviço de Apoio Psicológico do cursinho Each USP desde 2020</p><p class="mb-1">Psicóloga voluntária no coletivo Prateleira de Quadrinhos desde 2021</p><p class="mb-0">Atua como psicóloga clínica em consultório particular.</p>'
@@ -47,7 +47,7 @@ $(function() {
     var popoverLilian2 = new bootstrap.Popover($("#btn-lilian2"), optionsLilian);
     var popoverGabriel2 = new bootstrap.Popover($("#btn-gabriel2"), optionsGabriel);
     var popoverPriscila2 = new bootstrap.Popover($("#btn-priscila2"), optionsPriscila);
-    var popoverIgor2 = new bootstrap.Popover($("#btn-igor2"), optionsIgor);
+    var popoverIgor2 = new bootstrap.Popover($("#btn-igor2"), optionsIgor);*/
     
     $(".btn-expand-sidebar").on("click", function(){
         if($(".btn-expand-sidebar").hasClass("collapsed")) {

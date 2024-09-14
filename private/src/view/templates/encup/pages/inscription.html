@@ -1,0 +1,367 @@
+{% extends "encup/base.html" %}
+
+{% set includeEncupHeader = false %}
+{% set includePublicFooter = false %}
+{% set websiteName = 'ENCUP 2022' %}
+
+{% block innerHead %}
+    <title>ENCUP - Brasil Cursinhos</title>
+    <meta name="keywords" content="ENCUP; Brasil Cursinhos; Cursinho Universitário Popular">
+    <meta name="description" content="Encontro Nacional de Cursinhos Universitários Populares promovido anualmente pela Brasil Cursinhos.">
+    <meta name="robots" content="noindex, nofollow">
+{% endblock innerHead %}
+
+{% block innerMain %}
+<main class="bg-drawn d-flex justify-content-center align-items-center">
+  <div class="card m-3 m-lg-5 w-100 maxw-900  border-0">
+    <div class="card-header">
+      <h4 class="text-center mb-0 fw-bold">INSTRUÇÕES PARA COMPRA DO INGRESSO E INSCRIÇÃO ENCUP 2024</h4>
+    </div>
+    <div class="card-body">
+      <div id="tickets">
+        <p class="text-center mb-1">
+          <b>1º</b> Selecione o seu ingresso e realize o pagamento via PIX* ou através do PagBank em até 2 vezes no cartão*.
+        </p>
+        <p class="text-center">
+          <b>2º</b> Preencha o formulário de inscrição. <span class="fw-medium">Você precisará anexar o comprovante de pagamento no formulário.</span>
+        </p>
+        <p class="text-center fs-7">
+          <b>*Por quê cobramos ingresso?</b> Esse valor é revertido como ajuda de custos na compra do café da manhã / coffee break, kit do participante e&nbsp;pagamento&nbsp;das diárias na hospedagem. Além destes, existem custos relativos a utilização do espaço, material gráfico e fotos/transmissão.</span>
+        </p>
+        <div class="card mb-3">
+          <div class="card-header">
+            <h5 class="fw-bold mb-0">INGRESSO COMUM (SEM ESTADIA)</h5>
+          </div>
+          <div class="card-body px-3 px-lg-0">
+            <div class="row">
+              <div class="col-lg-6">
+                <p class="mb-2 ms-0 ms-lg-2">
+                  <span class="material-symbols-outlined">confirmation_number</span>
+                  Ingresso 1 dia (sábado ou domingo): R$ 40,00
+                </p>
+                <div class="w-100 text-center">
+                  <button class="btn btn-tertiary-bc w-auto fw-bold btn-pay-with-pix m-1" value="1">Pagar com PIX <span class="material-symbols-outlined">qr_code_2</span></button>
+                  <a class="btn btn-tertiary-bc w-auto fw-bold py-1 text-decoration-none m-1" href="https://pag.ae/7Zz8gvmG5" target="_blank">Pagar com <img src="/assets/img/logos/pagbank.png" alt="Logo PagBank" height="27.2px"></a>
+                </div>
+              </div>
+              <div class="col-lg-6 mt-3 mt-lg-0">
+                <p class="mb-2 ms-0 ms-lg-2">
+                  <span class="material-symbols-outlined">confirmation_number</span>
+                  Ingresso 2 dias (sábado e domingo): R$ 60,00
+                </p>
+                <div class="w-100 text-center">
+                  <button class="btn btn-tertiary-bc w-auto fw-bold btn-pay-with-pix m-1" value="2">Pagar com PIX <span class="material-symbols-outlined">qr_code_2</span></button>
+                  <a class="btn btn-tertiary-bc w-auto fw-bold py-1 text-decoration-none m-1" href="https://pag.ae/7Zz8hjHYQ" target="_blank">Pagar com <img src="/assets/img/logos/pagbank.png" alt="Logo PagBank" height="27.2px"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="fw-bold mb-0">INGRESSO COM ESTADIA (1 DIÁRIA)</h5>
+              </div>
+              <div class="card-body px-3 px-lg-0">
+                <p class="mb-2 ms-0 ms-lg-3">
+                  <span class="material-symbols-outlined">confirmation_number</span>
+                  Hostel econômico (Quintal):  R$ 90,00
+                </p>
+                <div class="w-100 text-center mb-3">
+                  <button class="btn btn-tertiary-bc w-auto fw-bold btn-pay-with-pix m-1" value="3">Pagar com PIX <span class="material-symbols-outlined">qr_code_2</span></button>
+                  <a class="btn btn-tertiary-bc w-auto fw-bold py-1 text-decoration-none m-1" href="https://pag.ae/7Zz8iPoVq" target="_blank">Pagar com <img src="/assets/img/logos/pagbank.png" alt="Logo PagBank" height="27.2px"></a>
+                </div>
+                <p class="mb-2 ms-0 ms-lg-3">
+                  <span class="material-symbols-outlined">confirmation_number</span>
+                  Hostel conforto (Tapera):  R$ 105,00
+                </p>
+                <div class="w-100 text-center mb-3">
+                  <button class="btn btn-tertiary-bc w-auto fw-bold btn-pay-with-pix m-1" value="4">Pagar com PIX <span class="material-symbols-outlined">qr_code_2</span></button>
+                  <a class="btn btn-tertiary-bc w-auto fw-bold py-1 text-decoration-none m-1" href="https://pag.ae/7Zz8jMBjv" target="_blank">Pagar com <img src="/assets/img/logos/pagbank.png" alt="Logo PagBank" height="27.2px"></a>
+                </div>
+                <p class="mb-2 ms-0 ms-lg-3">
+                  <span class="material-symbols-outlined">confirmation_number</span>
+                  Hotel Ibis Tatuapé: R$ 130,00
+                </p>
+                <div class="w-100 text-center">
+                  <button class="btn btn-tertiary-bc w-auto fw-bold btn-pay-with-pix m-1" value="5">Pagar com PIX <span class="material-symbols-outlined">qr_code_2</span></button>
+                  <a class="btn btn-tertiary-bc w-auto fw-bold py-1 text-decoration-none m-1" href="https://pag.ae/7Zz8kLuCQ" target="_blank">Pagar com <img src="/assets/img/logos/pagbank.png" alt="Logo PagBank" height="27.2px"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="fw-bold mb-0">INGRESSO COM ESTADIA (2 DIÁRIAS)</h5>
+              </div>
+              <div class="card-body px-3 px-lg-0">
+                <p class="mb-2 ms-0 ms-lg-3">
+                  <span class="material-symbols-outlined">confirmation_number</span>
+                  Hostel econômico (Quintal):  R$ 140,00
+                </p>
+                <div class="w-100 text-center mb-3">
+                  <button class="btn btn-tertiary-bc w-auto fw-bold btn-pay-with-pix m-1" value="6">Pagar com PIX <span class="material-symbols-outlined">qr_code_2</span></button>
+                  <a class="btn btn-tertiary-bc w-auto fw-bold py-1 text-decoration-none  m-1" href="https://pag.ae/7Zz8mBfjq" target="_blank">Pagar com <img src="/assets/img/logos/pagbank.png" alt="Logo PagBank" height="27.2px"></a>
+                </div>
+                <p class="mb-2 ms-0 ms-lg-3">
+                  <span class="material-symbols-outlined">confirmation_number</span>
+                  Hostel conforto (Tapera):  R$ 180,00
+                </p>
+                <div class="w-100 text-center mb-3">
+                  <button class="btn btn-tertiary-bc w-auto fw-bold btn-pay-with-pix m-1" value="7">Pagar com PIX <span class="material-symbols-outlined">qr_code_2</span></button>
+                  <a class="btn btn-tertiary-bc w-auto fw-bold py-1 text-decoration-none m-1" href="https://pag.ae/7Zz8nfueq" target="_blank">Pagar com <img src="/assets/img/logos/pagbank.png" alt="Logo PagBank" height="27.2px"></a>
+                </div>
+                <p class="mb-2 ms-0 ms-lg-3">
+                  <span class="material-symbols-outlined">confirmation_number</span>
+                  Hotel Ibis Tatuapé: R$ 230,00
+                </p>
+                <div class="w-100 text-center">
+                  <button class="btn btn-tertiary-bc w-auto fw-bold btn-pay-with-pix m-1" value="8">Pagar com PIX <span class="material-symbols-outlined">qr_code_2</span></button>
+                  <a class="btn btn-tertiary-bc w-auto fw-bold py-1 text-decoration-none m-1" href="https://pag.ae/7Zz8n_YxK" target="_blank">Pagar com <img src="/assets/img/logos/pagbank.png" alt="Logo PagBank" height="27.2px"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="pix" class="d-none">
+        <div class="card">
+          <div class="card-header text-center">
+            <h5 class="mb-0 fw-bold">INSTRUÇÕES PARA PAGAMENTO VIA PIX</h5>
+          </div>
+          <div class="card-body">
+            <div class="row code-pix" id="code-pix-1">
+              <div class="col-lg-auto text-center">
+                <img src="/assets/img/pix/01.png" width="280" alt="QR Code">
+              </div>
+              <div class="col-lg">
+                <div class="row mb-3">
+                  <div class="col">
+                    <div class="fs-5 fw-bold">
+                      INGRESSO SEM ESTADIA
+                    </div>
+                    <div class="fw-semibold">
+                      1 dia de evento (sábado ou domingo)
+                    </div>
+                  </div>
+                  <div class="col-auto fw-bold fs-2">
+                    R$ 40,00
+                  </div>
+                </div>
+                <p class="mb-1 fw-normal">Copie o código abaixo ou use o QR Code ao lado para efetuar o pagamento através do aplicativo do seu banco.</p>
+                <div class="input-group mb-3">
+                  <textarea class="form-control resize-none word-break bg-secondary-subtle code-pix-copy-paste" id="code-pix-copy-paste-1" rows="3" readonly>00020126450014BR.GOV.BCB.PIX0123doe@brasilcursinhos.org520400005303986540540.005802BR5916Brasil Cursinhos6009Sao Paulo62180514SEMESTADIA1DIA6304D56E</textarea>
+                  <label for="code-pix-copy-paste-1" class="input-group-text bg-secondary-subtle"><span class="material-symbols-outlined"> file_copy </span></label>
+                </div>
+                <p class="mb-1"><b>Beneficiário:</b> Brasil Cursinhos <b class="ms-0 ms-sm-3">CNPJ:</b>&nbsp;27.529.813/0001-20</p>
+                <p class="mb-0"><b>Chave Pix:</b> doe@brasilcursinhos.org</p>
+              </div>
+            </div>
+            <div class="row code-pix" id="code-pix-2">
+              <div class="col-lg-auto text-center">
+                <img src="/assets/img/pix/02.png" width="280" alt="QR Code">
+              </div>
+              <div class="col-lg">
+                <div class="row mb-3">
+                  <div class="col">
+                    <div class="fs-5 fw-bold">
+                      INGRESSO SEM ESTADIA
+                    </div>
+                    <div class="fw-semibold">
+                      2 dias de evento (sábado e domingo)
+                    </div>
+                  </div>
+                  <div class="col-auto fw-bold fs-2">
+                    R$ 60,00
+                  </div>
+                </div>
+                <p class="mb-1 fw-normal">Copie o código abaixo ou use o QR Code ao lado para efetuar o pagamento através do aplicativo do seu banco.</p>
+                <div class="input-group mb-3">
+                  <textarea class="form-control resize-none word-break bg-secondary-subtle code-pix-copy-paste" id="code-pix-copy-paste-2" rows="3" readonly>00020126450014BR.GOV.BCB.PIX0123doe@brasilcursinhos.org520400005303986540560.005802BR5916Brasil Cursinhos6009Sao Paulo62180514SEMESTADIA2DIA6304F657</textarea>
+                  <label for="code-pix-copy-paste-2" class="input-group-text bg-secondary-subtle"><span class="material-symbols-outlined"> file_copy </span></label>
+                </div>
+                <p class="mb-1"><b>Beneficiário:</b> Brasil Cursinhos <b class="ms-0 ms-sm-3">CNPJ:</b>&nbsp;27.529.813/0001-20</p>
+                <p class="mb-0"><b>Chave Pix:</b> doe@brasilcursinhos.org</p>
+              </div>
+            </div>
+            <div class="row code-pix" id="code-pix-3">
+              <div class="col-lg-auto text-center">
+                <img src="/assets/img/pix/03.png" width="280" alt="QR Code">
+              </div>
+              <div class="col-lg">
+                <div class="row mb-3">
+                  <div class="col">
+                    <div class="fs-5 fw-bold">
+                      INGRESSO COM ESTADIA
+                    </div>
+                    <div class="fw-semibold">
+                      2 dias de evento + 1 estadia Hostel Quarto
+                    </div>
+                  </div>
+                  <div class="col-auto fw-bold fs-2">
+                    R$ 90,00
+                  </div>
+                </div>
+                <p class="mb-1 fw-normal">Copie o código abaixo ou use o QR Code ao lado para efetuar o pagamento através do aplicativo do seu banco.</p>
+                <div class="input-group mb-3">
+                  <textarea class="form-control resize-none word-break bg-secondary-subtle code-pix-copy-paste" id="code-pix-copy-paste-3" rows="3" readonly>00020126450014BR.GOV.BCB.PIX0123doe@brasilcursinhos.org520400005303986540590.005802BR5916Brasil Cursinhos6009Sao Paulo62200516HOSTELQUARTO1DIA63045B72</textarea>
+                  <label for="code-pix-copy-paste-3" class="input-group-text bg-secondary-subtle"><span class="material-symbols-outlined"> file_copy </span></label>
+                </div>
+                <p class="mb-1"><b>Beneficiário:</b> Brasil Cursinhos <b class="ms-0 ms-sm-3">CNPJ:</b>&nbsp;27.529.813/0001-20</p>
+                <p class="mb-0"><b>Chave Pix:</b> doe@brasilcursinhos.org</p>
+              </div>
+            </div>
+            <div class="row code-pix" id="code-pix-4">
+              <div class="col-lg-auto text-center">
+                <img src="/assets/img/pix/04.png" width="280" alt="QR Code">
+              </div>
+              <div class="col-lg">
+                <div class="row mb-3">
+                  <div class="col">
+                    <div class="fs-5 fw-bold">
+                      INGRESSO COM ESTADIA
+                    </div>
+                    <div class="fw-semibold">
+                      2 dias de evento + 1 estadia Hostel Tapera
+                    </div>
+                  </div>
+                  <div class="col-auto fw-bold fs-2">
+                    R$ 105,00
+                  </div>
+                </div>
+                <p class="mb-1 fw-normal">Copie o código abaixo ou use o QR Code ao lado para efetuar o pagamento através do aplicativo do seu banco.</p>
+                <div class="input-group mb-3">
+                  <textarea class="form-control resize-none word-break bg-secondary-subtle code-pix-copy-paste" id="code-pix-copy-paste-4" rows="3" readonly>00020126450014BR.GOV.BCB.PIX0123doe@brasilcursinhos.org5204000053039865406105.005802BR5916Brasil Cursinhos6009Sao Paulo62200516HOSTELTAPERA1DIA6304C133</textarea>
+                  <label for="code-pix-copy-paste-4" class="input-group-text bg-secondary-subtle"><span class="material-symbols-outlined"> file_copy </span></label>
+                </div>
+                <p class="mb-1"><b>Beneficiário:</b> Brasil Cursinhos <b class="ms-0 ms-sm-3">CNPJ:</b>&nbsp;27.529.813/0001-20</p>
+                <p class="mb-0"><b>Chave Pix:</b> doe@brasilcursinhos.org</p>
+              </div>
+            </div>
+            <div class="row code-pix" id="code-pix-5">
+              <div class="col-lg-auto text-center">
+                <img src="/assets/img/pix/05.png" width="280" alt="QR Code">
+              </div>
+              <div class="col-lg">
+                <div class="row mb-3">
+                  <div class="col">
+                    <div class="fs-5 fw-bold">
+                      INGRESSO COM ESTADIA
+                    </div>
+                    <div class="fw-semibold">
+                      2 dias de evento + 1 estadia Hotel Ibis
+                    </div>
+                  </div>
+                  <div class="col-auto fw-bold fs-2">
+                    R$ 130,00
+                  </div>
+                </div>
+                <p class="mb-1 fw-normal">Copie o código abaixo ou use o QR Code ao lado para efetuar o pagamento através do aplicativo do seu banco.</p>
+                <div class="input-group mb-3">
+                  <textarea class="form-control resize-none word-break bg-secondary-subtle code-pix-copy-paste" id="code-pix-copy-paste-5" rows="3" readonly>00020126450014BR.GOV.BCB.PIX0123doe@brasilcursinhos.org5204000053039865406130.005802BR5916Brasil Cursinhos6009Sao Paulo62170513HOTELIBIS1DIA6304C756</textarea>
+                  <label for="code-pix-copy-paste-5" class="input-group-text bg-secondary-subtle"><span class="material-symbols-outlined"> file_copy </span></label>
+                </div>
+                <p class="mb-1"><b>Beneficiário:</b> Brasil Cursinhos <b class="ms-0 ms-sm-3">CNPJ:</b>&nbsp;27.529.813/0001-20</p>
+                <p class="mb-0"><b>Chave Pix:</b> doe@brasilcursinhos.org</p>
+              </div>
+            </div>
+            <div class="row code-pix" id="code-pix-6">
+              <div class="col-lg-auto text-center">
+                <img src="/assets/img/pix/06.png" width="280" alt="QR Code">
+              </div>
+              <div class="col-lg">
+                <div class="row mb-3">
+                  <div class="col">
+                    <div class="fs-5 fw-bold">
+                      INGRESSO COM ESTADIA
+                    </div>
+                    <div class="fw-semibold">
+                      2 dias de evento + 2 estadias Hostel Quarto
+                    </div>
+                  </div>
+                  <div class="col-auto fw-bold fs-2">
+                    R$ 140,00
+                  </div>
+                </div>
+                <p class="mb-1 fw-normal">Copie o código abaixo ou use o QR Code ao lado para efetuar o pagamento através do aplicativo do seu banco.</p>
+                <div class="input-group mb-3">
+                  <textarea class="form-control resize-none word-break bg-secondary-subtle code-pix-copy-paste" id="code-pix-copy-paste-6" rows="3" readonly>00020126450014BR.GOV.BCB.PIX0123doe@brasilcursinhos.org5204000053039865406140.005802BR5916Brasil Cursinhos6009Sao Paulo62220518HOSTELQUINTAL2DIAS63045D90</textarea>
+                  <label for="code-pix-copy-paste-6" class="input-group-text bg-secondary-subtle"><span class="material-symbols-outlined"> file_copy </span></label>
+                </div>
+                <p class="mb-1"><b>Beneficiário:</b> Brasil Cursinhos <b class="ms-0 ms-sm-3">CNPJ:</b>&nbsp;27.529.813/0001-20</p>
+                <p class="mb-0"><b>Chave Pix:</b> doe@brasilcursinhos.org</p>
+              </div>
+            </div>
+            <div class="row code-pix" id="code-pix-7">
+              <div class="col-lg-auto text-center">
+                <img src="/assets/img/pix/07.png" width="280" alt="QR Code">
+              </div>
+              <div class="col-lg">
+                <div class="row mb-3">
+                  <div class="col">
+                    <div class="fs-5 fw-bold">
+                      INGRESSO COM ESTADIA
+                    </div>
+                    <div class="fw-semibold">
+                      2 dias de evento + 2 estadias Hostel Tapera
+                    </div>
+                  </div>
+                  <div class="col-auto fw-bold fs-2">
+                    R$ 180,00
+                  </div>
+                </div>
+                <p class="mb-1 fw-normal">Copie o código abaixo ou use o QR Code ao lado para efetuar o pagamento através do aplicativo do seu banco.</p>
+                <div class="input-group mb-3">
+                  <textarea class="form-control resize-none word-break bg-secondary-subtle code-pix-copy-paste" id="code-pix-copy-paste-7" rows="3" readonly>00020126450014BR.GOV.BCB.PIX0123doe@brasilcursinhos.org5204000053039865406180.005802BR5916Brasil Cursinhos6009Sao Paulo62210517HOSTELTAPERA2DIAS6304BA19</textarea>
+                  <label for="code-pix-copy-paste-7" class="input-group-text bg-secondary-subtle"><span class="material-symbols-outlined"> file_copy </span></label>
+                </div>
+                <p class="mb-1"><b>Beneficiário:</b> Brasil Cursinhos <b class="ms-0 ms-sm-3">CNPJ:</b>&nbsp;27.529.813/0001-20</p>
+                <p class="mb-0"><b>Chave Pix:</b> doe@brasilcursinhos.org</p>
+              </div>
+            </div>
+            <div class="row code-pix" id="code-pix-8">
+              <div class="col-lg-auto text-center">
+                <img src="/assets/img/pix/08.png" width="280" alt="QR Code">
+              </div>
+              <div class="col-lg">
+                <div class="row mb-3">
+                  <div class="col">
+                    <div class="fs-5 fw-bold">
+                      INGRESSO COM ESTADIA
+                    </div>
+                    <div class="fw-semibold">
+                      2 dias de evento + 2 estadias Hotel Ibis
+                    </div>
+                  </div>
+                  <div class="col-auto fw-bold fs-2">
+                    R$ 230,00
+                  </div>
+                </div>
+                <p class="mb-1 fw-normal">Copie o código abaixo ou use o QR Code ao lado para efetuar o pagamento através do aplicativo do seu banco.</p>
+                <div class="input-group mb-3">
+                  <textarea class="form-control resize-none word-break bg-secondary-subtle code-pix-copy-paste" id="code-pix-copy-paste-8" rows="3" readonly>00020126450014BR.GOV.BCB.PIX0123doe@brasilcursinhos.org5204000053039865406230.005802BR5916Brasil Cursinhos6009Sao Paulo62180514HOTELIBIS2DIAS63043621</textarea>
+                  <label for="code-pix-copy-paste-8" class="input-group-text bg-secondary-subtle"><span class="material-symbols-outlined"> file_copy </span></label>
+                </div>
+                <p class="mb-1"><b>Beneficiário:</b> Brasil Cursinhos <b class="ms-0 ms-sm-3">CNPJ:</b>&nbsp;27.529.813/0001-20</p>
+                <p class="mb-0"><b>Chave Pix:</b> doe@brasilcursinhos.org</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="w-100 text-center">
+        <button class="btn btn-primary-bc" id="btn-page-back-ex"><b>
+          <span class="material-symbols-outlined">arrow_back</span>
+          Voltar para o site do ENCUP</b>
+        </button>
+        <a href="https://forms.gle/MRNwb2SvSGq1F3wo7" target="_blank" class="btn btn-tertiary-bc text-decoration-none m-1 minw-240 w-auto"><b>Abrir Formulário de Inscrição</b> <span class="material-symbols-outlined">edit_note</span></a>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock innerMain %}
+

@@ -9,7 +9,7 @@ class Encup {
     // exibe a página inicial do site
     public function showHomePage()
     {   
-        Page::render('@encup/homepage.html');
+        Page::render('@encup/2024.html');
     }
 
     public function showPhotosPage()

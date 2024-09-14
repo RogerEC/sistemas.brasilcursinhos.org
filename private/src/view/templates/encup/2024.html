@@ -2,7 +2,7 @@
 
 {% set includeEncupHeader = true %}
 {% set includePublicFooter = true %}
-{% set websiteName = 'ENCUP 2022' %}
+{% set websiteName = 'ENCUP 2024' %}
 
 {% block innerHead %}
     <title>ENCUP - Brasil Cursinhos</title>
@@ -15,25 +15,26 @@
 <main class="page-content bg-drawn d-flex justify-content-center align-items-center">
   <div class="card m-4 w-100 maxw-900  border-0">
     <div class="card-header p-0 overflow-hidden">
-      <img src="/assets/img/banner-encup.png" alt="Banner ENCUP 2023" class="w-100">
+      <img src="/assets/img/banner-encup-2024.png" alt="Banner ENCUP 2024" class="w-100">
     </div>
     <div class="card-body">
-      <h4 class="w-100 text-center mb-4">VIII Encontro Nacional de&nbsp;Cursinhos Universitários&nbsp;Populares</h4>
+      <h4 class="w-100 text-center mb-4">IX Encontro Nacional de&nbsp;Cursinhos Universitários&nbsp;Populares</h4>
       <div class="row mb-4">
         <div class="col-md-6 text-center text-md-end">
-          <p class="mb-3 mb-md-0"><b><span class="material-symbols-outlined">calendar_month</span> Quando?</b> Dias 26 e 27 de agosto.</p>
+          <p class="mb-3 mb-md-0"><b><span class="material-symbols-outlined">calendar_month</span> Quando?</b> Dias 12 e 13 de outubro.</p>
         </div>
         <div class="col-md-6 text-center text-md-start">
           <p class="mb-0"><a href="https://goo.gl/maps/PzgBwnyGMBQDANDb7" target="_blank" class="mt-3 text-decoration-none text-dark"><b class="text-nowrap"><span class="material-symbols-outlined">location_on</span>&nbsp;Onde?</b>&nbsp;Faculdade&nbsp;de&nbsp;Medicina&nbsp;da&nbsp;USP</a></p>
         </div>
       </div>
       <div class="w-100 text-center mb-2">
-        <a href="/manual-do-participante.pdf" target="_blank" class="btn btn-tertiary-bc text-decoration-none m-1 minw-240 w-auto"><b><span class="material-symbols-outlined">info</span> Manual do Participante</b></a>
-        <button type="button" class="btn btn-tertiary-bc m-1 minw-240 w-auto" data-bs-toggle="modal" data-bs-target="#modal-event-schedule">
-          <b><span class="material-symbols-outlined">format_list_bulleted</span> Programação</b>
+        <button class="btn btn-tertiary-bc text-decoration-none m-1 minw-240 w-auto" hidden><b><span class="material-symbols-outlined">info</span> Manual do Participante</b></button>
+        <button type="button" class="btn btn-tertiary-bc m-1 minw-240 w-auto" data-bs-toggle="modal" data-bs-target="#modal-event-schedule" disabled>
+          <b><span class="material-symbols-outlined">format_list_bulleted</span> Programação (em breve)</b>
         </button>
-        <a href="https://drive.google.com/drive/folders/1XrFPHScpcXyRG_JVFu003JdCp_G0S-xH?usp=sharing" target="_blank" class="btn btn-tertiary-bc text-decoration-none m-1 minw-240 w-auto">
+        <a href="https://drive.google.com/drive/folders/1XrFPHScpcXyRG_JVFu003JdCp_G0S-xH?usp=sharing" target="_blank" class="btn btn-tertiary-bc text-decoration-none m-1 minw-240 w-auto" hidden>
           <b><span class="material-symbols-outlined">folder</span> Materiais e Slides</b>
+        <a href="https://bit.ly/ENCUP24" target="_blank" class="btn btn-tertiary-bc text-decoration-none m-1 minw-240 w-auto"><b>Formulário de Inscrição</b> <span class="material-symbols-outlined">edit_note</span></a>
         </a>
       </div>
     </div>
@@ -45,7 +46,7 @@
   <div class="modal-dialog modal-encup modal-fullscreen-lg-down modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-primary-bc text-white">
-        <h1 class="modal-title fs-5 fw-bold" id="modal-subscription-label">Inscrição ENCUP 2024</h1>
+        <h1 class="modal-title fs-5 fw-bold" id="modal-subscription-label">Inscrição ENCUP 2023</h1>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" id="btn-close-modal-subscription"></button>
       </div>
       <div class="modal-body">
@@ -843,4 +844,3 @@
 </div>
 </main>
 {% endblock innerMain %}
-
