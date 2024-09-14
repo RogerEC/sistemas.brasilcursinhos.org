@@ -1,5 +1,7 @@
 $(function() {
 
+    const clickEventType = ((document.ontouchstart!==null)?'click':'touchstart');
+
     /*var optionsAline = {
         html: true,
         title: "Aline dos Santos Akimoto",
@@ -49,7 +51,7 @@ $(function() {
     var popoverPriscila2 = new bootstrap.Popover($("#btn-priscila2"), optionsPriscila);
     var popoverIgor2 = new bootstrap.Popover($("#btn-igor2"), optionsIgor);*/
     
-    $(".btn-expand-sidebar").on("click", function(){
+    $(".btn-expand-sidebar").on(clickEventType, function(){
         if($(".btn-expand-sidebar").hasClass("collapsed")) {
             $(".main-content").removeClass("d-none");
         } else {
@@ -57,7 +59,7 @@ $(function() {
         }
     });
 
-    $("#btn-page-back-ex").on("click", function(){
+    $("#btn-page-back-ex").on(clickEventType, function(){
         if($("#tickets").hasClass('d-none')) {
             $("#pix").addClass("d-none");
             $("#tickets").removeClass("d-none");
@@ -66,20 +68,20 @@ $(function() {
         }
     });
 
-    $(".btn-pay-with-pix").on("click", function(){
+    $(".btn-pay-with-pix").on(clickEventType, function(){
         $("#tickets").addClass("d-none");
         $("#pix").removeClass("d-none");
         $(".code-pix").hide();
         $("#code-pix-"+$(this).val()).show();
     });
 
-    $(".code-pix-copy-paste").on("click", function(){
+    $(".code-pix-copy-paste").on(clickEventType, function(){
         navigator.clipboard.writeText($(this).val());
         $(".alert-pix").remove();
         $(this).parent().after('<div class="alert alert-success alert-dismissible fade show alert-pix" role="alert">O Código PIX foi copiado para área de transferência!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
     });
 
-    $("#btn-schedule-page-back").on("click", function(){
+    $("#btn-schedule-page-back").on(clickEventType, function(){
         if($("#schedule").hasClass('d-none')) {
             $("#workshops").addClass('d-none');
             $("#table-1").addClass('d-none');
@@ -88,36 +90,36 @@ $(function() {
             $("#lecture").addClass("d-none");
             $("#schedule").removeClass("d-none");
         } else {
-            $("#btn-close-modal-event-schedule").trigger("click");
+            $("#btn-close-modal-event-schedule").trigger(clickEventType);
         }
     });
 
-    $("#btn-workshop-info").on("click", function(){
+    $("#btn-workshop-info").on(clickEventType, function(){
         $("#schedule").addClass("d-none");
         $("#workshops").removeClass("d-none");
     });
 
-    $("#btn-table1-info").on("click", function(){
+    $("#btn-table1-info").on(clickEventType, function(){
         $("#schedule").addClass("d-none");
         $("#table-1").removeClass("d-none");
     });
 
-    $("#btn-table2-info").on("click", function(){
+    $("#btn-table2-info").on(clickEventType, function(){
         $("#schedule").addClass("d-none");
         $("#table-2").removeClass("d-none");
     })
 
-    $("#btn-table3-info").on("click", function(){
+    $("#btn-table3-info").on(clickEventType, function(){
         $("#schedule").addClass("d-none");
         $("#table-3").removeClass("d-none");
     });
 
-    $("#btn-lecture-info").on("click", function(){
+    $("#btn-lecture-info").on(clickEventType, function(){
         $("#schedule").addClass("d-none");
         $("#lecture").removeClass("d-none");
     })
 
-    $("#btn-close-modal-event-schedule").on("click", function(){
+    $("#btn-close-modal-event-schedule").on(clickEventType, function(){
         $("#workshops").addClass('d-none');
         $("#table-1").addClass('d-none');
         $("#table-2").addClass('d-none');
