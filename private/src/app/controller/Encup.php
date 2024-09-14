@@ -21,4 +21,9 @@ class Encup {
     {
         Page::render('@encup/pages/exceptional-inscription.html');
     }
+
+    public function showInscriptionPage()
+    {
+        Page::render('@encup/pages/inscription.html');
+    }
 }
