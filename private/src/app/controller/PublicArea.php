@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Authenticator;
 use App\DataValidator;
 use App\Page;
+use Database\InterviewsDB;
 use Database\VotingDB;
+use DateInterval;
 use DateTime;
 use DateTimeZone;
 use Router\Request;
@@ -80,6 +82,79 @@ class PublicArea {
             
         } else {
             Page::showErrorHttpPage('401');
+        }
+    }
+
+    public function showLoginInterviewPage($error = null) {
+        $formCode = Authenticator::createFormCode('login-interviews');
+        Page::render('@public/login-interviews.html', ['error' => $error, 'formCode' => $formCode]);
+    }
+
+    public function checkLoginInterview()
+    {
+        $request = new Request;
+        $formCode = $request->__get('form-code');
+        
+        if(Authenticator::checkFormCode($formCode, 'login-interviews')) {
+            $cpf = DataValidator::validateCpf($request->__get('cpf'));
+            $password = DataValidator::validateNumber($request->__get('password'));
+
+            $candidate = InterviewsDB::getCandidateId($cpf);
+
+            if($candidate) {
+                if($password === substr($cpf, 0, 6)) {
+                    $_SESSION['isCandidate'] = $candidate->id;
+                    header("Location: /entrevista/agendamento");
+                } else {
+                    $error = array(
+                        'password' => true,
+                        'passwordError' => 'Senha incorreta!'
+                    );
+                    $this->checkLoginInterview((object)$error);
+                }
+            } else {
+                $error = array(
+                    'cpf' => $cpf,
+                    'cpfError' => 'CPF não encontrado na base de dados'
+                );
+                $this->checkLoginInterview((object)$error);
+            }
+        } else {
+            echo "Erro de autenticação do servidor";
+        }
+    }
+
+    public function showScheduleInterviewPage()
+    {
+        if(isset($_SESSION['isCandidate'])) {
+            $formCode = Authenticator::createFormCode('interview');
+            $logoutCode = Authenticator::createFormCode('logout');
+            $candidate = InterviewsDB::getCandidateInfo($_SESSION['isCandidate']);
+            $now = new DateTime('now');
+            $now->add(new DateInterval('P1D'));
+            $times = InterviewsDB::getTimesSchedule($now->format('Y-m-d'));
+            $data = array(
+                'logoutCode' => $logoutCode, 
+                'formCode' => $formCode, 
+                'candidate' => $candidate,
+                'times' => $times,
+                'today' => $now->format('Y-m-d')
+            );
+            Page::render('@public/interview-schedule.html', $data);
+        } else {
+            Page::showErrorHttpPage(401);
+        }
+    }
+
+    public function makeLogout() {
+        $request = new Request;
+        $formCode = $request->__get('logout-code');
+
+        if(Authenticator::checkFormCode($formCode, 'logout')) {
+            header("Location: /entrevista/login");
+            Authenticator::makeLogout(true);
+        } else {
+            header("Location: /entrevista/agendamento");
         }
     }
 }

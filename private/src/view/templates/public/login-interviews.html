@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% set bodyClass = 'bg-drawn' %}
+
+{% block head %}
+        <title>Login - Brasil Cursinhos</title>
+        <meta name="keywords" content="Brasil Cursinhos">
+        <meta name="description" content="Página de Login para a área restrita do site Brasil Cursinhos">
+        <meta name="robots" content="index, follow">
+{% endblock head %}
+
+{% block main %}
+<main class="bg-drawn d-flex justify-content-center align-items-center">
+  <div class="card m-4 maxw-900">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-sm-6 d-flex flex-column justify-content-center">
+          <img src="/assets/img/logos/logo-bc.png" class="px-5 py-3 w-100" alt="Logo Cursinho PES">
+        </div>
+        <div class="col-12 col-sm-6 d-flex flex-column justify-content-center">
+          <form action="/entrevista/login" method="post" id="login-form">
+            <input type="text" value="{{formCode}}" name="form-code" hidden>
+            <h4 class="card-title mb-3 w-100 text-center">Seja bem-vindo!</h4>
+            <h6 class="card-subtitle mb-3 text-muted w-100 text-center">Realize o login para acessar as opções de horário para agendamento da sua entrevista!</h6>
+            <div class="row mb-3">
+              <div class="col-12">
+                <label for="user"><b>Usuário:</b></label>
+                <input type="text" class="form-control{{(error.cpfError is defined)? ' is-invalid'}}{{(error.cpfError is defined)? ' is-valid'}}" name="cpf" id="cpf" placeholder="CPF" value="{{(error.cpf is defined)? error.cpf}}">
+                {% if error.cpfError is defined %}
+                <label for="user" class="invalid-feedback">{{error.cpfError}}</label>
+                {% endif %}
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-12">
+                <label for="password"><b>Senha:</b></label>
+                <div class="input-group">
+                  <input type="password" class="form-control{{(error.password is defined)? ' is-invalid'}}" name="password" id="password" placeholder="Sua senha">
+                  <button class="input-group-text" id="btn-password-visibility" aria-label="Mostrar senha" title="Mostrar senha"><span class="material-symbols-outlined" role="img" aria-hidden="true">visibility</span></button>
+                  {% if error.passwordError is defined %}
+                  <label for="password" class="invalid-feedback">{{error.passwordError}}</label>
+                  <input type="text" id="passwordValidated" value="true" hidden>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <!--<div class="row mb-3">
+              <div class="col text-end">
+                <a href="/recuperar-senha"><small>Esqueceu a senha ou primeiro acesso?</small></a>
+              </div>
+            </div>-->
+            <div class="row mb-3 g-3">
+              <div class="col">
+                <a href="/" class="btn btn-primary-bc w-100 text-decoration-none"><span class="material-symbols-outlined">arrow_back</span> <b>Voltar</b></a>
+              </div>
+              <div class="col">
+                <button class="btn btn-secondary-bc w-100"><b>Entrar</b> <span class="material-symbols-outlined">login</span></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="w-100 text-white text-center">
+  <p class="my-2 fs-5"><b>{{ "now" | date('Y')}} Brasil Cursinhos ©</b></p>
+</footer>
+{% endblock main %}
+
+{% block scriptsJS %}
+{% include '@links/forms-validation.html' %}
+<script src="/assets/js/pages/login.js"></script>
+{% endblock scriptsJS %}

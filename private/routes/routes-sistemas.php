@@ -69,6 +69,16 @@ Route::post('/usuario/participant', 'Event@checkParticipant');
 
 Route::post('/administrador/participant', 'Event@checkParticipant');
 
+Route::post('/entrevista/login', 'PublicArea@checkLoginInterview');
+
+Route::post('/entrevista/logout', 'PublicArea@makeLogout');
+
+Route::post('/entrevista/agendamento', 'PublicArea@saveScheduleInterview');
+
+Route::get('/entrevista/login', 'PublicArea@showLoginInterviewPage');
+
+Route::get('/entrevista/agendamento', 'PublicArea@showScheduleInterviewPage');
+
 if(DEBUG_MODE) {
     Route::get('/teste', 'Teste@showTeste');
 

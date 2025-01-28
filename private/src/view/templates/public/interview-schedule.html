@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% set bodyClass = 'bg-drawn' %}
+
+{% block head %}
+        <title>Login - Brasil Cursinhos</title>
+        <meta name="keywords" content="Brasil Cursinhos">
+        <meta name="description" content="Página de Login para a área restrita do site Brasil Cursinhos">
+        <meta name="robots" content="index, follow">
+{% endblock head %}
+
+{% block main %}
+<main class="bg-drawn d-flex justify-content-center align-items-center">
+  <div class="card m-4 maxw-800">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <spam class="fs-3">Bem-vindo(a) {{candidate.name}}!</spam>
+        </div>
+        <div class="col-auto">
+          <form action="/entrevista/logout" method="post">
+            <input type="text" value="{{logoutCode}}" name="logout-code" hidden>
+            <button type="submit" class="btn btn-primary-bc"><b>Logout </b><span class="material-symbols-outlined">logout</span></button>
+          </form>
+        </div>
+        <div class="row">
+          <div class="col-auto">
+            <button></button>
+          </div>
+          <div class="col">
+            <button>{{today|date('l')}}<br>{{today|date('d/m/Y')}}</button>
+          </div>
+          <div class="col-auto">
+            <button></button>
+          </div>
+        </div>
+        <div class="row text-center">
+          {% if times %}
+            {% for time in times %}
+              <form action="post">
+                <input type="text" name="time" value="{{time.id}}" hidden>
+                <p><button type="submit">Agendar às {{time.datetime}}</button></p>
+              </form>
+            {% endfor %}
+          {% else %}
+            <p>Sem horários disponíveis</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="w-100 text-white text-center">
+  <p class="my-2 fs-5"><b>{{ "now" | date('Y')}} Brasil Cursinhos ©</b></p>
+</footer>
+{% endblock main %}
+
+{% block scriptsJS %}
+{% include '@links/forms-validation.html' %}
+<script src="/assets/js/pages/login.js"></script>
+{% endblock scriptsJS %}
