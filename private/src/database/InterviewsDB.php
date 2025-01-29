@@ -63,59 +63,50 @@ class InterviewsDB extends Database
         }
     }
 
-    public static function getCups()
+    public static function getTimeInfo($id)
     {
         try {
-            $query = parent::connect()->prepare('SELECT c.`idCup` AS `id`, c.`shortName` AS `name` FROM `CUPS` c INNER JOIN `STATUS` s ON (c.`idStatus` = s.`idStatus`) WHERE s.`code` = "A" ORDER BY c.`shortName` ASC');
+            $query = parent::connect()->prepare("SELECT `idInterviewTime` AS `id`, `datetime`, `meet` FROM `INTERVIEW_TIMES` WHERE `idInterviewTime` = :id LIMIT 1");
+            $query->bindValue(':id', $id, PDO::PARAM_INT);
             $query->execute();
-            $result = $query->fetchAll(PDO::FETCH_OBJ);
+            $result = $query->fetch(PDO::FETCH_OBJ);
             parent::disconnect();
             return $result;
         } catch (PDOException $exception) {
-            $message = "Error in function VotingDB::getCups.";
+            $message = "Error in function InterviewDB::getTimeInfo.";
+            $message .= " ID Time: " . $id;
             Log::error($message, 'database.log', $exception->getMessage());
             parent::disconnect();
             return false;
         }
     }
 
-    public static function insertPresenceVoting($votingId, $data)
+    public static function getInterviewTimeId($id)
+    {
+        try {
+            $query = parent::connect()->prepare("SELECT `idInterviewTime` AS `id` FROM `INTERVIEW_SCHEDULES` WHERE `idCandidate` = :id LIMIT 1");
+            $query->bindValue(':id', $id, PDO::PARAM_INT);
+            $query->execute();
+            $result = $query->fetch(PDO::FETCH_OBJ);
+            parent::disconnect();
+            return $result;
+        } catch (PDOException $exception) {
+            $message = "Error in function InterviewDB::getTimeInfo.";
+            $message .= " ID Time: " . $id;
+            Log::error($message, 'database.log', $exception->getMessage());
+            parent::disconnect();
+            return false;
+        }
+    }
+
+    public static function insertInterviewSchedule($idCandidate, $idTime)
     {
         try {
             $connection = parent::connect();
 
-            $query = $connection->prepare('SELECT `idPresenceInVoting`, `fullName` AS `name`, `email`, `cpf`, `role` FROM `PRESENCE_IN_VOTINGS` WHERE `idCup` = :idCup AND `idVoting` = :idVoting LIMIT 1');
-            $query->bindValue(':idCup', $data->cup, PDO::PARAM_INT);
-            $query->bindValue(':idVoting', $votingId, PDO::PARAM_INT);
-            $query->execute();
-            $result = $query->fetch(PDO::FETCH_ASSOC);
-
-            if($result) {
-                $result['error'] = true;
-                $result['errorCode'] = 'DUPLICATE';
-                return (Object)$result;
-            }
-
-            $query = $connection->prepare('SELECT `idPresenceInVoting`, `fullName` AS `name`, `email`, `cpf`, `role` FROM `PRESENCE_IN_VOTINGS` WHERE (`cpf` = :cpf OR `email` = :email) AND `idVoting` = :idVoting LIMIT 1');
-            $query->bindValue(':cpf', $data->cpf, PDO::PARAM_STR);
-            $query->bindValue(':email', $data->email, PDO::PARAM_STR);
-            $query->bindValue(':idVoting', $votingId, PDO::PARAM_INT);
-            $query->execute();
-            $result2 = $query->fetch(PDO::FETCH_ASSOC);
-
-            if($result2) {
-                $result2['error'] = true;
-                $result2['errorCode'] = 'DUPLICATE_CPF';
-                return (Object)$result2;
-            }
-
-            $query = $connection->prepare('INSERT INTO `PRESENCE_IN_VOTINGS` (`fullName`, `cpf`, `email`, `role`, `idCup`, `idVoting`, `createdAt`, `updatedAt`) VALUES(:name_, :cpf, :email, :role_, :idCup, :idVoting, NOW(), NOW())');
-            $query->bindValue(':name_', $data->name, PDO::PARAM_STR);
-            $query->bindValue(':cpf', $data->cpf, PDO::PARAM_STR);
-            $query->bindValue(':email', $data->email, PDO::PARAM_STR);
-            $query->bindValue(':role_', $data->role, PDO::PARAM_STR);
-            $query->bindValue(':idCup', $data->cup, PDO::PARAM_INT);
-            $query->bindValue(':idVoting', $votingId, PDO::PARAM_INT);
+            $query = $connection->prepare('INSERT INTO `INTERVIEW_SCHEDULES` (`idInterviewTime`, `idCandidate`, `createdAt`, `updatedAt`) VALUES(:idTime, :idCandidate, NOW(), NOW())');
+            $query->bindValue(':idTime', $idTime, PDO::PARAM_INT);
+            $query->bindValue(':idCandidate', $idCandidate, PDO::PARAM_INT);
             $query->execute();
             
             parent::disconnect();
@@ -123,8 +114,8 @@ class InterviewsDB extends Database
             return (Object)array('error' => false);
 
         } catch (PDOException $exception) {
-            $message = "Error in function VotingDB::insertPresenceVoting.";
-            $message .= " VotingID: " . $votingId . " Data: " . var_dump($data);
+            $message = "Error in function InterviewDB::insertInterviewSchedule.";
+            $message .= " idCandidate: " . $idCandidate . " idTime: " . $idTime;
             Log::error($message, 'database.log', $exception->getMessage());
             
             parent::disconnect();
@@ -133,38 +124,4 @@ class InterviewsDB extends Database
         }
     }
 
-    public static function getVotings()
-    {
-        try {
-            $query = parent::connect()->prepare('SELECT v.`code` AS `id`, v.`name`, v.`datetime` FROM `VOTINGS` v ORDER BY v.`datetime` DESC');
-            $query->execute();
-            $result = $query->fetchAll(PDO::FETCH_OBJ);
-            parent::disconnect();
-            return $result;
-        } catch (PDOException $exception) {
-            $message = "Error in function VotingDB::getVotings.";
-            Log::error($message, 'database.log', $exception->getMessage());
-            parent::disconnect();
-            return false;
-        }
-    }
-
-    public static function getPrecenceInVoting($code)
-    {
-        try {
-            $query = parent::connect()->prepare('SELECT pv.`fullName` AS `name`, c.`shortName` AS `cup`, pv.`email` AS `email`, c.`username` AS `user`, pv.`role` AS `role`, pv.`cpf` AS `cpf` FROM `PRESENCE_IN_VOTINGS` pv INNER JOIN `CUPS` c ON (pv.`idCup` = c.`idCup`) INNER JOIN `VOTINGS` v ON (v.`idVoting` = pv.`idVoting`) WHERE v.`code` = :code ORDER BY c.`shortName` ASC');
-            $query->bindValue(':code', $code, PDO::PARAM_STR);
-            $query->execute();
-            $result = $query->fetchAll(PDO::FETCH_OBJ);
-            parent::disconnect();
-            return $result;
-        } catch (PDOException $exception) {
-            $message = "Error in function VotingDB::getVotings.";
-            Log::error($message, 'database.log', $exception->getMessage());
-            parent::disconnect();
-            return false;
-        }
-    }
-
-    
 }

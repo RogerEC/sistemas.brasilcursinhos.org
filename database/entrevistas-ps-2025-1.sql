@@ -39,7 +39,8 @@ CREATE TABLE IF NOT EXISTS `INTERVIEW_TIMES` (
 	`meet` VARCHAR(40) NOT NULL,
     `createdAt` DATETIME NOT NULL,
     `updatedAt` DATETIME NOT NULL,
-	PRIMARY KEY (`idInterviewTime`)
+	PRIMARY KEY (`idInterviewTime`),
+    UNIQUE INDEX `idxDatetime` (`datetime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `INTERVIEW_TIMES`(`datetime`, `day`, `meet`, `createdAt`, `updatedAt`) VALUES
@@ -151,6 +152,8 @@ CREATE TABLE IF NOT EXISTS `INTERVIEW_SCHEDULES` (
     `createdAt` DATETIME NOT NULL,
     `updatedAt` DATETIME NOT NULL,
 	PRIMARY KEY (`idInterviewSchedule`),
+    UNIQUE INDEX  `idxIdCandidate` (`idCandidate`),
+    UNIQUE INDEX  `idxIdInterviewTime` (`idInterviewTime`),
     CONSTRAINT `fkInterviewSchedulesInterviewTimes` FOREIGN KEY (`idInterviewTime`) REFERENCES `INTERVIEW_TIMES`(`idInterviewTime`),
     CONSTRAINT `fkInterviewSchedulesCandiodates` FOREIGN KEY (`idCandidate`) REFERENCES `CANDIDATES`(`idCandidate`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -166,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `INTERVIEW_SCHEDULES` (
 
 
 
-
+SELECT `
 
 -- Consultas
 SELECT it.`idInterviewTime` AS `id`, it.`datetime` AS `datetime` FROM `INTERVIEW_TIMES` it LEFT JOIN `INTERVIEW_SCHEDULES` isc ON (it.`idInterviewTime` = isc.`idInterviewTime`) WHERE isc.`idInterviewTime` IS NULL AND (`datetime` >= '2025-01-30' AND `datetime` < '2025-01-30' + INTERVAL 1 DAY) ORDER BY `datetime` ASC;

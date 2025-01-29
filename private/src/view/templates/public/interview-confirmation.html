@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% set bodyClass = 'bg-drawn' %}
+
+{% block head %}
+        <title>Agendamento de Entrevista - Brasil Cursinhos</title>
+        <meta name="keywords" content="Brasil Cursinhos">
+        <meta name="description" content="Página de Login para a área restrita do site Brasil Cursinhos">
+        <meta name="robots" content="index, follow">
+{% endblock head %}
+
+{% block main %}
+<main class="bg-drawn d-flex justify-content-center align-items-center">
+  <div class="card m-4 maxw-800">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <spam class="fs-3">Bem-vindo(a) {{candidate.name}}!</spam>
+        </div>
+        <div class="col-auto">
+          <form action="/entrevista/logout" method="post">
+            <input type="text" value="{{logoutCode}}" name="logout-code" hidden>
+            <button type="submit" class="btn btn-primary-bc"><b>Logout </b><span class="material-symbols-outlined">logout</span></button>
+          </form>
+        </div>
+      </div>
+      <section id="confirmation">
+        <div class="row my-4 g-2 align-items-stretch px-4">
+          <p class="fs-4">Gostaria de confirmar o agendamento da sua entrevista para o dia <spam class="fw-bold">{{time.datetime|format_datetime(pattern: "dd 'de' LLLL, EEEE, 'às' H'h'", locale: 'pt_BR')}}</spam>?</p>
+        </div>
+        <div class="row">
+          <div class="col text-end">
+            <a href="/entrevista/agendamento" target="_self" class="btn btn btn-primary-bc"><b>Escolher outro horário</b></a>
+          </div>
+          <div class="col">
+            <form action="/entrevista/agendamento" method="post" id="form-confirm-interview">
+              <input type="text" name="type" value="save" hidden>
+              <input type="text" name="time-id" value="{{time.id}}" hidden>
+              <input type="text" name="form-code" value="{{formCode}}" hidden>
+              <button type="submit" class="btn btn-secondary-bc" id="btn-confirm-interview"><b>Confirmar este horário</b></button>
+            </form>
+          </div>
+        </div>
+      </section>
+      <section id="loading" class="py-5 d-none">
+        <div class="d-flex align-items-center h-100 justify-content-center text-center py-5">
+          <div class="loading-message">
+            <div class="h2">
+              <div class="spinner-border" role="status"></div>
+              Confirmando agendamento...
+            </div>
+            <div class="h4">Aguarde!</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+<footer class="w-100 text-white text-center">
+  <p class="my-2 fs-5"><b>{{ "now" | date('Y')}} Brasil Cursinhos ©</b></p>
+</footer>
+{% endblock main %}
+
+{% block scriptsJS %}
+{% include '@links/forms-validation.html' %}
+<script src="/assets/js/pages/interview.js"></script>
+{% endblock scriptsJS %}

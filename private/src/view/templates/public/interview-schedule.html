@@ -3,7 +3,7 @@
 {% set bodyClass = 'bg-drawn' %}
 
 {% block head %}
-        <title>Login - Brasil Cursinhos</title>
+        <title>Agendamento de Entrevista - Brasil Cursinhos</title>
         <meta name="keywords" content="Brasil Cursinhos">
         <meta name="description" content="Página de Login para a área restrita do site Brasil Cursinhos">
         <meta name="robots" content="index, follow">
@@ -23,29 +23,67 @@
             <button type="submit" class="btn btn-primary-bc"><b>Logout </b><span class="material-symbols-outlined">logout</span></button>
           </form>
         </div>
-        <div class="row">
-          <div class="col-auto">
-            <button></button>
-          </div>
-          <div class="col">
-            <button>{{today|date('l')}}<br>{{today|date('d/m/Y')}}</button>
-          </div>
-          <div class="col-auto">
-            <button></button>
-          </div>
+      </div>
+      {% if times is defined %}
+      <div class="row my-3 g-2 align-items-stretch">
+        <div class="col-auto d-flex">
+          <form action="/entrevista/agendamento" method="post">
+            <input type="text" name="date" value="{{date}}" hidden>
+            <input type="text" name="type" value="prev" hidden>
+            <input type="text" name="form-code" value="{{formCode}}" hidden>
+            <button class="btn btn-secondary-bc h-100{{(prev == true)? '':' invisible'}}" type="submit">
+              <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+          </form>
         </div>
-        <div class="row text-center">
-          {% if times %}
-            {% for time in times %}
-              <form action="post">
-                <input type="text" name="time" value="{{time.id}}" hidden>
-                <p><button type="submit">Agendar às {{time.datetime}}</button></p>
-              </form>
+        <div class="col d-flex">
+          <button class="btn btn-secondary-bc w-100">{{date|format_datetime(pattern: 'EEEE', locale: 'pt_BR')|title}}<br>{{date|date('d/m/Y')}}</button>
+        </div>
+        <div class="col-auto d-flex">
+          <form action="/entrevista/agendamento" method="post">
+            <input type="text" name="date" value="{{date}}" hidden>
+            <input type="text" name="type" value="next" hidden>
+            <input type="text" name="form-code" value="{{formCode}}" hidden>
+            <button class="btn btn-secondary-bc h-100{{(next == true)? '':' invisible'}}" type="submit">
+              <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="row text-center g-3 px-5">
+        {% if times %}
+          <div class="col-sm-6">
+          {% for i in 0..(times|length // 2 - 1) %}
+            <form action="/entrevista/agendamento" method="post">
+              <input type="text" name="time-id" value="{{times[i].id}}" hidden>
+              <input type="text" name="type" value="confirm" hidden>
+              <input type="text" name="form-code" value="{{formCode}}" hidden>
+              <p><button class="btn btn-outline-dark btn-confirm-schedule" type="submit">Agendar entrevista às {{times[i].datetime|date("H\\hi")}}</button></p>
+            </form>
+          {% endfor %}
+          </div>
+          <div class="col-sm-6">
+            {% for i in (times|length // 2)..(times|length - 1) %}
+            <form action="/entrevista/agendamento" method="post">
+              <input type="text" name="time-id" value="{{times[i].id}}" hidden>
+              <input type="text" name="type" value="confirm" hidden>
+              <input type="text" name="form-code" value="{{formCode}}" hidden>
+              <p><button class="btn btn-outline-dark btn-confirm-schedule" type="submit">Agendar entrevista às {{times[i].datetime|date("H\\hi")}}</button></p>
+            </form>
             {% endfor %}
-          {% else %}
-            <p>Sem horários disponíveis</p>
-          {% endif %}
-        </div>
+          </div>
+        {% else %}
+          <p>Sem horários disponíveis neste dia.</p>
+        {% endif %}
+      
+      {% else %}
+        <p class="fs-5 mt-4">Sua entrevista já está agendada!</p>
+        <p class="fs-5 mb-0"><strong>DATA: </strong>{{time.datetime|format_datetime(pattern: "EEEE, dd 'de' LLLL 'de' yyyy", locale: 'pt_BR')}}</strong>.</p>
+        <p class="fs-5 mb-0"><strong>HORÁRIO: </strong>{{time.datetime|date('H\\h')}} (no horário de Brasília).</p>
+        <p class="fs-5"><strong>LINK DO GOOGLE MEET: </strong> <a href="{{time.meet}}" target="_blank">{{time.meet}}</a></p>
+        <p class="fs-5 text-justify mb-2">Você pode voltar nesta página a qualquer momento para consultar os dados da sua entrevista. Uma confirmação do agendamento com os dados acima também foi encaminhada para o seu endereço de e-mail.</p>
+        <p class="fs-5 text-justify mb-0">Caso não consiga participar neste horário, pedimos para que envie um e-mail para <strong><a href="mailto:gestaodepessoas@brasilcursinhos.org">gestaodepessoas@brasilcursinhos.org</a></strong> solicitando o reagendamento.</p>
+      {% endif %}
       </div>
     </div>
   </div>
@@ -57,5 +95,5 @@
 
 {% block scriptsJS %}
 {% include '@links/forms-validation.html' %}
-<script src="/assets/js/pages/login.js"></script>
+<script src="/assets/js/pages/interview.js"></script>
 {% endblock scriptsJS %}

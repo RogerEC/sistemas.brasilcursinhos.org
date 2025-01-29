@@ -4,6 +4,8 @@ namespace App;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\OAuth;
+use League\OAuth2\Client\Provider\Google;
 
 class Email {
 
@@ -20,20 +22,38 @@ class Email {
             try {
                 require_once DIR_PASSWORDS . '/email.php';
 
-                self::$mail = new PHPMailer(true);
+                self::$mail = new PHPMailer();
 
                 self::$mail->isSMTP();
-                self::$mail->isHTML(true);
+                self::$mail->isHTML();
                 self::$mail->SMTPDebug  = (isset($parameters['DEBUG']))? $parameters['DEBUG']:SMTP::DEBUG_OFF;
                 self::$mail->Host       = (isset($parameters['SMTP_HOST']))? $parameters['SMTP_HOST']:EMAIL_SMTP_HOST;
-                self::$mail->SMTPAuth   = (isset($parameters['SMTP_AUTH']))? $parameters['SMTP_AUTH']:true;
-                self::$mail->Username   = (isset($parameters['EMAIL_ADDRESS']))? $parameters['EMAIL_ADDRESS']:EMAIL_ADDRESS;
-                self::$mail->Password   = (isset($parameters['EMAIL_PASSWORD']))? $parameters['EMAIL_PASSWORD']:EMAIL_PASSWORD;
-                self::$mail->SMTPSecure = (isset($parameters['SMTP_SECURE']))? $parameters['SMTP_SECURE']:PHPMailer::ENCRYPTION_STARTTLS;
                 self::$mail->Port       = (isset($parameters['SMTP_PORT']))? $parameters['SMTP_PORT']:EMAIL_SMTP_PORT;
-                self::$mail->CharSet    = (isset($parameters['CHARSET']))? $parameters['CHARSET']:PHPMailer::CHARSET_UTF8;
+                self::$mail->SMTPSecure = (isset($parameters['SMTP_SECURE']))? $parameters['SMTP_SECURE']:PHPMailer::ENCRYPTION_STARTTLS;
+                self::$mail->SMTPAuth   = (isset($parameters['SMTP_AUTH']))? $parameters['SMTP_AUTH']:true;
+                self::$mail->AuthType = 'XOAUTH2';
+                
+                $provider = new Google(
+                    [
+                        'clientId' => EMAIL_CLIENT_ID,
+                        'clientSecret' => EMAIL_SECRET_KEY,
+                    ]
+                );
+
+                self::$mail->setOAuth(
+                    new OAuth(
+                        [
+                            'provider' => $provider,
+                            'clientId' => EMAIL_CLIENT_ID,
+                            'clientSecret' => EMAIL_SECRET_KEY,
+                            'refreshToken' => EMAIL_REFRESH_TOKEN,
+                            'userName' => EMAIL_ADDRESS,
+                        ]
+                    )
+                );
+                
+                self::$mail->CharSet    = (isset($parameters['CHARSET']))? $parameters['CHARSET']:'UTF-8';
         
-            
                 self::$mail->setFrom((isset($parameters['EMAIL_ADDRESS']))? $parameters['EMAIL_ADDRESS']:EMAIL_ADDRESS,
                                (isset($parameters['EMAIL_NAME']))? $parameters['EMAIL_NAME']:EMAIL_NAME);
                 
@@ -98,7 +118,17 @@ class Email {
         $email = array('subject' => 'Recuperação de Senha - Brasil Cursinhos',
                        'html' => $html, 'text' => $text, 'replyToAddress' => 'suporte@pes.ufsc.br',
                        'address' => $user->email, 'name' => $user->fullName);
-        return self::send((Object)$email, ['DUBUG' => 4]);
+        return self::send((Object)$email);
+    }
+
+    public static function sendInterviewConfirmation($candidate, $time)
+    {
+        $html = Page::getRender('@emails/html/interview-confirmation.html', ['candidate' => $candidate, 'time' => $time]);
+        $text = Page::getRender('@emails/text/interview-confirmation.html', ['candidate' => $candidate, 'time' => $time]);
+        $email = array('subject' => 'Confirmação de Agendamento de Entrevista - Brasil Cursinhos',
+                       'html' => $html, 'text' => $text, 'replyToAddress' => 'gestaodepessoas@brasilcursinhos.org',
+                       'address' => $candidate->email, 'name' => $candidate->fullName);
+        return self::send((Object)$email);
     }
 
     

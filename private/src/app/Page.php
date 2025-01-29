@@ -1,8 +1,8 @@
 <?php 
 namespace App;
 
-use Twig\Loader;
-use Twig;
+use Twig\Environment;
+use Twig\Extra\Intl\IntlExtension;
 
 class Page {
 
@@ -28,7 +28,8 @@ class Page {
             $loader->addPath(DIR_TEMPLATES.'emails/', 'emails');
             $loader->addPath(DIR_TEMPLATES.'encup/', 'encup');
             $loader->addPath(DIR_TEMPLATES.'calendario/', 'calendario');
-            self::$viewer = new \Twig\Environment($loader, ['cache' => false]);
+            self::$viewer = new Environment($loader, ['cache' => false]);
+            self::$viewer->addExtension(new IntlExtension());
             self::$viewer->getExtension(\Twig\Extension\CoreExtension::class)->setTimezone('America/Sao_Paulo');
         }
         return self::$viewer;

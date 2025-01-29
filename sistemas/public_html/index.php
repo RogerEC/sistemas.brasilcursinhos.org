@@ -4,4 +4,3 @@
     header('Access-Control-Allow-Origin: *');
     
     resolve();
-?>

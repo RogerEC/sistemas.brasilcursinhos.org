@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Authenticator;
 use App\DataValidator;
+use App\Email;
 use App\Page;
 use Database\InterviewsDB;
 use Database\VotingDB;
@@ -110,39 +111,139 @@ class PublicArea {
                         'password' => true,
                         'passwordError' => 'Senha incorreta!'
                     );
-                    $this->checkLoginInterview((object)$error);
+                    $this->showLoginInterviewPage((object)$error);
                 }
             } else {
                 $error = array(
                     'cpf' => $cpf,
-                    'cpfError' => 'CPF não encontrado na base de dados'
+                    'cpfError' => 'CPF não encontrado na base de dados.'
                 );
-                $this->checkLoginInterview((object)$error);
+                $this->showLoginInterviewPage((object)$error);
             }
         } else {
             echo "Erro de autenticação do servidor";
         }
     }
 
-    public function showScheduleInterviewPage()
+    public function showScheduleInterviewPage($date = null)
     {
         if(isset($_SESSION['isCandidate'])) {
-            $formCode = Authenticator::createFormCode('interview');
+
+            $interview = InterviewsDB::getInterviewTimeId($_SESSION['isCandidate']);
             $logoutCode = Authenticator::createFormCode('logout');
             $candidate = InterviewsDB::getCandidateInfo($_SESSION['isCandidate']);
-            $now = new DateTime('now');
-            $now->add(new DateInterval('P1D'));
-            $times = InterviewsDB::getTimesSchedule($now->format('Y-m-d'));
-            $data = array(
-                'logoutCode' => $logoutCode, 
-                'formCode' => $formCode, 
-                'candidate' => $candidate,
-                'times' => $times,
-                'today' => $now->format('Y-m-d')
-            );
-            Page::render('@public/interview-schedule.html', $data);
+
+            if($interview) {
+
+                $time = InterviewsDB::getTimeInfo($interview->id);
+                
+                $data = array(
+                    'logoutCode' => $logoutCode, 
+                    'candidate' => $candidate,
+                    'time' => $time
+                );
+
+                Page::render('@public/interview-schedule.html', $data);
+
+            } else {
+
+                $formCode = Authenticator::createFormCode('interview');
+                
+                if($date) {
+                    $today = DateTime::createFromFormat('Y-m-d', $date);
+                } else {
+                    $today = new DateTime('now');
+                    $today->add(new DateInterval('P1D'));
+                }
+    
+                $now = new DateTime('now');
+                $now->add(new DateInterval('P1D'));
+    
+                $prev = ($today->format('Y-m-d') > $now->format('Y-m-d'))? true:false;
+                $next = ($today->format('Y-m-d') < '2025-02-07')? true:false;
+    
+                $times = InterviewsDB::getTimesSchedule($today->format('Y-m-d'));
+    
+                $data = array(
+                    'logoutCode' => $logoutCode, 
+                    'formCode' => $formCode, 
+                    'candidate' => $candidate,
+                    'times' => $times,
+                    'date' => $today->format('Y-m-d'),
+                    'next' => $next,
+                    'prev' => $prev
+                );
+
+                Page::render('@public/interview-schedule.html', $data);
+            }
+            
         } else {
-            Page::showErrorHttpPage(401);
+            header("Location: /entrevista/login");
+        }
+    }
+
+    public function saveScheduleInterview()
+    {
+        $request = new Request;
+        $formCode = $request->__get('form-code');
+        
+        if(Authenticator::checkFormCode($formCode, 'interview') && isset($_SESSION['isCandidate'])) {
+            
+            $type = DataValidator::validateString($request->__get('type'));
+
+            if($type === 'prev') {
+
+                $date = DataValidator::validateString($request->__get('date'));
+                $today = DateTime::createFromFormat('Y-m-d', $date);
+                $today->sub(new DateInterval('P1D'));
+                $this->showScheduleInterviewPage($today->format('Y-m-d'));
+
+            } else if ($type === 'next') {
+
+                $date = DataValidator::validateString($request->__get('date'));
+                $today = DateTime::createFromFormat('Y-m-d', $date);
+                $today->add(new DateInterval('P1D'));
+                $this->showScheduleInterviewPage($today->format('Y-m-d'));
+
+            } else if ($type === 'confirm') {
+
+                $idTime = DataValidator::validateInt($request->__get('time-id'));
+
+                $formCode = Authenticator::createFormCode('interview');
+                $logoutCode = Authenticator::createFormCode('logout');
+                $candidate = InterviewsDB::getCandidateInfo($_SESSION['isCandidate']);
+                $time = InterviewsDB::getTimeInfo($idTime);
+                $data = array(
+                    'logoutCode' => $logoutCode, 
+                    'formCode' => $formCode, 
+                    'candidate' => $candidate,
+                    'time' => $time
+                );
+                Page::render('@public/interview-confirmation.html', $data);
+
+            } else if ($type === 'save') {
+
+                $formCode = Authenticator::createFormCode('interview');
+                $logoutCode = Authenticator::createFormCode('logout');
+                $idTime = DataValidator::validateInt($request->__get('time-id'));
+                $insert = InterviewsDB::insertInterviewSchedule($_SESSION['isCandidate'], $idTime);
+                $candidate = InterviewsDB::getCandidateInfo($_SESSION['isCandidate']);
+                $time = InterviewsDB::getTimeInfo($idTime);
+
+                Email::sendInterviewConfirmation($candidate, $time);
+
+                $data = array(
+                    'logoutCode' => $logoutCode,
+                    'formCode' => $formCode, 
+                    'candidate' => $candidate,
+                    'time' => $time,
+                    'error' => $insert->error
+                );
+
+                Page::render('@public/interview-result.html', $data);
+            }
+        } else {
+            header("Location: /entrevista/agendamento");
         }
     }
 

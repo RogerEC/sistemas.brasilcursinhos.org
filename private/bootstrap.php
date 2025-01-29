@@ -1,7 +1,7 @@
 <?php
     
     ini_set('default_charset', 'utf-8');
-    locale_set_default('pt_BR.utf8');
+    setlocale(LC_ALL, 'pt_BR.utf8');
     ini_set('date.timezone', 'America/Sao_Paulo');
     
     ini_set('session.cookie_lifetime', 0);

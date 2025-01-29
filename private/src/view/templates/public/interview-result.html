@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% set bodyClass = 'bg-drawn' %}
+
+{% block head %}
+        <title>Agendamento de Entrevista - Brasil Cursinhos</title>
+        <meta name="keywords" content="Brasil Cursinhos">
+        <meta name="description" content="Página de Login para a área restrita do site Brasil Cursinhos">
+        <meta name="robots" content="index, follow">
+{% endblock head %}
+
+{% block main %}
+<main class="bg-drawn d-flex justify-content-center align-items-center">
+  <div class="card m-4 maxw-800">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <spam class="fs-3">Bem-vindo(a) {{candidate.name}}!</spam>
+        </div>
+        <div class="col-auto">
+          <form action="/entrevista/logout" method="post">
+            <input type="text" value="{{logoutCode}}" name="logout-code" hidden>
+            <button type="submit" class="btn btn-primary-bc"><b>Logout </b><span class="material-symbols-outlined">logout</span></button>
+          </form>
+        </div>
+      </div>
+      <div class="row my-4 g-2 align-items-stretch px-4">
+        {% if error == false %}
+        <p class="fs-5">Sua entrevista foi agendada com sucesso!</p>
+        <p class="fs-5 mb-0"><strong>DATA: </strong>{{time.datetime|format_datetime(pattern: "EEEE, dd 'de' LLLL 'de' yyyy", locale: 'pt_BR')}}</strong>.</p>
+        <p class="fs-5 mb-0"><strong>HORÁRIO: </strong>{{time.datetime|date('H\\h')}} (no horário de Brasília).</p>
+        <p class="fs-5"><strong>LINK DO GOOGLE MEET: </strong> <a href="{{time.meet}}" target="_blank">{{time.meet}}</a></p>
+        <p class="fs-5 text-justify mb-2">Você pode voltar nesta página a qualquer momento para consultar os dados da sua entrevista. Uma confirmação do agendamento com os dados acima também foi encaminhada para o seu endereço de e-mail.</p>
+        <p class="fs-5 text-justify mb-0">Caso não consiga participar neste horário, pedimos para que envie um e-mail para <strong><a href="mailto:gestaodepessoas@brasilcursinhos.org">gestaodepessoas@brasilcursinhos.org</a></strong> solicitando o reagendamento.</p>
+        {% else %}
+        <p class="fs-5">Agendamento não realizado!</p>
+        <p class="fs-5 text-justify mb-2">Ocorreu algum erro nosso servidor no momento que tentamos processar a sua solicitação. Pedimos que tente realizar o agendamento novamente.</p>
+        <p class="fs-5 text-justify mb-4">Caso o erro persista após uma nova tentativa, envie um e-mail para <strong><a href="mailto:gestaodepessoas@brasilcursinhos.org">gestaodepessoas@brasilcursinhos.org</a></strong> informando o código de erro: ERR051.</p>
+        <p class="text-center mb-0"><a href="/entrevista/agendamento" target="_self" class="btn btn btn-secondary-bc text-decoration-none"><b>Realizar nova tentativa de agendamento</b></a></p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="w-100 text-white text-center">
+  <p class="my-2 fs-5"><b>{{ "now" | date('Y')}} Brasil Cursinhos ©</b></p>
+</footer>
+{% endblock main %}
+
+{% block scriptsJS %}
+{% include '@links/forms-validation.html' %}
+<script src="/assets/js/pages/interview.js"></script>
+{% endblock scriptsJS %}
