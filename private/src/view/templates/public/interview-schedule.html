@@ -26,6 +26,9 @@
       </div>
       {% if times is defined %}
       <div class="row my-3 g-2 align-items-stretch">
+        <p class="fs-6 mb-0">Na lista abaixo, selecione o horário no qual você gostaria de agendar a sua entrevista.</p>
+        <p class="fs-6 my-1">Os horários apresentados estão de acordo com o fuso horário de Brasília (UTC -3).</p>
+        <p class="fs-6 mt-0"><strong>Você pode utilizar as setas <span class="material-symbols-outlined">arrow_back</span> <span class="material-symbols-outlined">arrow_forward</span> para navegar entre os dias disponíveis.</strong></p>
         <div class="col-auto d-flex">
           <form action="/entrevista/agendamento" method="post">
             <input type="text" name="date" value="{{date}}" hidden>
@@ -37,7 +40,7 @@
           </form>
         </div>
         <div class="col d-flex">
-          <button class="btn btn-secondary-bc w-100">{{date|format_datetime(pattern: 'EEEE', locale: 'pt_BR')|title}}<br>{{date|date('d/m/Y')}}</button>
+          <button class="btn btn-secondary-bc w-100"><strong>{{date|format_datetime(pattern: 'EEEE', locale: 'pt_BR')|title}}<br>{{date|date('d/m/Y')}}</strong></button>
         </div>
         <div class="col-auto d-flex">
           <form action="/entrevista/agendamento" method="post">
