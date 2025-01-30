@@ -56,7 +56,7 @@
       <div class="row text-center g-3 px-5">
         {% if times %}
           <div class="col-sm-6">
-          {% for i in 0..(times|length // 2 - 1) %}
+          {% for i in 0..((times|length > 1)? (times|length // 2 - 1) : 0) %}
             <form action="/entrevista/agendamento" method="post">
               <input type="text" name="time-id" value="{{times[i].id}}" hidden>
               <input type="text" name="type" value="confirm" hidden>
@@ -66,6 +66,7 @@
           {% endfor %}
           </div>
           <div class="col-sm-6">
+          {% if times|length > 1 %}
             {% for i in (times|length // 2)..(times|length - 1) %}
             <form action="/entrevista/agendamento" method="post">
               <input type="text" name="time-id" value="{{times[i].id}}" hidden>
@@ -74,6 +75,7 @@
               <p><button class="btn btn-outline-dark btn-confirm-schedule" type="submit">Agendar entrevista às {{times[i].datetime|date("H\\hi")}}</button></p>
             </form>
             {% endfor %}
+          {% endif %}
           </div>
         {% else %}
           <p>Sem horários disponíveis neste dia.</p>
