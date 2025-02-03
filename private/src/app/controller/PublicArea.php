@@ -160,7 +160,7 @@ class PublicArea {
                 $now->add(new DateInterval('P1D'));
     
                 $prev = ($today->format('Y-m-d') > $now->format('Y-m-d'))? true:false;
-                $next = ($today->format('Y-m-d') < '2025-02-07')? true:false;
+                $next = ($today->format('Y-m-d') < '2025-02-12')? true:false;
     
                 $times = InterviewsDB::getTimesSchedule($today->format('Y-m-d'));
     
