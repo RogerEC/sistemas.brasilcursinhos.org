@@ -1,0 +1,56 @@
+{% extends "restricted/base.html" %}
+
+{% block innerHead %}
+<title>Votações - Brasil Cursinhos</title>
+<meta name="keywords" content="Brasil Cursinhos">
+<meta name="description" content="Página de administrador do site Brasil Cursinhos.">
+{% endblock innerHead %}
+
+{% block innerMain %}
+
+<h2 class="mt-3 mb-4">Lista de entrevistas</h2>
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Entrevistas agendadas</h4>
+  </div>
+  <div class="card-body">
+    <div class="row g-2">
+        <div class="col-4">
+          <strong>Candidato(a):</strong>
+        </div>
+        <div class="col-3">
+          <strong>E-mail:</strong>
+        </div>
+        <div class="col-2">
+          <strong>Data:</strong>
+        </div>
+        <div class="col-1">
+          <strong>Horário:</strong>
+        </div>
+        <div class="col-2">
+          <strong>Link do meet:</strong>
+        </div>
+      </div>
+{% for interview in data %}
+    <div class="row  mt-1 g-2">
+      <div class="col-4">
+        <input type="text" class="form-control" value="{{interview.name}}" disabled>
+      </div>
+      <div class="col-3">
+        <input type="text" class="form-control" value="{{interview.email}}" disabled>
+      </div>
+      <div class="col-2">
+        <input type="text" class="form-control" value="{{interview.datetime|date('d/m/Y')}}" disabled>
+      </div>
+      <div class="col-1">
+        <input type="text" class="form-control" value="{{interview.datetime|date('h\\h')}}" disabled>
+      </div>
+      <div class="col-2">
+        <a href="{{interview.meet}}" class="btn btn-secondary-bc w-100">Meet</a>
+      </div>
+    </div>
+{% endfor %}
+  </div>
+</div>
+
+{% endblock innerMain %}

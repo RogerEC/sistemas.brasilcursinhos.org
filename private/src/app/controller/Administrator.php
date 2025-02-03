@@ -6,6 +6,7 @@ use App\Authenticator;
 use App\DataValidator;
 use App\Page;
 use Database\EventDB;
+use Database\InterviewsDB;
 use Database\VotingDB;
 use Router\Request;
 
@@ -16,6 +17,7 @@ class Administrator {
         return array(
                     
                     //(object) array('name' => 'Gerenciar Usuários', 'url' => '/administrador/users'),
+                    (object) array('name' => 'Conferir entrevistas', 'url' => '/administrador/interviews'),
                     (object) array('name' => 'Gerenciar Votações', 'url' => '/administrador/votings'),
                     (object) array('name' => 'Gerenciar Atividades', 'url' => '/administrador/activities'),
                     (object) array('name' => 'Gerenciar Participantes', 'url' => '/administrador/participants'),
@@ -64,6 +66,8 @@ class Administrator {
             return EventDB::getPresenceTotal();
         } else if($subpage === 'votings') {
             return VotingDB::getVotings();
+        } else if($subpage === 'interviews') {
+            return InterviewsDB::getInterviews();
         }
         return null;
     }

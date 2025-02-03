@@ -99,6 +99,22 @@ class InterviewsDB extends Database
         }
     }
 
+    public static function getInterviews()
+    {
+        try {
+            $query = parent::connect()->prepare("SELECT c.`fullName` AS `name`, c.`email` AS `email`, t.`datetime` AS `datetime`, t.`meet` AS `meet` FROM CANDIDATES c INNER JOIN INTERVIEW_SCHEDULES i on (c.`idCandidate` = i.`idCandidate`) INNER JOIN INTERVIEW_TIMES t ON (t.`idInterviewTime` = i.`idInterviewTime`) WHERE t.`datetime` >= NOW() - INTERVAL 1 HOUR ORDER BY t.`datetime` ASC");
+            $query->execute();
+            $result = $query->fetchAll(PDO::FETCH_OBJ);
+            parent::disconnect();
+            return $result;
+        } catch (PDOException $exception) {
+            $message = "Error in function InterviewDB::getInterviews.";
+            Log::error($message, 'database.log', $exception->getMessage());
+            parent::disconnect();
+            return false;
+        }
+    }
+
     public static function insertInterviewSchedule($idCandidate, $idTime)
     {
         try {
